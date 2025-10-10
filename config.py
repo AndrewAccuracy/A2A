@@ -3,7 +3,7 @@ TIMESTAMP_MAX_TRY = 20
 
 AGENT_MODEL_CONFIG={ #格式为OpenAI API兼容的模型名称
   "model":"gemini-2.0-flash",# 可以改为 gpt-4, gpt-4-turbo 等OpenAI模型
-  "api_key":"sk-G7Do2jeYNXQ29jSDEfFcAfF9891f4a2eAcD965C0A65fB6Da",
+  "api_key":"AIzaSyC4yK4aj_EHHB-UcyWXKz5o7xZDx9thvRk",
 }
 
 # 隐写模型配置
