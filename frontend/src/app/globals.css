@@ -1,6 +1,18 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* CSS Variables for Aurora Background */
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --transparent: transparent;
+  --blue-500: #3b82f6;
+  --indigo-300: #a5b4fc;
+  --blue-300: #60a5fa;
+  --violet-200: #c4b5fd;
+  --blue-400: #818cf8;
+}
+
 @keyframes animation-path {
   0% {
     offset-distance: 0%;
@@ -138,25 +150,60 @@
   }
   body {
     @apply text-foreground;
-    /* 金属光泽白色背景 */
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 25%, #f8f9fa 50%, #e9ecef 75%, #f8f9fa 100%);
-    background-size: 400% 400%;
-    animation: metallic-shine 8s ease-in-out infinite;
+  }
+}
+
+@keyframes aurora {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
+}
+
+@keyframes breathing-1 {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes breathing-2 {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes breathing-3 {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.5;
   }
 }
 
 @layer utilities {
-  @keyframes aurora {
-    from {
-      background-position: 50% 50%, 50% 50%;
-    }
-    to {
-      background-position: 350% 50%, 350% 50%;
-    }
-  }
-  
   .animate-aurora {
     animation: aurora 60s linear infinite;
+  }
+
+  .animate-breathing-1 {
+    animation: breathing-1 4s ease-in-out infinite;
+  }
+
+  .animate-breathing-2 {
+    animation: breathing-2 6s ease-in-out infinite;
+  }
+
+  .animate-breathing-3 {
+    animation: breathing-3 5s ease-in-out infinite;
   }
 
   @keyframes metallic-shine {
@@ -214,5 +261,25 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* Liquid Glass animations */
+  @keyframes moveBackground {
+    from {
+      background-position: 0% 0%;
+    }
+    to {
+      background-position: 0% -1000%;
+    }
+  }
+
+  /* Aurora animation */
+  @keyframes aurora {
+    from {
+      background-position: 50% 50%, 50% 50%;
+    }
+    to {
+      background-position: 350% 50%, 350% 50%;
+    }
   }
 }

@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card'
 import { WorldMap } from '@/components/ui/world-map'
 import { LiquidGlassBorder } from '@/components/ui/liquid-glass-border'
 import { LiquidButton } from '@/components/ui/liquid-glass-button'
+import { AuroraBackground } from '@/components/ui/aurora-background'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import * as React from "react"
@@ -26,9 +27,11 @@ export default function CombinedFeaturedSection() {
   }
 
   return (
-    <section className="py-24 bg-background">
-      {/* Header Section */}
-      <div className="max-w-7xl mx-auto px-6 text-center mb-20">
+    <AuroraBackground>
+            <div className="relative z-10 py-20">
+        <section className="bg-background/10 backdrop-blur-sm rounded-3xl mx-4">
+          {/* Header Section */}
+          <div className="max-w-7xl mx-auto px-6 text-center mb-20 pt-8">
         <p className="font-bold text-xl md:text-4xl text-black dark:text-white mb-6">
           A2A{" "}
           <span className="text-gray-600 dark:text-gray-400">
@@ -50,22 +53,6 @@ export default function CombinedFeaturedSection() {
           decentralized AI agent interactions across global networks. 
           Perfect for distributed intelligence and covert operations.
         </p>
-        
-        {/* Navigation Buttons */}
-        <div className="flex justify-center gap-4 mt-8">
-          <LiquidButton 
-            className="text-blue-600 dark:text-blue-400"
-            onClick={() => router.push('/')}
-          >
-            总体情况演示
-          </LiquidButton>
-          <LiquidButton 
-            className="text-green-600 dark:text-green-400"
-            onClick={() => router.push('/internal-details')}
-          >
-            内部细节演示
-          </LiquidButton>
-        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-6">
@@ -133,7 +120,9 @@ export default function CombinedFeaturedSection() {
           />
         </LiquidGlassBorder>
       </div>
-    </section>
+        </section>
+      </div>
+    </AuroraBackground>
   )
 }
 

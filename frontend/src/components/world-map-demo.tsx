@@ -1,11 +1,9 @@
 "use client";
 import { WorldMap } from "@/components/ui/world-map";
 import { motion } from "framer-motion";
-import { LiquidButton } from "@/components/ui/liquid-glass-button";
-import { useRouter } from "next/navigation";
+import { AuroraBackground } from "@/components/ui/aurora-background";
 
 export function WorldMapDemo() {
-  const router = useRouter();
   
   // 定义所有城市节点
   const cities = [
@@ -46,8 +44,9 @@ export function WorldMapDemo() {
   const allConnections = generateFullyConnectedNetwork();
 
   return (
-    <div className="pt-20 pb-20 bg-transparent dark:bg-black w-full min-h-screen">
-      <div className="max-w-7xl mx-auto text-center px-4">
+    <AuroraBackground>
+            <div className="relative z-10 pt-20 pb-20 w-full">
+        <div className="max-w-7xl mx-auto text-center px-4">
         <p className="font-bold text-xl md:text-4xl text-black dark:text-white mb-6">
           A2A{" "}
           <span className="text-gray-600 dark:text-gray-400">
@@ -69,24 +68,9 @@ export function WorldMapDemo() {
           decentralized AI agent interactions across global networks. 
           Perfect for distributed intelligence and covert operations.
         </p>
-        
-        {/* Navigation Buttons */}
-        <div className="flex justify-center gap-4 mt-8">
-          <LiquidButton 
-            className="text-blue-600 dark:text-blue-400"
-            onClick={() => router.push('/')}
-          >
-            总体情况演示
-          </LiquidButton>
-          <LiquidButton 
-            className="text-green-600 dark:text-green-400"
-            onClick={() => router.push('/internal-details')}
-          >
-            内部细节演示
-          </LiquidButton>
         </div>
+        <WorldMap dots={allConnections} />
       </div>
-      <WorldMap dots={allConnections} />
-    </div>
+    </AuroraBackground>
   );
 }

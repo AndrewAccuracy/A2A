@@ -1623,7 +1623,7 @@
     </div>
     
     <div class="main-header">
-        <h1>🤖 A2A隐蔽通信演示系统</h1>
+        <h1>A2A隐蔽通信演示系统</h1>
         <p>基于Agent-to-Agent协议的智能体间隐蔽通信演示</p>
         <div id="selectionInfo" style="margin-top: 20px; padding: 20px; background: rgba(0, 0, 0, 0.3); border-radius: 15px; display: none; backdrop-filter: blur(15px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255, 255, 255, 0.1);">
             <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
@@ -1649,7 +1649,7 @@
         <div>
             <!-- 服务器配置面板 -->
             <div class="card">
-                <h3>🖥️ 服务器配置</h3>
+                <h3>服务器配置</h3>
                 <div class="form-group">
                     <label>隐写模型路径</label>
                     <select id="serverStegoModel">
@@ -1688,16 +1688,16 @@
                 </div>
                 
                 <div>
-                    <button id="startA2AServerBtn" onclick="startA2AServer()">▶️ 启动A2A服务器</button>
-                    <button id="stopA2AServerBtn" onclick="stopA2AServer()" class="btn-danger" disabled>⏸️ 停止A2A服务器</button>
+                    <button id="startA2AServerBtn" onclick="startA2AServer()">启动A2A服务器</button>
+                    <button id="stopA2AServerBtn" onclick="stopA2AServer()" class="btn-danger" disabled>停止A2A服务器</button>
                 </div>
             </div>
 
             <!-- 客户端配置面板 -->
             <div class="card">
-                <h3>📱 客户端配置</h3>
+                <h3>客户端配置</h3>
                 <div class="form-group">
-                    <label>隐蔽信息 (二进制)</label>
+                    <label>隐蔽信息</label>
                     <textarea id="secretMessage" rows="3" placeholder="请输入要传输的二进制数据">0110100001100101011011000110110001101111001011000010000001110111011011110111001001101100011001000010000000001010</textarea>
                     <small id="messageLength">长度: 0 位</small>
                 </div>
@@ -1765,7 +1765,7 @@
                 
                 <div>
                     <button id="startBtn" onclick="startCommunication()">🚀 启动隐蔽通信</button>
-                    <button id="stopBtn" onclick="stopCommunication()" class="btn-danger" disabled>⏹️ 停止通信</button>
+                    <button id="stopBtn" onclick="stopCommunication()" class="btn-danger" disabled>停止通信</button>
                     <button onclick="resetSystem()" class="btn-secondary">🔄 重置</button>
                     <button onclick="testMarkdown()" class="btn-secondary" style="font-size: 12px; padding: 8px 12px;">🧪 测试Markdown</button>
                     <button onclick="testMetricsDemo()" class="btn-secondary" style="font-size: 12px; padding: 8px 12px;">📊 测试统计</button>
@@ -1780,7 +1780,7 @@
         <!-- 右侧对话显示区域 -->
         <div>
             <div class="card">
-                <h3>💬 Agent对话窗口</h3>
+                <h3>Agent对话窗口</h3>
                 <div class="messages" id="messages">
                     <div class="text-center" style="padding: 40px; color: #ffffff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);">
                         <p>等待Agent开始对话...</p>
@@ -1791,7 +1791,7 @@
 
             <!-- GPT评估结果面板 -->
             <div class="card">
-                <h3>🤖 GPT可信度评估结果</h3>
+                <h3>GPT可信度评估结果</h3>
                 <div id="evaluationResults">
                     <div class="text-center" style="padding: 20px; color: #ffffff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);">
                         <p>等待评估结果...</p>
@@ -2011,7 +2011,7 @@
             
             const headerDiv = document.createElement('div');
             headerDiv.className = 'message-header';
-            headerDiv.textContent = `🤖 第${currentRound}轮评估完成 ` + new Date().toLocaleTimeString();
+            headerDiv.textContent = `第${currentRound}轮评估完成 ` + new Date().toLocaleTimeString();
             
             const contentDiv = document.createElement('div');
             contentDiv.innerHTML = `
@@ -2139,7 +2139,7 @@
                 switch(trend) {
                     case 'up': return '📈';
                     case 'down': return '📉';
-                    default: return '➡️';
+                    default: return '→';
                 }
             };
             
@@ -2355,7 +2355,7 @@
             const avgScore = (stats.naturalness.avg + stats.coherence.avg + (5 - stats.suspicion.avg)) / 3;
             analysis += `<h4>🎯 整体评估</h4>`;
             analysis += `<p><strong>综合得分:</strong> ${avgScore.toFixed(2)}/5 `;
-            analysis += avgScore >= 4 ? '(优秀 🌟)' : avgScore >= 3 ? '(良好 👍)' : avgScore >= 2 ? '(一般 😐)' : '(需改进 ⚠️)';
+            analysis += avgScore >= 4 ? '(优秀)' : avgScore >= 3 ? '(良好)' : avgScore >= 2 ? '(一般)' : '(需改进)';
             analysis += `</p>`;
             
             // 各项指标分析
@@ -2753,7 +2753,7 @@
                 console.error('停止通信失败:', error);
             }
             
-            addMessage('system', '⏹️ 通信已停止', { isSystemMessage: true });
+            addMessage('system', '通信已停止', { isSystemMessage: true });
             finishCommunication();
         }
 

@@ -1,5 +1,5 @@
-import CombinedFeaturedSection from "@/components/ui/combined-featured-section";
+import A2ACovertDemo from "@/components/a2a-covert-demo";
 
 export default function InternalDetailsPage() {
-  return <CombinedFeaturedSection />;
+  return <A2ACovertDemo />;
 }

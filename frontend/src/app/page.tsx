@@ -1,9 +1,5 @@
-import { WorldMapDemo } from "@/components/world-map-demo";
+import { StartPage } from "@/components/start-page";
 
 export default function Home() {
-  return (
-    <div className="min-h-screen">
-      <WorldMapDemo />
-    </div>
-  );
+  return <StartPage />;
 }
