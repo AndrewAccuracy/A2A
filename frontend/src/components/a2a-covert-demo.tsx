@@ -84,28 +84,28 @@ export default function A2ACovertDemo() {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
               A2A 隐蔽通信演示系统
             </h1>
-            <p className="text-gray-300">
+            <p className="text-gray-700 dark:text-gray-300">
               Intelligent Agent-to-Agent Covert Communication Demonstration based on Agent-to-Agent Protocol
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Server Configuration */}
-            <LiquidGlassBorder variant="default" className="p-6 bg-white/10 backdrop-blur-sm border-white/20">
+            <LiquidGlassBorder variant="default" className="p-6 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-gray-200 dark:border-white/20">
               <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <Shield className="w-5 h-5" />
                   服务器配置
                 </h2>
                 
                 <div className="space-y-3">
                   <div>
-                    <Label className="text-gray-300">隐写模型路径</Label>
+                    <Label className="text-gray-700 dark:text-gray-300">隐写模型路径</Label>
                     <Select defaultValue="llama-3.2-3b">
-                      <SelectTrigger className="bg-white/5 border-white/20 text-white">
+                      <SelectTrigger className="bg-white/80 dark:bg-white/5 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -117,9 +117,9 @@ export default function A2ACovertDemo() {
                   </div>
 
                   <div>
-                    <Label className="text-gray-300">服务器隐写算法</Label>
+                    <Label className="text-gray-700 dark:text-gray-300">服务器隐写算法</Label>
                     <Select defaultValue="meteor">
-                      <SelectTrigger className="bg-white/5 border-white/20 text-white">
+                      <SelectTrigger className="bg-white/80 dark:bg-white/5 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -131,19 +131,19 @@ export default function A2ACovertDemo() {
                   </div>
 
                   <div>
-                    <Label className="text-gray-300">密钥交换状态</Label>
+                    <Label className="text-gray-700 dark:text-gray-300">密钥交换状态</Label>
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                      <span className="text-white">已完成交换</span>
+                      <span className="text-gray-900 dark:text-white">已完成交换</span>
                     </div>
                   </div>
 
 
                   <div>
-                    <Label className="text-gray-300">A2A服务器状态</Label>
+                    <Label className="text-gray-700 dark:text-gray-300">A2A服务器状态</Label>
                     <div className="flex items-center gap-2">
                       <div className={`w-3 h-3 rounded-full ${serverStatus === "online" ? "bg-green-500" : "bg-red-500"}`} />
-                      <span className="text-white">
+                      <span className="text-gray-900 dark:text-white">
                         {serverStatus === "online" ? "在线" : "离线"}
                       </span>
                     </div>
@@ -180,16 +180,16 @@ export default function A2ACovertDemo() {
             </LiquidGlassBorder>
 
             {/* Client Configuration */}
-            <LiquidGlassBorder variant="default" className="p-6 bg-white/10 backdrop-blur-sm border-white/20">
+            <LiquidGlassBorder variant="default" className="p-6 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-gray-200 dark:border-white/20">
               <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                   <Eye className="w-5 h-5" />
                   客户端配置
                 </h2>
                 
                 <div className="space-y-3">
                   <div>
-                    <Label className="text-gray-300">隐蔽信息</Label>
+                    <Label className="text-gray-700 dark:text-gray-300">隐蔽信息</Label>
                     <div className="flex items-center gap-3">
                       <input
                         type="file"
@@ -200,9 +200,9 @@ export default function A2ACovertDemo() {
                       />
                       <label
                         htmlFor="covert-info-file"
-                        className="flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/10 border border-gray-300 dark:border-white/20 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-white/20 transition-colors"
                       >
-                        <span className="text-white text-sm">选择文件</span>
+                        <span className="text-gray-900 dark:text-white text-sm">选择文件</span>
                       </label>
                       {covertInfoFile && (
                         <div className="flex items-center gap-2 text-green-400">
@@ -221,7 +221,7 @@ export default function A2ACovertDemo() {
                   {/* 文件上传部分 */}
                   <div className="space-y-3">
                     <div>
-                      <Label className="text-gray-300">问题文件上传</Label>
+                      <Label className="text-gray-700 dark:text-gray-300">问题文件上传</Label>
                       <div className="flex items-center gap-3">
                         <input
                           type="file"
@@ -232,9 +232,9 @@ export default function A2ACovertDemo() {
                         />
                       <label
                         htmlFor="question-file"
-                        className="flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/10 border border-gray-300 dark:border-white/20 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-white/20 transition-colors"
                       >
-                        <span className="text-white text-sm">选择文件</span>
+                        <span className="text-gray-900 dark:text-white text-sm">选择文件</span>
                       </label>
                         {questionFile && (
                           <div className="flex items-center gap-2 text-green-400">
@@ -247,9 +247,9 @@ export default function A2ACovertDemo() {
                   </div>
 
                   <div>
-                    <Label className="text-gray-300">客户端隐写算法</Label>
+                    <Label className="text-gray-700 dark:text-gray-300">客户端隐写算法</Label>
                     <Select defaultValue="meteor">
-                      <SelectTrigger className="bg-white/5 border-white/20 text-white">
+                      <SelectTrigger className="bg-white/80 dark:bg-white/5 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -276,16 +276,16 @@ export default function A2ACovertDemo() {
           </div>
 
           {/* Agent Dialogue Window */}
-          <LiquidGlassBorder variant="default" className="mt-6 p-6 bg-white/10 backdrop-blur-sm border-white/20">
+          <LiquidGlassBorder variant="default" className="mt-6 p-6 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-gray-200 dark:border-white/20">
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                 <MessageSquare className="w-5 h-5" />
                 Agent对话窗口
               </h2>
               
-              <div className="bg-black/20 rounded-lg p-4 min-h-[200px] border border-white/10">
+              <div className="bg-gray-100 dark:bg-black/20 rounded-lg p-4 min-h-[200px] border border-gray-200 dark:border-white/10">
                 {agentDialogue.length === 0 ? (
-                  <div className="text-center text-gray-400 py-8">
+                  <div className="text-center text-gray-500 dark:text-gray-400 py-8">
                     <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
                     <p>等待Agent开始对话...</p>
                     <p className="text-sm mt-2">点击&apos;启动隐蔽通信&apos;按钮开始演示</p>
@@ -293,7 +293,7 @@ export default function A2ACovertDemo() {
                 ) : (
                   <div className="space-y-2">
                     {agentDialogue.map((message, index) => (
-                      <div key={index} className="text-white font-mono text-sm">
+                      <div key={index} className="text-gray-900 dark:text-white font-mono text-sm">
                         {message}
                       </div>
                     ))}
@@ -304,16 +304,16 @@ export default function A2ACovertDemo() {
           </LiquidGlassBorder>
 
           {/* GPT Credibility Assessment Results */}
-          <LiquidGlassBorder variant="default" className="mt-6 p-6 bg-white/10 backdrop-blur-sm border-white/20">
+          <LiquidGlassBorder variant="default" className="mt-6 p-6 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-gray-200 dark:border-white/20">
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                 <Shield className="w-5 h-5" />
                 GPT可信度评估结果
               </h2>
               
-              <div className="bg-black/20 rounded-lg p-4 min-h-[150px] border border-white/10">
+              <div className="bg-gray-100 dark:bg-black/20 rounded-lg p-4 min-h-[150px] border border-gray-200 dark:border-white/10">
                 {evaluationResults.length === 0 ? (
-                  <div className="text-center text-gray-400 py-8">
+                  <div className="text-center text-gray-500 dark:text-gray-400 py-8">
                     <Shield className="w-12 h-12 mx-auto mb-4 opacity-50" />
                     <p>等待评估结果...</p>
                     <p className="text-sm mt-2">对话开始后将显示每轮的评估结果</p>
@@ -321,7 +321,7 @@ export default function A2ACovertDemo() {
                 ) : (
                   <div className="space-y-2">
                     {evaluationResults.map((result, index) => (
-                      <div key={index} className="text-white font-mono text-sm">
+                      <div key={index} className="text-gray-900 dark:text-white font-mono text-sm">
                         {result}
                       </div>
                     ))}
