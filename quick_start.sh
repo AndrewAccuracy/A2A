@@ -64,7 +64,16 @@ cd frontend
 # 检查并安装依赖
 if [ ! -d "node_modules" ]; then
     echo "📦 安装前端依赖..."
-    npm install
+    echo "⏳ 这可能需要几分钟时间，请耐心等待..."
+    # 设置npm镜像源加速
+    npm config set registry https://registry.npmmirror.com
+    # 使用超时命令，最多等待10分钟
+    timeout 600 npm install --verbose
+    if [ $? -ne 0 ]; then
+        echo "❌ npm install 失败，尝试清理后重新安装..."
+        rm -rf node_modules package-lock.json
+        npm install --verbose
+    fi
 fi
 
 # 启动Next.js开发服务器

@@ -1,113 +1,32 @@
-A2A Covert 前端环境需求
-========================
 
-项目概述
---------
-这是一个基于 Next.js 15.5.4 的 React 前端项目，使用 TypeScript 和 Tailwind CSS 构建。
+# Ubuntu/Debian
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
-系统要求
---------
-- Node.js: 18.17 或更高版本 (推荐 20.x LTS)
-- npm: 9.0 或更高版本
-- 操作系统: Windows, macOS, Linux
+# CentOS/RHEL
+curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash -
+sudo yum install -y nodejs
 
-核心框架和库
------------
-主要依赖 (dependencies):
-- Next.js: 15.5.4 (React 全栈框架)
-- React: 19.1.0 (UI 库)
-- React DOM: 19.1.0 (React DOM 渲染)
-- TypeScript: ^5 (类型检查)
+# 或者使用 nvm (推荐)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.bashrc
+nvm install 20
+nvm use 20
 
-UI 组件库:
-- @radix-ui/react-checkbox: ^1.3.3 (复选框组件)
-- @radix-ui/react-label: ^2.1.7 (标签组件)
-- @radix-ui/react-select: ^2.2.6 (选择器组件)
-- @radix-ui/react-slot: ^1.2.3 (插槽组件)
-- lucide-react: ^0.545.0 (图标库)
 
-样式和动画:
-- Tailwind CSS: ^4 (CSS 框架)
-- framer-motion: ^12.23.24 (动画库)
-- next-themes: ^0.4.6 (主题切换)
-- class-variance-authority: ^0.7.1 (样式变体管理)
-- clsx: ^2.1.1 (条件类名)
-- tailwind-merge: ^3.3.1 (Tailwind 类合并)
+node --version  # 应该显示 v20.x.x 或更高
+npm --version   # 应该显示 10.x.x 或更高
 
-数据可视化:
-- recharts: ^3.2.1 (图表库)
-- dotted-map: ^2.2.3 (地图组件)
 
-内容处理:
-- marked: ^16.4.0 (Markdown 解析)
-- @types/marked: ^5.0.2 (Markdown 类型定义)
+cd frontend
+npm install
 
-开发依赖 (devDependencies):
-- ESLint: ^9 (代码检查)
-- @eslint/eslintrc: ^3 (ESLint 配置)
-- eslint-config-next: 15.5.4 (Next.js ESLint 配置)
-- @types/node: ^20 (Node.js 类型定义)
-- @types/react: ^19 (React 类型定义)
-- @types/react-dom: ^19 (React DOM 类型定义)
-- @tailwindcss/postcss: ^4 (PostCSS 插件)
-- tw-animate-css: ^1.4.0 (Tailwind 动画)
 
-TypeScript 配置
---------------
-- 目标版本: ES2017
-- 模块系统: ESNext
-- JSX: preserve (React)
-- 严格模式: 启用
-- 路径映射: @/* -> ./src/*
 
-构建工具
---------
-- Next.js 内置构建系统
-- Turbopack (开发模式)
-- PostCSS (CSS 处理)
-- TypeScript 编译器
+npm run dev
 
-安装步骤
---------
-1. 确保已安装 Node.js 18.17+ 和 npm 9.0+
-2. 进入前端目录: cd frontend
-3. 安装依赖: npm install
-4. 启动开发服务器: npm run dev
-5. 构建生产版本: npm run build
+# 在浏览器中打开
+http://localhost:3000
+# 或者使用 curl 测试
+curl http://localhost:3000
 
-可用脚本
---------
-- npm run dev: 启动开发服务器 (使用 Turbopack)
-- npm run build: 构建生产版本 (使用 Turbopack)
-- npm run start: 启动生产服务器
-- npm run lint: 运行 ESLint 检查
-
-端口配置
---------
-- 开发服务器默认端口: 3000
-- 可通过环境变量 PORT 修改
-
-浏览器支持
-----------
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-注意事项
---------
-1. 项目使用 Next.js 15.5.4，需要较新的 Node.js 版本
-2. 使用 Turbopack 作为开发构建工具，提供更快的热重载
-3. 配置了 TypeScript 严格模式，需要正确的类型定义
-4. 使用 Tailwind CSS v4，注意与 v3 的差异
-5. 集成了 Radix UI 组件，提供无障碍访问支持
-
-环境变量
---------
-如需配置环境变量，在 frontend 目录下创建 .env.local 文件
-
-故障排除
---------
-- 如果安装失败，尝试删除 node_modules 和 package-lock.json 后重新安装
-- 确保 Node.js 版本符合要求
-- 检查网络连接，某些包可能需要从 npm 镜像下载

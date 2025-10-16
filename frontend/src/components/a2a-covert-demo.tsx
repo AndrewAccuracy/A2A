@@ -18,6 +18,7 @@ export default function A2ACovertDemo() {
   const [questionFile, setQuestionFile] = useState<File | null>(null);
   const [stegoFile, setStegoFile] = useState<File | null>(null);
   const [covertInfoFile, setCovertInfoFile] = useState<File | null>(null);
+  const [isConnecting, setIsConnecting] = useState(false);
 
   const handleStartServer = () => {
     setServerStatus("online");
@@ -62,20 +63,56 @@ export default function A2ACovertDemo() {
     }
   };
 
-  const handleStartCovertCommunication = () => {
-    setAgentDialogue([
-      "Agent A: 你好，今天天气不错。",
-      "Agent B: 是的，很适合散步。",
-      "Agent A: 我听说公园里有很多花。",
-      "Agent B: 确实，春天到了。"
-    ]);
+  const handleStartCovertCommunication = async () => {
+    if (isConnecting) return;
     
-    setEvaluationResults([
-      "第1轮: 可信度 85% - 正常对话",
-      "第2轮: 可信度 78% - 轻微异常",
-      "第3轮: 可信度 92% - 正常对话",
-      "第4轮: 可信度 88% - 正常对话"
-    ]);
+    try {
+      setIsConnecting(true);
+      // 清空之前的数据
+      setAgentDialogue([]);
+      setEvaluationResults([]);
+      
+      // 显示连接状态
+      setAgentDialogue(["正在连接到A2A服务器..."]);
+      
+      // 尝试连接到后端服务
+      const response = await fetch('http://localhost:8000/api/start-communication', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          covertInfo: covertInfo,
+          stegoAlgorithm: 'meteor',
+          questionFile: questionFile?.name || null
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setAgentDialogue(data.dialogue || ["✅ 连接成功，等待对话开始..."]);
+        setEvaluationResults(data.evaluations || ["✅ 评估服务已连接"]);
+      } else {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      
+    } catch (error) {
+      console.error("连接后端服务失败:", error);
+      
+      // 如果后端服务不可用，显示提示信息
+      setAgentDialogue([
+        "⚠️ 无法连接到后端服务",
+        "请确保A2A服务器正在运行 (http://localhost:8000)",
+        "或者检查网络连接"
+      ]);
+      
+      setEvaluationResults([
+        "⚠️ 评估服务不可用",
+        "需要启动后端服务来获取真实评估结果"
+      ]);
+    } finally {
+      setIsConnecting(false);
+    }
   };
 
   return (
@@ -266,9 +303,19 @@ export default function A2ACovertDemo() {
                     onClick={handleStartCovertCommunication}
                     className="w-full flex items-center justify-center"
                     size="lg"
+                    disabled={isConnecting}
                   >
-                    <MessageSquare className="w-5 h-5 mr-2 flex-shrink-0" />
-                    <span className="flex-shrink-0">启动隐蔽通信</span>
+                    {isConnecting ? (
+                      <>
+                        <RefreshCw className="w-5 h-5 mr-2 flex-shrink-0 animate-spin" />
+                        <span className="flex-shrink-0">连接中...</span>
+                      </>
+                    ) : (
+                      <>
+                        <MessageSquare className="w-5 h-5 mr-2 flex-shrink-0" />
+                        <span className="flex-shrink-0">启动隐蔽通信</span>
+                      </>
+                    )}
                   </LiquidButton>
                 </div>
               </div>
