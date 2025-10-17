@@ -243,40 +243,71 @@ export default function A2ACovertDemo() {
       // 显示连接状态
       setAgentDialogue(["正在连接到A2A服务器..."]);
       
-      // 尝试连接到后端服务
-      const response = await fetch('http://localhost:8000/api/start-communication', {
+      // 首先保存隐蔽信息到后端
+      const saveSecretResponse = await fetch('http://localhost:8889/save_secret', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          covertInfo: covertInfo,
-          stegoAlgorithm: 'meteor',
-          questionFile: questionFile?.name || null
+          session_id: 'covert-session-uuid-44195c6d-d09e-4191-9bcb-d22a85b7d126',
+          secret_bits: covertInfo
+        })
+      });
+      
+      if (!saveSecretResponse.ok) {
+        throw new Error("保存隐蔽信息失败");
+      }
+      
+      // 启动隐蔽通信
+      const response = await fetch('http://localhost:8889/start', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          stego_model_path: '/root/autodl-tmp/Llama-3.2-3B-Instruct',
+          stego_algorithm: 'meteor',
+          question_path: questionFile ? `data/question/${questionFile.name}` : 'data/question/general.txt',
+          question_index: 0,
+          stego_key: '7b9ec09254aa4a7589e4d0cfd80d46cc',
+          secret_bit_path: 'data/stego/secret_bits_frontend.txt',
+          server_url: 'http://localhost:9999',
+          session_id: 'covert-session-uuid-44195c6d-d09e-4191-9bcb-d22a85b7d126'
         })
       });
       
       if (response.ok) {
         const data = await response.json();
-        setAgentDialogue(data.dialogue || ["✅ 连接成功，等待对话开始..."]);
-        setEvaluationResults(data.evaluations || ["✅ 评估服务已连接"]);
+        setAgentDialogue([
+          "✅ 隐蔽通信已启动",
+          "正在建立与A2A服务器的连接...",
+          "等待Agent对话开始..."
+        ]);
+        setEvaluationResults([
+          "✅ 评估服务已连接",
+          "开始监控通信质量..."
+        ]);
       } else {
-        throw new Error(`HTTP ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.detail || `HTTP ${response.status}`);
       }
       
     } catch (error) {
-      console.error("连接后端服务失败:", error);
+      console.error("启动隐蔽通信失败:", error);
       
       // 如果后端服务不可用，显示提示信息
       setAgentDialogue([
-        "⚠️ 无法连接到后端服务",
-        "请确保A2A服务器正在运行 (http://localhost:8000)",
-        "或者检查网络连接"
+        "⚠️ 无法启动隐蔽通信",
+        "请确保以下服务正在运行：",
+        "• A2A服务器 (http://localhost:9999)",
+        "• 客户端包装器 (http://localhost:8889)",
+        "• 服务器包装器 (http://localhost:9998)"
       ]);
       
       setEvaluationResults([
         "⚠️ 评估服务不可用",
-        "需要启动后端服务来获取真实评估结果"
+        "需要启动所有后端服务来获取真实评估结果"
       ]);
     } finally {
       setIsConnecting(false);
