@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LiquidButton, MetalButton } from "@/components/ui/liquid-glass-button";
 import { LiquidGlassBorder } from "@/components/ui/liquid-glass-border";
 import { AuroraBackground } from "@/components/ui/aurora-background";
@@ -20,16 +20,184 @@ export default function A2ACovertDemo() {
   const [covertInfoFile, setCovertInfoFile] = useState<File | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
 
-  const handleStartServer = () => {
-    setServerStatus("online");
+  // 组件加载时检查服务器状态
+  useEffect(() => {
+    handleRefresh();
+  }, []);
+
+  const handleStartServer = async () => {
+    try {
+      setIsConnecting(true);
+      
+      // 调用后端API启动服务器
+      const response = await fetch('http://localhost:9998/start', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          stego_model_path: '/root/autodl-tmp/Llama-3.2-3B-Instruct',
+          stego_algorithm: 'meteor',
+          stego_key: '7b9ec09254aa4a7589e4d0cfd80d46cc',
+          decrypted_bits_path: 'data/stego/decrypted_bits.txt',
+          session_id: 'covert-session-uuid-44195c6d-d09e-4191-9bcb-d22a85b7d126',
+          server_url: 'http://localhost:9999'
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setServerStatus("online");
+        console.log("A2A服务器启动成功:", data);
+      } else {
+        throw new Error(`HTTP ${response.status}`);
+      }
+    } catch (error) {
+      console.error("启动A2A服务器失败:", error);
+      setServerStatus("offline");
+      // 可以添加用户友好的错误提示
+    } finally {
+      setIsConnecting(false);
+    }
   };
 
-  const handleStopServer = () => {
-    setServerStatus("offline");
+  const handleStopServer = async () => {
+    try {
+      setIsConnecting(true);
+      
+      // 调用后端API停止服务器
+      const response = await fetch('http://localhost:9998/stop', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setServerStatus("offline");
+        console.log("A2A服务器已停止:", data);
+      } else {
+        throw new Error(`HTTP ${response.status}`);
+      }
+    } catch (error) {
+      console.error("停止A2A服务器失败:", error);
+      // 即使API调用失败，也更新UI状态
+      setServerStatus("offline");
+    } finally {
+      setIsConnecting(false);
+    }
   };
 
-  const handleRefresh = () => {
-    // Refresh logic here
+  const handleRefresh = async () => {
+    // 确认重置操作
+    const confirmed = window.confirm(
+      "确定要重置系统吗？\n\n这将执行以下操作：\n" +
+      "• 停止所有正在进行的客户端通信\n" +
+      "• 重启A2A服务器（如果正在运行）\n" +
+      "• 清空所有对话历史和评估结果\n" +
+      "• 重置所有文件上传状态\n" +
+      "• 恢复默认配置\n\n" +
+      "此操作不可撤销，确定继续吗？"
+    );
+    
+    if (!confirmed) {
+      return;
+    }
+    
+    try {
+      setIsConnecting(true);
+      
+      // 1. 停止所有正在进行的客户端通信
+      try {
+        const stopClientResponse = await fetch('http://localhost:8889/stop', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        console.log("停止客户端通信:", stopClientResponse.ok ? "成功" : "失败");
+      } catch (error) {
+        console.log("停止客户端通信时出错:", error);
+      }
+      
+      // 2. 重启服务器（如果正在运行）
+      if (serverStatus === "online") {
+        try {
+          // 先停止服务器
+          const stopResponse = await fetch('http://localhost:9998/stop', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+          
+          if (stopResponse.ok) {
+            console.log("服务器已停止");
+            // 等待一下确保完全停止
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // 重新启动服务器
+            const startResponse = await fetch('http://localhost:9998/start', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                stego_model_path: '/root/autodl-tmp/Llama-3.2-3B-Instruct',
+                stego_algorithm: 'meteor',
+                stego_key: '7b9ec09254aa4a7589e4d0cfd80d46cc',
+                decrypted_bits_path: 'data/stego/decrypted_bits.txt',
+                session_id: 'covert-session-uuid-44195c6d-d09e-4191-9bcb-d22a85b7d126',
+                server_url: 'http://localhost:9999'
+              })
+            });
+            
+            if (startResponse.ok) {
+              console.log("服务器重启成功");
+            } else {
+              console.log("服务器重启失败");
+            }
+          }
+        } catch (error) {
+          console.log("重启服务器时出错:", error);
+        }
+      }
+      
+      // 3. 清空对话历史和评估结果
+      setAgentDialogue([]);
+      setEvaluationResults([]);
+      
+      // 4. 重置文件上传状态
+      setQuestionFile(null);
+      setStegoFile(null);
+      setCovertInfoFile(null);
+      
+      // 5. 重置隐蔽信息到默认值
+      setCovertInfo("0100100001100101011011000110110001101111001000000101011101101111011100100110110001100100");
+      
+      // 6. 检查最终状态
+      const statusResponse = await fetch('http://localhost:9998/status', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (statusResponse.ok) {
+        const data = await statusResponse.json();
+        setServerStatus(data.status === "running" ? "online" : "offline");
+        console.log("系统已刷新，服务器状态:", data.status);
+      } else {
+        setServerStatus("offline");
+      }
+      
+    } catch (error) {
+      console.error("刷新系统失败:", error);
+      setServerStatus("offline");
+    } finally {
+      setIsConnecting(false);
+    }
   };
 
   const handleQuestionFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -192,25 +360,44 @@ export default function A2ACovertDemo() {
                     onClick={handleStartServer}
                     className="flex-1"
                     size="lg"
+                    disabled={isConnecting || serverStatus === "online"}
                   >
-                    <Play className="w-4 h-4 mr-2 flex-shrink-0" />
-                    <span className="flex-shrink-0">启动A2A服务器</span>
+                    {isConnecting ? (
+                      <RefreshCw className="w-4 h-4 mr-2 flex-shrink-0 animate-spin" />
+                    ) : (
+                      <Play className="w-4 h-4 mr-2 flex-shrink-0" />
+                    )}
+                    <span className="flex-shrink-0">
+                      {isConnecting ? "启动中..." : "启动A2A服务器"}
+                    </span>
                   </LiquidButton>
                   
                   <LiquidButton 
                     onClick={handleStopServer}
                     className="flex-1"
                     size="lg"
+                    disabled={isConnecting || serverStatus === "offline"}
                   >
-                    <Square className="w-4 h-4 mr-2 flex-shrink-0" />
-                    <span className="flex-shrink-0">停止A2A服务器</span>
+                    {isConnecting ? (
+                      <RefreshCw className="w-4 h-4 mr-2 flex-shrink-0 animate-spin" />
+                    ) : (
+                      <Square className="w-4 h-4 mr-2 flex-shrink-0" />
+                    )}
+                    <span className="flex-shrink-0">
+                      {isConnecting ? "停止中..." : "停止A2A服务器"}
+                    </span>
                   </LiquidButton>
                   
                   <LiquidButton 
                     onClick={handleRefresh}
                     size="lg"
+                    disabled={isConnecting}
+                    title="重置系统：停止所有通信，重启服务器，清空对话历史"
                   >
-                    <RefreshCw className="w-4 h-4 flex-shrink-0" />
+                    <RefreshCw className={`w-4 h-4 flex-shrink-0 ${isConnecting ? 'animate-spin' : ''}`} />
+                    <span className="ml-2 text-sm">
+                      {isConnecting ? "重置中..." : "重置系统"}
+                    </span>
                   </LiquidButton>
                 </div>
               </div>
