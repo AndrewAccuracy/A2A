@@ -1,30 +1,64 @@
 # A2A Steganography Communication System
 
+基于大语言模型的隐蔽通信系统，支持多种隐写算法和实时评估功能。
 
 ## 项目结构
 
 ```
-a2a_stego_project_v4/
-├── config.py                 # 系统配置文件
-├── server/                   # 服务端代码
-│   ├── main.py              # 服务端启动入口
-│   └── a2aserver/           # 服务端核心模块
-│       ├── agent.py         # Agent实现
-│       └── agent_executor.py # Agent执行器
-├── client/                   # 客户端代码
-│   ├── main.py              # 客户端启动入口
-│   └── a2aclient/           # 客户端核心模块
-│       └── client.py        # 客户端实现
-├── modules/                  # 核心功能模块
-│   ├── checkcode/           # 校验码管理
-│   ├── hash/                # 哈希函数
-│   ├── logging/             # 日志管理
-│   ├── package_head/        # 数据包头管理
-│   ├── stego/               # 隐写核心算法
-│   └── timestamp/           # 时间戳管理
-└── data/                    # 数据目录
-    ├── logs/                # 日志文件
-    └── stego/               # 隐写相关文件
+A2A_Covert/
+├── 📁 client/                    # 客户端代码
+│   ├── 📁 a2aclient/
+│   │   ├── __init__.py
+│   │   └── client.py            # 客户端核心实现
+│   └── main.py                  # 客户端启动入口
+├── 📁 server/                    # 服务端代码
+│   ├── 📁 a2aserver/
+│   │   ├── __init__.py
+│   │   ├── agent.py             # Agent实现
+│   │   └── agent_executor.py    # Agent执行器
+│   └── main.py                  # 服务端启动入口
+├── 📁 modules/                   # 核心功能模块
+│   ├── __init__.py
+│   ├── 📁 checkcode/            # 校验码管理
+│   │   └── checkcode_mannager.py
+│   ├── 📁 logging/              # 日志管理
+│   │   └── logging_mannager.py
+│   ├── 📁 math/                 # 数学工具
+│   │   └── math.py
+│   ├── 📁 package_head/         # 数据包头管理
+│   │   └── package_head_mannager.py
+│   ├── 📁 stego/                # 隐写核心算法
+│   │   ├── 📁 artifacts_baselines/  # 实验性隐写算法
+│   │   ├── 📁 baselines/        # 基础隐写算法
+│   │   ├── 📁 meteor/           # METEOR算法
+│   │   ├── discop.py            # DISCOP算法
+│   │   └── stego.py             # 隐写主类
+│   └── 📁 timestamp/            # 时间戳管理
+│       └── timestamp_mannager.py
+├── 📁 evaluation/               # 评估功能
+│   ├── 📁 algo/
+│   │   └── evaluation.py        # 评估算法
+│   └── main.py                  # 评估启动入口
+├── 📁 frontend/                 # 前端界面
+│   ├── 📁 src/                  # React/Next.js源码
+│   ├── 📁 public/               # 静态资源
+│   ├── package.json             # 前端依赖
+│   ├── tailwind.config.js       # Tailwind配置
+│   └── tsconfig.json            # TypeScript配置
+├── 📁 data/                     # 数据目录
+│   ├── 📁 conversation/         # 对话记录
+│   ├── 📁 question/             # 问题库
+│   │   ├── art.txt              # 艺术史问题
+│   │   ├── general.txt          # 通用知识问题
+│   │   └── philosophy.txt       # 哲学问题
+│   └── 📁 stego/                # 隐写数据
+├── 📁 logs/                     # 日志目录
+├── 📁 a2a-covert/              # Python虚拟环境
+├── 📄 config.py                # 系统配置文件
+├── 📄 requirements.txt         # Python依赖
+├── 📄 README.md               # 项目文档
+├── 📄 .gitignore              # Git忽略文件
+└── 📄 .env.example            # 环境变量示例
 ```
 
 ## 核心模块详解
@@ -42,18 +76,20 @@ a2a_stego_project_v4/
 
 **特点**: 根据消息长度自动选择合适的校验等级，平衡安全性和效率
 
-### 2. hash/ - 哈希函数模块
+### 2. math/ - 数学工具模块
 
-**功能**: 提供多种哈希算法实现
+**功能**: 提供数学计算和转换工具
 
 **核心组件**:
-- `HashFunctions`: 哈希函数工具类
+- `Math`: 数学工具类
   - `calculate_crc16_binary()`: CRC-16计算
   - `calculate_sha256_truncated_64_binary()`: 截断SHA-256计算
   - `calculate_blake2s_128_binary()`: BLAKE2s-128计算
   - `calculate_sha256_binary()`: 完整SHA-256计算
   - `string_to_binary()`: 字符串到二进制转换
   - `hex_to_binary()`: 十六进制到二进制转换
+  - `binary_to_hex()`: 二进制到十六进制转换
+  - `timestamp_to_iso8601()`: 时间戳转换
 
 ### 3. logging/ - 日志管理模块
 
@@ -101,6 +137,7 @@ a2a_stego_project_v4/
 **支持的算法**:
 - **DISCOP**: 高精度离散采样算法
 - **DISCOP_BASE**: 基础版本DISCOP算法
+- **METEOR**: 基于METEOR评分的隐写算法
 - **AC**: 算术编码算法
 
 ### 6. timestamp/ - 时间戳管理模块
@@ -113,6 +150,36 @@ a2a_stego_project_v4/
   - `is_valid_timestamp()`: 验证时间戳有效性
 
 **验证机制**: 使用密钥+时间戳的SHA-256哈希值末尾为'0'作为验证条件
+
+### 7. evaluation/ - 评估功能模块
+
+**功能**: 隐写文本质量评估和可视化分析
+
+**核心组件**:
+- `evaluation.py`: 评估算法实现
+  - `calculate_ppl()`: 困惑度计算
+  - `calculate_semantic_entropy()`: 语义熵计算
+  - `calculate_rouge1()`: ROUGE-1分数计算
+  - `calculate_bleu()`: BLEU分数计算
+  - `calculate_lexical_diversity()`: 词汇丰富度计算
+  - `EvaluationVisualizer`: 可视化分析器
+
+**评估指标**:
+- **自然度指标**: 困惑度(PPL)、语义熵
+- **相似度指标**: ROUGE-1、BLEU分数
+- **词汇丰富度**: TTR、RTTR、Unigram熵
+- **传输效率**: 每轮比特数、每比特轮数
+
+## 前端界面
+
+**技术栈**: React + Next.js + TypeScript + Tailwind CSS
+
+**功能特性**:
+- 实时通信监控
+- 隐写参数配置
+- 评估结果可视化
+- 响应式设计
+- 现代化UI组件
 
 ## 配置文件说明 (config.py)
 
@@ -182,6 +249,8 @@ echo "1010101100110011" > data/stego/secret_bits.txt
 
 ### 启动系统
 
+#### 方式一：命令行启动
+
 1. **启动服务端**
 ```bash
 python server/main.py
@@ -193,6 +262,25 @@ python server/main.py
 python client/main.py
 ```
 客户端将自动连接服务端并开始隐写通信。
+
+#### 方式二：前端界面启动
+
+1. **启动前端开发服务器**
+```bash
+cd frontend
+npm install
+npm run dev
+```
+前端将在 `http://localhost:3000` 启动。
+
+2. **启动后端服务**
+```bash
+# 在另一个终端中
+python server/main.py
+```
+
+3. **访问前端界面**
+打开浏览器访问 `http://localhost:3000` 使用图形界面进行隐写通信。
 
 ### 通信流程
 
@@ -209,6 +297,37 @@ python client/main.py
 - **服务端日志**: `data/logs/server/server_YYYYMMDD_HHMMSS.log`
 
 日志包含完整的通信过程、加密解密状态、错误信息等，便于调试和监控。
+
+## 评估功能使用
+
+### 运行评估
+
+1. **评估对话记录**
+```bash
+python evaluation/main.py --evaluation_conversation data/conversation/conversation_xxx.json
+```
+
+2. **批量评估**
+```bash
+# 评估所有对话记录
+find data/conversation -name "*.json" -exec python evaluation/main.py --evaluation_conversation {} \;
+```
+
+### 评估指标说明
+
+- **困惑度 (PPL)**: 衡量文本的自然度，数值越低越自然
+- **语义熵**: 衡量语义的不确定性
+- **ROUGE-1**: 衡量与原文的词汇重叠度
+- **BLEU**: 衡量与原文的n-gram相似度
+- **词汇丰富度**: 衡量词汇的多样性
+
+### 可视化分析
+
+评估完成后会生成：
+- 质量指标趋势图
+- 传输容量分析图
+- 指标相关性热力图
+- HTML和Markdown格式的评估报告
 
 ## AgentStego 问题使用指南
 
@@ -348,3 +467,44 @@ python client/main.py -d general -q 1
    ~~~
 
 2. 尽可能不要使用deepseek！不是因为有BUG，而是回复真的很慢，用Gemini回复速度可以快2倍
+
+## 开发建议
+
+### 性能优化
+- 使用GPU加速隐写算法计算
+- 合理设置max_new_tokens参数平衡质量和速度
+- 定期清理日志文件避免磁盘空间不足
+
+### 安全建议
+- 定期更换隐写密钥
+- 使用强随机性生成秘密消息
+- 监控通信过程中的异常行为
+
+### 扩展开发
+- 新增隐写算法时请遵循统一的接口规范
+- 评估新算法时使用多种指标综合判断
+- 前端界面支持实时参数调整和结果展示
+
+## 故障排除
+
+### 常见问题
+1. **模型加载失败**: 检查模型路径和权限
+2. **API连接超时**: 检查网络连接和API密钥
+3. **隐写解码失败**: 检查密钥一致性和算法参数
+4. **前端无法连接**: 检查端口占用和CORS配置
+
+### 调试技巧
+- 查看详细日志文件定位问题
+- 使用小规模测试数据验证功能
+- 逐步增加复杂度进行测试
+
+## 许可证
+
+本项目采用MIT许可证，详见LICENSE文件。
+
+## 贡献指南
+
+欢迎提交Issue和Pull Request来改进项目。在提交代码前请确保：
+- 代码符合项目规范
+- 添加必要的测试用例
+- 更新相关文档

@@ -30,7 +30,7 @@ export default function A2ACovertDemo() {
       setIsConnecting(true);
       
       // 调用后端API启动服务器
-      const response = await fetch('http://localhost:9998/start', {
+      const response = await fetch('http://localhost:9999/start', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export default function A2ACovertDemo() {
       setIsConnecting(true);
       
       // 调用后端API停止服务器
-      const response = await fetch('http://localhost:9998/stop', {
+      const response = await fetch('http://localhost:9999/stop', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export default function A2ACovertDemo() {
       
       // 1. 停止所有正在进行的客户端通信
       try {
-        const stopClientResponse = await fetch('http://localhost:8889/stop', {
+        const stopClientResponse = await fetch('http://localhost:9999/stop', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ export default function A2ACovertDemo() {
       if (serverStatus === "online") {
         try {
           // 先停止服务器
-          const stopResponse = await fetch('http://localhost:9998/stop', {
+          const stopResponse = await fetch('http://localhost:9999/stop', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ export default function A2ACovertDemo() {
             await new Promise(resolve => setTimeout(resolve, 2000));
             
             // 重新启动服务器
-            const startResponse = await fetch('http://localhost:9998/start', {
+            const startResponse = await fetch('http://localhost:9999/start', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ export default function A2ACovertDemo() {
       setCovertInfo("0100100001100101011011000110110001101111001000000101011101101111011100100110110001100100");
       
       // 6. 检查最终状态
-      const statusResponse = await fetch('http://localhost:9998/status', {
+      const statusResponse = await fetch('http://localhost:9999/status', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -200,35 +200,108 @@ export default function A2ACovertDemo() {
     }
   };
 
-  const handleQuestionFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQuestionFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setQuestionFile(file);
-      console.log("问题文件已上传:", file.name);
+      
+      try {
+        // 上传文件到服务器
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        const response = await fetch('http://localhost:9999/upload/question', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log("问题文件上传成功:", result);
+          setAgentDialogue(prev => [...prev, `✅ 问题文件已上传: ${file.name}`]);
+        } else {
+          throw new Error(`上传失败: ${response.status}`);
+        }
+      } catch (error) {
+        console.error("上传问题文件失败:", error);
+        setAgentDialogue(prev => [...prev, `❌ 上传问题文件失败: ${error}`]);
+      }
     }
   };
 
-  const handleStegoFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleStegoFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setStegoFile(file);
-      console.log("隐写文件已上传:", file.name);
+      
+      try {
+        // 上传文件到服务器
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        const response = await fetch('http://localhost:9999/upload/secret', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log("隐写文件上传成功:", result);
+          setAgentDialogue(prev => [...prev, `✅ 隐写文件已上传: ${file.name}`]);
+        } else {
+          throw new Error(`上传失败: ${response.status}`);
+        }
+      } catch (error) {
+        console.error("上传隐写文件失败:", error);
+        setAgentDialogue(prev => [...prev, `❌ 上传隐写文件失败: ${error}`]);
+      }
     }
   };
 
-  const handleCovertInfoFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCovertInfoFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setCovertInfoFile(file);
-      // 读取文件内容并设置到covertInfo状态中
+      
+      try {
+        // 读取文件内容
+        const content = await readFileContent(file);
+        setCovertInfo(content);
+        
+        // 上传文件到服务器
+        const formData = new FormData();
+        formData.append('file', file);
+        
+        const response = await fetch('http://localhost:9999/upload/secret', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log("隐蔽信息文件上传成功:", result);
+          setAgentDialogue(prev => [...prev, `✅ 隐蔽信息文件已上传: ${file.name}`]);
+        } else {
+          throw new Error(`上传失败: ${response.status}`);
+        }
+      } catch (error) {
+        console.error("上传隐蔽信息文件失败:", error);
+        setAgentDialogue(prev => [...prev, `❌ 上传隐蔽信息文件失败: ${error}`]);
+      }
+    }
+  };
+
+  // 读取文件内容的辅助函数
+  const readFileContent = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const content = e.target?.result as string;
-        setCovertInfo(content);
-        console.log("隐蔽信息文件已上传:", file.name);
+        resolve(content);
       };
+      reader.onerror = reject;
       reader.readAsText(file);
-    }
+    });
   };
 
   const handleStartCovertCommunication = async () => {
@@ -243,24 +316,44 @@ export default function A2ACovertDemo() {
       // 显示连接状态
       setAgentDialogue(["正在连接到A2A服务器..."]);
       
-      // 首先保存隐蔽信息到后端
-      const saveSecretResponse = await fetch('http://localhost:8889/save_secret', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          session_id: 'covert-session-uuid-44195c6d-d09e-4191-9bcb-d22a85b7d126',
-          secret_bits: covertInfo
-        })
-      });
+      // 处理文件路径
+      let questionPath = 'data/question/general.txt';
+      let secretBitPath = 'data/stego/secret_bits_frontend.txt';
       
-      if (!saveSecretResponse.ok) {
-        throw new Error("保存隐蔽信息失败");
+      // 如果有上传的问题文件，使用上传的文件名
+      if (questionFile) {
+        questionPath = `data/question/${questionFile.name}`;
+        console.log("使用上传的问题文件:", questionPath);
+      }
+      
+      // 如果有上传的隐蔽信息文件，使用上传的文件名
+      if (covertInfoFile) {
+        secretBitPath = `data/stego/${covertInfoFile.name}`;
+        console.log("使用上传的隐蔽信息文件:", secretBitPath);
+      } else {
+        // 如果没有上传文件，保存当前输入的隐蔽信息
+        const saveSecretResponse = await fetch('http://localhost:9999/save_secret', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            session_id: 'covert-session-uuid-44195c6d-d09e-4191-9bcb-d22a85b7d126',
+            secret_bits: covertInfo
+          })
+        });
+        
+        if (!saveSecretResponse.ok) {
+          throw new Error("保存隐蔽信息失败");
+        }
+        
+        const saveResult = await saveSecretResponse.json();
+        secretBitPath = saveResult.path;
+        console.log("隐蔽信息已保存到:", secretBitPath);
       }
       
       // 启动隐蔽通信
-      const response = await fetch('http://localhost:8889/start', {
+      const response = await fetch('http://localhost:9999/start', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -268,10 +361,10 @@ export default function A2ACovertDemo() {
         body: JSON.stringify({
           stego_model_path: '/root/autodl-tmp/Llama-3.2-3B-Instruct',
           stego_algorithm: 'meteor',
-          question_path: questionFile ? `data/question/${questionFile.name}` : 'data/question/general.txt',
+          question_path: questionPath,
           question_index: 0,
           stego_key: '7b9ec09254aa4a7589e4d0cfd80d46cc',
-          secret_bit_path: 'data/stego/secret_bits_frontend.txt',
+          secret_bit_path: secretBitPath,
           server_url: 'http://localhost:9999',
           session_id: 'covert-session-uuid-44195c6d-d09e-4191-9bcb-d22a85b7d126'
         })
@@ -300,9 +393,7 @@ export default function A2ACovertDemo() {
       setAgentDialogue([
         "⚠️ 无法启动隐蔽通信",
         "请确保以下服务正在运行：",
-        "• A2A服务器 (http://localhost:9999)",
-        "• 客户端包装器 (http://localhost:8889)",
-        "• 服务器包装器 (http://localhost:9998)"
+        "• A2A服务器 (http://localhost:9999)"
       ]);
       
       setEvaluationResults([
