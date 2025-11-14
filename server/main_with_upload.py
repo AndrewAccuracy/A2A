@@ -2,6 +2,7 @@ import sys
 import os
 import argparse
 import uvicorn
+import json
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -204,6 +205,33 @@ async def get_status():
         logger.error(f"获取状态失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取状态失败: {str(e)}")
 
+@app.get("/conversation/{session_id}")
+async def get_conversation(session_id: str):
+    """获取对话历史"""
+    try:
+        conversation_dir = Path("data/conversation")
+        conversation_file = conversation_dir / f"conversation_{session_id}.json"
+        
+        if not conversation_file.exists():
+            return JSONResponse({
+                "message": "对话历史不存在",
+                "session_id": session_id,
+                "conversation": None
+            })
+        
+        with open(conversation_file, "r", encoding="utf-8") as f:
+            conversation_data = json.load(f)
+        
+        logger.info(f"获取对话历史成功: {session_id}")
+        return JSONResponse({
+            "message": "获取对话历史成功",
+            "session_id": session_id,
+            "conversation": conversation_data
+        })
+    except Exception as e:
+        logger.error(f"获取对话历史失败: {e}")
+        raise HTTPException(status_code=500, detail=f"获取对话历史失败: {str(e)}")
+
 @app.get("/")
 async def root():
     """根路径"""
@@ -216,7 +244,8 @@ async def root():
             "save_secret": "POST /save_secret",
             "start": "POST /start",
             "stop": "POST /stop",
-            "status": "GET /status"
+            "status": "GET /status",
+            "conversation": "GET /conversation/{session_id}"
         }
     })
 
@@ -240,5 +269,6 @@ if __name__ == "__main__":
     logger.info("  POST /start - 启动隐蔽通信")
     logger.info("  POST /stop - 停止隐蔽通信")
     logger.info("  GET /status - 获取服务器状态")
+    logger.info("  GET /conversation/{session_id} - 获取对话历史")
     
     uvicorn.run(app, host=host, port=port, log_level="info")

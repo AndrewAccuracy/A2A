@@ -211,17 +211,88 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
     borderWidth: chatStyle.showBorder ? '0.5px' : '0'
   }), [chatStyle.backgroundColor, chatStyle.textColor, chatStyle.borderColor, chatStyle.showBorder]);
 
-  // 标准聊天界面：所有消息气泡都是圆角矩形，没有尖角
-  const roundedClass = "rounded-lg";
+  // 带柔和小尖尖的聊天气泡样式（类似 iMessage/WhatsApp 风格）
+  const roundedClass = isLeft ? "rounded-2xl rounded-tl-sm" : "rounded-2xl rounded-tr-sm";
 
   // Always use minimal padding for images, adjust content spacing internally
   const paddingClass = message.type === 'image' ? 'p-1' : 'p-4';
 
+  // 柔顺的小尖尖样式（使用 SVG 路径实现圆润的尾巴效果）
+  const tailStyle = useMemo(() => {
+    const tailWidth = 8;
+    const tailHeight = 12;
+    if (isLeft) {
+      return {
+        position: 'absolute' as const,
+        left: `-${tailWidth}px`,
+        top: '14px',
+        width: `${tailWidth}px`,
+        height: `${tailHeight}px`,
+        backgroundColor: 'transparent',
+        ...(chatStyle.showBorder ? {} : {})
+      };
+    } else {
+      return {
+        position: 'absolute' as const,
+        right: `-${tailWidth}px`,
+        top: '14px',
+        width: `${tailWidth}px`,
+        height: `${tailHeight}px`,
+        backgroundColor: 'transparent',
+        ...(chatStyle.showBorder ? {} : {})
+      };
+    }
+  }, [isLeft, chatStyle.showBorder]);
+
+  // SVG 路径用于创建柔顺的小尖尖（更圆润的样式）
+  const tailPath = useMemo(() => {
+    if (isLeft) {
+      // 左侧：小尖尖指向左，使用更平滑的曲线
+      return (
+        <svg
+          width="10"
+          height="16"
+          viewBox="0 0 10 16"
+          style={{ position: 'absolute', left: '-10px', top: '12px', zIndex: 1 }}
+        >
+          <path
+            d="M 0 2 Q 0 0, 2 0 Q 4 2, 4 6 Q 4 10, 2 12 Q 0 14, 0 16 L 10 8 Z"
+            fill={chatStyle.backgroundColor}
+            stroke={chatStyle.showBorder ? chatStyle.borderColor : 'none'}
+            strokeWidth={chatStyle.showBorder ? '0.5' : '0'}
+          />
+        </svg>
+      );
+    } else {
+      // 右侧：小尖尖指向右，使用更平滑的曲线
+      return (
+        <svg
+          width="10"
+          height="16"
+          viewBox="0 0 10 16"
+          style={{ position: 'absolute', right: '-10px', top: '12px', zIndex: 1 }}
+        >
+          <path
+            d="M 10 2 Q 10 0, 8 0 Q 6 2, 6 6 Q 6 10, 8 12 Q 10 14, 10 16 L 0 8 Z"
+            fill={chatStyle.backgroundColor}
+            stroke={chatStyle.showBorder ? chatStyle.borderColor : 'none'}
+            strokeWidth={chatStyle.showBorder ? '0.5' : '0'}
+          />
+        </svg>
+      );
+    }
+  }, [isLeft, chatStyle.backgroundColor, chatStyle.borderColor, chatStyle.showBorder]);
+
   return (
     <div
-      className={`${roundedClass} ${paddingClass} w-full border-solid relative`}
-      style={bubbleStyle}
+      className={`${roundedClass} ${paddingClass} w-full relative`}
+      style={{
+        ...bubbleStyle,
+        borderStyle: chatStyle.showBorder ? 'solid' : 'none'
+      }}
     >
+      {/* 柔顺的小尖尖（SVG 路径） */}
+      {tailPath}
       <AnimatePresence mode="wait">
         {/* Show loader while message is loading */}
         {isLoading && !isVisible ? (
@@ -245,7 +316,13 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
           >
             {/* Text message */}
             {message.type === 'text' && (
-              <p className="text-sm leading-relaxed" style={{ color: chatStyle.textColor }}>
+              <p 
+                className="text-sm leading-relaxed font-medium" 
+                style={{ 
+                  color: chatStyle.textColor,
+                  filter: 'brightness(1.1) contrast(1.1)'
+                }}
+              >
                 {message.content}
               </p>
             )}
@@ -270,7 +347,13 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
             {/* Text with link badges */}
             {message.type === 'text-with-links' && (
               <div>
-                <p className="text-sm leading-relaxed mb-3" style={{ color: chatStyle.textColor }}>
+                <p 
+                  className="text-sm leading-relaxed mb-3 font-medium" 
+                  style={{ 
+                    color: chatStyle.textColor,
+                    filter: 'brightness(1.1) contrast(1.1)'
+                  }}
+                >
                   {message.content}
                 </p>
                 <div className="flex flex-wrap gap-1">
@@ -374,26 +457,6 @@ const MessageWrapper = React.memo<MessageWrapperProps>(({
 
   return (
     <div className={`${messageClass} w-full`}>
-      {/* 左侧消息：先显示头像，再显示消息 */}
-      {isLeft && (
-        <AnimatePresence mode="wait">
-          {shouldShowAvatar ? (
-            <motion.img
-              key="avatar"
-              src={person.avatar}
-              alt={person.name}
-              className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2 border-white shadow-md"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              transition={{ duration: 0.2 }}
-            />
-          ) : (
-            <div className="w-10 h-10 flex-shrink-0" key="spacer" />
-          )}
-        </AnimatePresence>
-      )}
-
       {/* Message content */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
@@ -407,16 +470,34 @@ const MessageWrapper = React.memo<MessageWrapperProps>(({
           marginRight: isLeft ? 'auto' : '0'
         }}
       >
-        {/* Username (only for first message in group) */}
+        {/* Username with Avatar (only for first message in group) */}
         {!isContinuation && (
           <motion.div
-            className="text-xs mb-1 leading-relaxed"
-            style={{ color: chatStyle.nameColor || '#582F0E' }}
+            className={`flex items-center gap-2 mb-1 ${isLeft ? 'flex-row' : 'flex-row-reverse'}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.15, duration: 0.25 }}
           >
-            {person.name}
+            {shouldShowAvatar && (
+              <motion.img
+                src={person.avatar}
+                alt={person.name}
+                className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2 border-white shadow-md"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}
+              />
+            )}
+            <span
+              className="text-xs leading-relaxed font-medium tracking-wide"
+              style={{ 
+                color: chatStyle.nameColor || '#582F0E',
+                filter: 'brightness(1.2)',
+                textShadow: '0 1px 2px rgba(0,0,0,0.1)'
+              }}
+            >
+              {person.name}
+            </span>
           </motion.div>
         )}
 
@@ -429,26 +510,6 @@ const MessageWrapper = React.memo<MessageWrapperProps>(({
           isVisible={isVisible}
         />
       </motion.div>
-
-      {/* 右侧消息：先显示消息，再显示头像 */}
-      {!isLeft && (
-        <AnimatePresence mode="wait">
-          {shouldShowAvatar ? (
-            <motion.img
-              key="avatar"
-              src={person.avatar}
-              alt={person.name}
-              className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2 border-white shadow-md"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              transition={{ duration: 0.2 }}
-            />
-          ) : (
-            <div className="w-10 h-10 flex-shrink-0" key="spacer" />
-          )}
-        </AnimatePresence>
-      )}
     </div>
   );
 });
@@ -472,6 +533,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) 
   const [completedMessages, setCompletedMessages] = useState<number[]>([]);
   const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
   const [key, setKey] = useState(0); // Key for forcing component remount
+  const prevConfigRef = useRef<ChatConfig | null>(null); // Track previous config
 
   // Default configuration
   const defaultUiConfig: Required<UiConfig> = {
@@ -483,23 +545,23 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) 
     loader: { dotColor: '#9ca3af' },
     linkBubbles: {
       backgroundColor: '#f3f4f6',
-      textColor: '#374151',
+      textColor: '#1f2937',
       iconColor: '#374151',
       borderColor: '#e5e7eb'
     },
     leftChat: {
       backgroundColor: '#ffffff',
-      textColor: '#000000',
+      textColor: '#1a1a1a',
       borderColor: '#d1d1d1',
       showBorder: true,
-      nameColor: '#000000'
+      nameColor: '#1a1a1a'
     },
     rightChat: {
       backgroundColor: '#ffffff',
-      textColor: '#000000',
+      textColor: '#1a1a1a',
       borderColor: '#d1d1d1',
       showBorder: true,
-      nameColor: '#000000'
+      nameColor: '#1a1a1a'
     }
   };
 
@@ -540,9 +602,36 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) 
     });
   }, []);
 
+  const scrollToTop = useCallback(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, []);
+
   // ============================================================================
   // EFFECTS
   // ============================================================================
+
+  // Scroll to top when component first mounts or config changes
+  useEffect(() => {
+    // Check if this is a new conversation (config changed)
+    const isNewConversation = prevConfigRef.current === null || 
+      prevConfigRef.current.messages.length !== config.messages.length ||
+      prevConfigRef.current.messages[0]?.id !== config.messages[0]?.id;
+    
+    if (isNewConversation) {
+      // Use a small delay to ensure the container is rendered
+      const timer = setTimeout(() => {
+        scrollToTop();
+      }, 100);
+      prevConfigRef.current = config;
+      return () => clearTimeout(timer);
+    }
+    prevConfigRef.current = config;
+  }, [config, scrollToTop]);
 
   // Auto-scroll on new messages
   useEffect(() => {
@@ -594,16 +683,37 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) 
       {/* Scrollable messages container */}
       <div
         ref={containerRef}
-        className="p-8 overflow-y-scroll h-full"
+        className="p-8 overflow-y-scroll h-full custom-scrollbar"
         style={{
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none'
+          scrollbarWidth: 'thin',
+          scrollbarColor: '#cbd5e1 #f1f5f9'
         }}
       >
-        {/* Hide scrollbar for webkit browsers */}
+        {/* Custom scrollbar styles */}
         <style jsx>{`
-          div::-webkit-scrollbar {
-            display: none;
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 2px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 2px;
+            transition: background 0.2s;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+          }
+          .dark .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+          }
+          .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+          }
+          .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
           }
         `}</style>
 

@@ -61,7 +61,7 @@ export function WorldMap({
 
   const svgMap = map.getSVG({
     radius: 0.22,
-    color: theme === "dark" ? "#FFFFFF40" : "#00000040",
+    color: "#FFFFFF80", // 改为亮色（半透明白色）
     shape: "circle",
     backgroundColor: "transparent", // 改为透明背景
   });
@@ -82,7 +82,7 @@ export function WorldMap({
   };
 
   return (
-    <div className="w-full aspect-[2/1] relative font-sans">
+    <div className="w-full max-w-[1600px] mx-auto aspect-[2/1] relative font-sans scale-110">
       <Image
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
         className="h-full w-full pointer-events-none select-none"
@@ -117,7 +117,7 @@ export function WorldMap({
                 }}
                 transition={{
                   duration: 6,
-                  delay: 0.5 * i,
+                  delay: 2.0 + 0.5 * i, // 延迟2秒后开始连线动画
                   ease: "easeInOut",
                   repeat: Infinity,
                   repeatDelay: 2,
@@ -133,7 +133,12 @@ export function WorldMap({
           const currentColor = theme === "dark" ? "#ffffff" : lightColors[i % lightColors.length];
           return (
             <g key={`points-group-${i}`}>
-              <g key={`start-${i}`}>
+              <motion.g 
+                key={`start-${i}`}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 2.0 + i * 0.05 }}
+              >
                 <circle
                   cx={projectPoint(dot.start.lat, dot.start.lng).x}
                   cy={projectPoint(dot.start.lat, dot.start.lng).y}
@@ -154,7 +159,7 @@ export function WorldMap({
                     from="3"
                     to="12"
                     dur="2s"
-                    begin="0s"
+                    begin={`${2.0 + i * 0.05}s`}
                     repeatCount="indefinite"
                   />
                   <animate
@@ -162,12 +167,17 @@ export function WorldMap({
                     from="0.3"
                     to="0"
                     dur="2s"
-                    begin="0s"
+                    begin={`${2.0 + i * 0.05}s`}
                     repeatCount="indefinite"
                   />
                 </circle>
-              </g>
-              <g key={`end-${i}`}>
+              </motion.g>
+              <motion.g 
+                key={`end-${i}`}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 2.0 + i * 0.05 }}
+              >
                 <circle
                   cx={projectPoint(dot.end.lat, dot.end.lng).x}
                   cy={projectPoint(dot.end.lat, dot.end.lng).y}
@@ -188,7 +198,7 @@ export function WorldMap({
                     from="3"
                     to="12"
                     dur="2s"
-                    begin="0s"
+                    begin={`${2.0 + i * 0.05}s`}
                     repeatCount="indefinite"
                   />
                   <animate
@@ -196,11 +206,11 @@ export function WorldMap({
                     from="0.3"
                     to="0"
                     dur="2s"
-                    begin="0s"
+                    begin={`${2.0 + i * 0.05}s`}
                     repeatCount="indefinite"
                   />
                 </circle>
-              </g>
+              </motion.g>
             </g>
           );
         })}

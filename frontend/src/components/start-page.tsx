@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { LiquidGlassBorder } from "@/components/ui/liquid-glass-border";
+import HeroWave from "@/components/ui/dynamic-wave-canvas-background";
 import { 
   Shield, 
   Network, 
@@ -46,10 +47,14 @@ export function StartPage() {
   ];
 
   return (
-    <main className="relative flex flex-col min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-900 text-slate-950 px-4 pt-32 pb-20">
+    <main className="relative flex flex-col min-h-screen items-center justify-center text-white px-4 pt-32 pb-20 overflow-hidden">
+      {/* Dynamic Wave Background */}
+      <div className="absolute inset-0 z-0">
+        <HeroWave />
+      </div>
         {/* Main Content */}
         <motion.div 
-          className="text-center max-w-4xl mx-auto"
+          className="text-center max-w-4xl mx-auto relative z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -62,15 +67,15 @@ export function StartPage() {
             className="mb-8"
           >
             <div className="inline-flex items-center justify-center w-24 h-24 bg-transparent rounded-full mb-6">
-              <Network className="w-12 h-12 text-black dark:text-white" />
+              <Network className="w-12 h-12 text-white" />
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold text-black dark:text-white mb-4">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-2xl">
               A2A Covert
             </h1>
             
             <motion.p 
-              className="text-xl md:text-2xl text-black dark:text-white mb-2"
+              className="text-xl md:text-2xl text-white mb-2 drop-shadow-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -79,7 +84,7 @@ export function StartPage() {
             </motion.p>
             
             <motion.p 
-              className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+              className="text-lg text-white/90 max-w-2xl mx-auto drop-shadow-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -95,8 +100,8 @@ export function StartPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
           >
-            <LiquidGlassBorder className="p-8 rounded-2xl">
-              <p className="text-lg text-black dark:text-white leading-relaxed">
+            <LiquidGlassBorder className="p-8 rounded-2xl bg-white/10 backdrop-blur-md">
+              <p className="text-lg text-white leading-relaxed">
                 一个革命性的分布式智能体通信平台，专为安全、隐蔽的AI智能体交互而设计。
                 支持全球范围内的安全通信，确保隐私保护和高效协作。
               </p>
@@ -118,15 +123,15 @@ export function StartPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2 + index * 0.1 }}
               >
-                <LiquidGlassBorder className="p-6 rounded-xl h-full hover:scale-105 transition-transform duration-300">
+                <LiquidGlassBorder className="p-6 rounded-xl h-full hover:scale-105 transition-transform duration-300 bg-white/10 backdrop-blur-md">
                   <div className="flex flex-col items-center text-center">
                     <div className="w-12 h-12 bg-transparent rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                      <feature.icon className="w-6 h-6 text-black dark:text-white" />
+                      <feature.icon className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-lg font-semibold text-black dark:text-white mb-2">
+                    <h3 className="text-lg font-semibold text-white mb-2">
                       {feature.title}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-white/80">
                       {feature.description}
                     </p>
                   </div>
@@ -142,7 +147,7 @@ export function StartPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.6 }}
           >
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-white/70">
               © 2024 A2A Covert System. All rights reserved.
             </p>
           </motion.div>

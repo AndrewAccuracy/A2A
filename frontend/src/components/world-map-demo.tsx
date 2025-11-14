@@ -1,6 +1,7 @@
 "use client";
 import { WorldMap } from "@/components/ui/world-map";
 import { motion } from "framer-motion";
+import HeroWave from "@/components/ui/dynamic-wave-canvas-background";
 
 export function WorldMapDemo() {
   
@@ -43,31 +44,59 @@ export function WorldMapDemo() {
   const allConnections = generateFullyConnectedNetwork();
 
   return (
-    <main className="relative flex flex-col min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-900 text-slate-950 pt-20 pb-20 w-full">
-        <div className="max-w-7xl mx-auto text-center px-4">
-        <p className="font-bold text-xl md:text-4xl text-black dark:text-white mb-6">
+    <main className="relative flex flex-col min-h-screen items-center justify-center text-white pt-20 pb-20 w-full overflow-hidden">
+      {/* Dynamic Wave Background */}
+      <div className="absolute inset-0 z-0">
+        <HeroWave />
+      </div>
+        <motion.div 
+          className="max-w-7xl mx-auto text-center px-4 relative z-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+        <motion.p 
+          className="font-bold text-xl md:text-4xl text-white mb-6 drop-shadow-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+        >
           A2A{" "}
-          <span className="text-gray-600 dark:text-gray-400">
+          <span className="text-white/90">
             {"Covert".split("").map((word, idx) => (
               <motion.span
                 key={idx}
                 className="inline-block"
                 initial={{ x: -10, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: idx * 0.04 }}
+                transition={{ duration: 0.5, delay: 0.9 + idx * 0.04 }}
               >
                 {word}
               </motion.span>
             ))}
           </span>
-        </p>
-        <p className="text-sm md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto py-4">
+        </motion.p>
+        <motion.p 
+          className="text-sm md:text-lg text-white/80 max-w-2xl mx-auto py-4 drop-shadow-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+        >
           Advanced Agent-to-Agent Communication System. Enabling secure, 
           decentralized AI agent interactions across global networks. 
           Perfect for distributed intelligence and covert operations.
-        </p>
-        </div>
-        <WorldMap dots={allConnections} />
+        </motion.p>
+        </motion.div>
+        <motion.div 
+          className="relative z-10 w-full flex justify-center items-center mt-8"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 1.5 }}
+        >
+          <div className="w-full max-w-[1600px]">
+            <WorldMap dots={allConnections} />
+          </div>
+        </motion.div>
     </main>
   );
 }
