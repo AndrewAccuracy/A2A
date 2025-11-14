@@ -1,7 +1,6 @@
 "use client";
 import { WorldMap } from "@/components/ui/world-map";
 import { motion } from "framer-motion";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 
 export function WorldMapDemo() {
   
@@ -44,8 +43,7 @@ export function WorldMapDemo() {
   const allConnections = generateFullyConnectedNetwork();
 
   return (
-    <AuroraBackground>
-            <div className="relative z-10 pt-20 pb-20 w-full">
+    <main className="relative flex flex-col min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-900 text-slate-950 pt-20 pb-20 w-full">
         <div className="max-w-7xl mx-auto text-center px-4">
         <p className="font-bold text-xl md:text-4xl text-black dark:text-white mb-6">
           A2A{" "}
@@ -70,7 +68,6 @@ export function WorldMapDemo() {
         </p>
         </div>
         <WorldMap dots={allConnections} />
-      </div>
-    </AuroraBackground>
+    </main>
   );
 }

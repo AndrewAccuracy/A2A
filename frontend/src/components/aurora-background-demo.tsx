@@ -2,11 +2,10 @@
 
 import { motion } from "framer-motion";
 import React from "react";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 
 export function AuroraBackgroundDemo() {
   return (
-    <AuroraBackground>
+    <main className="relative flex flex-col min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-900 text-slate-950">
       <motion.div
         initial={{ opacity: 0.0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -27,6 +26,6 @@ export function AuroraBackgroundDemo() {
           Debug now
         </button>
       </motion.div>
-    </AuroraBackground>
+    </main>
   );
 }

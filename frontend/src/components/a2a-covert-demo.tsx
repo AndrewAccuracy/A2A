@@ -1,29 +1,169 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { LiquidButton, MetalButton } from "@/components/ui/liquid-glass-button";
 import { LiquidGlassBorder } from "@/components/ui/liquid-glass-border";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Play, Square, RefreshCw, MessageSquare, Shield, Eye, Upload, FileText, Image } from "lucide-react";
+import ChatComponent, { ChatConfig, UiConfig, Message } from "@/components/ui/chat-interface";
+import { 
+  Play, 
+  Square, 
+  RefreshCw, 
+  MessageSquare, 
+  Shield, 
+  Eye, 
+  Upload, 
+  FileText, 
+  Image,
+  Server,
+  Settings,
+  CheckCircle2,
+  XCircle,
+  Loader2
+} from "lucide-react";
 
 export default function A2ACovertDemo() {
   const [serverStatus, setServerStatus] = useState<"offline" | "online">("offline");
   const [covertInfo, setCovertInfo] = useState("0100100001100101011011000110110001101111001000000101011101101111011100100110110001100100");
-  const [agentDialogue, setAgentDialogue] = useState<string[]>([]);
+  const [chatConfig, setChatConfig] = useState<ChatConfig | null>(null);
   const [evaluationResults, setEvaluationResults] = useState<string[]>([]);
   const [questionFile, setQuestionFile] = useState<File | null>(null);
   const [stegoFile, setStegoFile] = useState<File | null>(null);
   const [covertInfoFile, setCovertInfoFile] = useState<File | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [keyExchangeStatus, setKeyExchangeStatus] = useState<"completed" | "pending">("completed");
+  const [isSimulating, setIsSimulating] = useState(false);
+
+  // UI配置
+  const uiConfig: UiConfig = {
+    containerWidth: undefined, // 使用全宽
+    containerHeight: undefined, // 使用全高
+    backgroundColor: '#f9fafb', // 浅灰色背景
+    autoRestart: false,
+    loader: {
+      dotColor: '#6b7280'
+    },
+    leftChat: {
+      backgroundColor: '#ffffff',
+      textColor: '#1f2937',
+      borderColor: '#e5e7eb',
+      showBorder: true,
+      nameColor: '#4b5563'
+    },
+    rightChat: {
+      backgroundColor: '#eff6ff',
+      textColor: '#1f2937',
+      borderColor: '#bfdbfe',
+      showBorder: true,
+      nameColor: '#3b82f6'
+    }
+  };
+
+  // 模拟对话数据 - 转换为新格式
+  const createMockMessages = (): Message[] => {
+    let messageId = 1;
+    
+    return [
+      {
+        id: messageId++,
+        sender: 'left',
+        type: 'text',
+        content: '🤖 正在初始化隐蔽通信通道...',
+        loader: { enabled: true, delay: 500, duration: 1500 }
+      },
+      {
+        id: messageId++,
+        sender: 'left',
+        type: 'text',
+        content: '🔐 密钥交换完成，使用Meteor算法进行隐写编码',
+        loader: { enabled: true, delay: 500, duration: 1500 }
+      },
+      {
+        id: messageId++,
+        sender: 'left',
+        type: 'text',
+        content: '📡 发送编码后的消息 → Agent B',
+        loader: { enabled: true, delay: 500, duration: 1200 }
+      },
+      {
+        id: messageId++,
+        sender: 'right',
+        type: 'text',
+        content: '🤖 接收到消息，开始解码...',
+        loader: { enabled: true, delay: 500, duration: 1500 }
+      },
+      {
+        id: messageId++,
+        sender: 'right',
+        type: 'text',
+        content: '✅ 成功提取隐蔽信息: \'Hello World\'',
+        loader: { enabled: true, delay: 500, duration: 1200 }
+      },
+      {
+        id: messageId++,
+        sender: 'right',
+        type: 'text',
+        content: '🤖 正在生成回复消息...',
+        loader: { enabled: true, delay: 500, duration: 1500 }
+      },
+      {
+        id: messageId++,
+        sender: 'right',
+        type: 'text',
+        content: '📡 发送编码后的回复 → Agent A',
+        loader: { enabled: true, delay: 500, duration: 1200 }
+      },
+      {
+        id: messageId++,
+        sender: 'left',
+        type: 'text',
+        content: '🤖 接收到回复，开始解码...',
+        loader: { enabled: true, delay: 500, duration: 1500 }
+      },
+      {
+        id: messageId++,
+        sender: 'left',
+        type: 'text',
+        content: '✅ 成功提取隐蔽信息: \'Message received\'',
+        loader: { enabled: true, delay: 500, duration: 1200 }
+      },
+      {
+        id: messageId++,
+        sender: 'left',
+        type: 'text',
+        content: '🔄 通信循环完成，共传输 2 条隐蔽消息',
+        loader: { enabled: true, delay: 500, duration: 1200 }
+      },
+      {
+        id: messageId++,
+        sender: 'right',
+        type: 'text',
+        content: '📊 隐写分析结果:\n   - 隐蔽容量: 128 bits\n   - 编码效率: 95.3%\n   - 检测率: 0.02% (极低)\n   - 通信延迟: 1.2s',
+        loader: { enabled: true, delay: 500, duration: 1800 }
+      },
+      {
+        id: messageId++,
+        sender: 'left',
+        type: 'text',
+        content: '✅ 隐蔽通信测试成功！',
+        loader: { enabled: true, delay: 500, duration: 1000 }
+      }
+    ];
+  };
 
   // 组件加载时检查服务器状态
   useEffect(() => {
     handleRefresh();
   }, []);
+
+  // 同步评估结果到localStorage
+  useEffect(() => {
+    localStorage.setItem('evaluationResults', JSON.stringify(evaluationResults));
+  }, [evaluationResults]);
 
   const handleStartServer = async () => {
     try {
@@ -55,7 +195,6 @@ export default function A2ACovertDemo() {
     } catch (error) {
       console.error("启动A2A服务器失败:", error);
       setServerStatus("offline");
-      // 可以添加用户友好的错误提示
     } finally {
       setIsConnecting(false);
     }
@@ -82,7 +221,6 @@ export default function A2ACovertDemo() {
       }
     } catch (error) {
       console.error("停止A2A服务器失败:", error);
-      // 即使API调用失败，也更新UI状态
       setServerStatus("offline");
     } finally {
       setIsConnecting(false);
@@ -90,21 +228,6 @@ export default function A2ACovertDemo() {
   };
 
   const handleRefresh = async () => {
-    // 确认重置操作
-    const confirmed = window.confirm(
-      "确定要重置系统吗？\n\n这将执行以下操作：\n" +
-      "• 停止所有正在进行的客户端通信\n" +
-      "• 重启A2A服务器（如果正在运行）\n" +
-      "• 清空所有对话历史和评估结果\n" +
-      "• 重置所有文件上传状态\n" +
-      "• 恢复默认配置\n\n" +
-      "此操作不可撤销，确定继续吗？"
-    );
-    
-    if (!confirmed) {
-      return;
-    }
-    
     try {
       setIsConnecting(true);
       
@@ -165,7 +288,7 @@ export default function A2ACovertDemo() {
       }
       
       // 3. 清空对话历史和评估结果
-      setAgentDialogue([]);
+      setChatConfig(null);
       setEvaluationResults([]);
       
       // 4. 重置文件上传状态
@@ -218,13 +341,11 @@ export default function A2ACovertDemo() {
         if (response.ok) {
           const result = await response.json();
           console.log("问题文件上传成功:", result);
-          setAgentDialogue(prev => [...prev, `✅ 问题文件已上传: ${file.name}`]);
         } else {
           throw new Error(`上传失败: ${response.status}`);
         }
       } catch (error) {
         console.error("上传问题文件失败:", error);
-        setAgentDialogue(prev => [...prev, `❌ 上传问题文件失败: ${error}`]);
       }
     }
   };
@@ -247,13 +368,11 @@ export default function A2ACovertDemo() {
         if (response.ok) {
           const result = await response.json();
           console.log("隐写文件上传成功:", result);
-          setAgentDialogue(prev => [...prev, `✅ 隐写文件已上传: ${file.name}`]);
         } else {
           throw new Error(`上传失败: ${response.status}`);
         }
       } catch (error) {
         console.error("上传隐写文件失败:", error);
-        setAgentDialogue(prev => [...prev, `❌ 上传隐写文件失败: ${error}`]);
       }
     }
   };
@@ -280,13 +399,11 @@ export default function A2ACovertDemo() {
         if (response.ok) {
           const result = await response.json();
           console.log("隐蔽信息文件上传成功:", result);
-          setAgentDialogue(prev => [...prev, `✅ 隐蔽信息文件已上传: ${file.name}`]);
         } else {
           throw new Error(`上传失败: ${response.status}`);
         }
       } catch (error) {
         console.error("上传隐蔽信息文件失败:", error);
-        setAgentDialogue(prev => [...prev, `❌ 上传隐蔽信息文件失败: ${error}`]);
       }
     }
   };
@@ -304,17 +421,64 @@ export default function A2ACovertDemo() {
     });
   };
 
+  // 模拟对话函数 - 创建聊天配置
+  const simulateDialogue = () => {
+    setIsSimulating(true);
+    setEvaluationResults([]);
+    
+    const messages = createMockMessages();
+    const config: ChatConfig = {
+      leftPerson: {
+        name: "Agent A",
+        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+      },
+      rightPerson: {
+        name: "Agent B",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+      },
+      messages
+    };
+    
+    setChatConfig(config);
+    setIsSimulating(false); // 组件会自动处理消息显示
+  };
+
   const handleStartCovertCommunication = async () => {
-    if (isConnecting) return;
+    if (isConnecting || isSimulating) return;
+    
+    // 调试模式：使用模拟对话
+    const DEBUG_MODE = true; // 设置为 false 来使用真实API
+    
+    if (DEBUG_MODE) {
+      simulateDialogue();
+      return;
+    }
     
     try {
       setIsConnecting(true);
       // 清空之前的数据
-      setAgentDialogue([]);
+      setChatConfig(null);
       setEvaluationResults([]);
       
-      // 显示连接状态
-      setAgentDialogue(["正在连接到A2A服务器..."]);
+      // 显示连接状态 - 创建初始消息配置
+      const initialConfig: ChatConfig = {
+        leftPerson: {
+          name: "Agent A",
+          avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+        },
+        rightPerson: {
+          name: "Agent B",
+          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+        },
+        messages: [{
+          id: 1,
+          sender: 'left',
+          type: 'text',
+          content: '正在连接到A2A服务器...',
+          loader: { enabled: false }
+        }]
+      };
+      setChatConfig(initialConfig);
       
       // 处理文件路径
       let questionPath = 'data/question/general.txt';
@@ -372,11 +536,40 @@ export default function A2ACovertDemo() {
       
       if (response.ok) {
         const data = await response.json();
-        setAgentDialogue([
-          "✅ 隐蔽通信已启动",
-          "正在建立与A2A服务器的连接...",
-          "等待Agent对话开始..."
-        ]);
+        const successConfig: ChatConfig = {
+          leftPerson: {
+            name: "Agent A",
+            avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+          },
+          rightPerson: {
+            name: "Agent B",
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+          },
+          messages: [
+            {
+              id: 1,
+              sender: 'left',
+              type: 'text',
+              content: '✅ 隐蔽通信已启动',
+              loader: { enabled: false }
+            },
+            {
+              id: 2,
+              sender: 'left',
+              type: 'text',
+              content: '正在建立与A2A服务器的连接...',
+              loader: { enabled: false }
+            },
+            {
+              id: 3,
+              sender: 'left',
+              type: 'text',
+              content: '等待Agent对话开始...',
+              loader: { enabled: false }
+            }
+          ]
+        };
+        setChatConfig(successConfig);
         setEvaluationResults([
           "✅ 评估服务已连接",
           "开始监控通信质量..."
@@ -390,11 +583,33 @@ export default function A2ACovertDemo() {
       console.error("启动隐蔽通信失败:", error);
       
       // 如果后端服务不可用，显示提示信息
-      setAgentDialogue([
-        "⚠️ 无法启动隐蔽通信",
-        "请确保以下服务正在运行：",
-        "• A2A服务器 (http://localhost:9999)"
-      ]);
+      const errorConfig: ChatConfig = {
+        leftPerson: {
+          name: "Agent A",
+          avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+        },
+        rightPerson: {
+          name: "Agent B",
+          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+        },
+        messages: [
+          {
+            id: 1,
+            sender: 'left',
+            type: 'text',
+            content: '⚠️ 无法启动隐蔽通信',
+            loader: { enabled: false }
+          },
+          {
+            id: 2,
+            sender: 'left',
+            type: 'text',
+            content: '请确保以下服务正在运行：\n• A2A服务器 (http://localhost:9999)',
+            loader: { enabled: false }
+          }
+        ]
+      };
+      setChatConfig(errorConfig);
       
       setEvaluationResults([
         "⚠️ 评估服务不可用",
@@ -406,33 +621,39 @@ export default function A2ACovertDemo() {
   };
 
   return (
-    <AuroraBackground>
-      <div className="relative z-10 min-h-screen p-6">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              A2A 隐蔽通信演示系统
-            </h1>
-            <p className="text-gray-700 dark:text-gray-300">
-              Intelligent Agent-to-Agent Covert Communication Demonstration based on Agent-to-Agent Protocol
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Server Configuration */}
-            <LiquidGlassBorder variant="default" className="p-6 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-gray-200 dark:border-white/20">
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Shield className="w-5 h-5" />
-                  服务器配置
-                </h2>
-                
+    <main className="relative flex min-h-screen bg-zinc-50 dark:bg-zinc-900 text-slate-950">
+      <div className="flex w-full">
+        {/* Left Sidebar - Configuration Panels */}
+        <motion.div 
+          className="w-80 flex-shrink-0 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-zinc-950 p-4 overflow-y-auto"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="space-y-4">
+            {/* Server Configuration Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <LiquidGlassBorder className="p-4 rounded-xl">
                 <div className="space-y-3">
-                  <div>
-                    <Label className="text-gray-700 dark:text-gray-300">隐写模型路径</Label>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Server className="w-4 h-4 text-black dark:text-white" />
+                    <div>
+                      <h2 className="text-sm font-semibold text-black dark:text-white">服务器配置</h2>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">配置A2A服务器参数和状态</p>
+                    </div>
+                  </div>
+                  {/* Model Path */}
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-black dark:text-white flex items-center gap-1.5">
+                      <Settings className="w-3 h-3" />
+                      隐写模型路径
+                    </Label>
                     <Select defaultValue="llama-3.2-3b">
-                      <SelectTrigger className="bg-white/80 dark:bg-white/5 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white">
+                      <SelectTrigger className="h-8 text-xs bg-white dark:bg-zinc-800 border-gray-300 dark:border-gray-700 text-black dark:text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -443,10 +664,14 @@ export default function A2ACovertDemo() {
                     </Select>
                   </div>
 
-                  <div>
-                    <Label className="text-gray-700 dark:text-gray-300">服务器隐写算法</Label>
+                  {/* Steganography Algorithm */}
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-black dark:text-white flex items-center gap-1.5">
+                      <Shield className="w-3 h-3" />
+                      服务器隐写算法
+                    </Label>
                     <Select defaultValue="meteor">
-                      <SelectTrigger className="bg-white/80 dark:bg-white/5 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white">
+                      <SelectTrigger className="h-8 text-xs bg-white dark:bg-zinc-800 border-gray-300 dark:border-gray-700 text-black dark:text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -457,86 +682,108 @@ export default function A2ACovertDemo() {
                     </Select>
                   </div>
 
-                  <div>
-                    <Label className="text-gray-700 dark:text-gray-300">密钥交换状态</Label>
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                      <span className="text-gray-900 dark:text-white">已完成交换</span>
+                  {/* Status Indicators */}
+                  <div className="grid grid-cols-2 gap-2 pt-2">
+                    <div className="space-y-1">
+                      <Label className="text-xs text-gray-600 dark:text-gray-400">密钥交换状态</Label>
+                      <div className="flex items-center gap-1.5">
+                        {keyExchangeStatus === "completed" ? (
+                          <>
+                            <CheckCircle2 className="w-3 h-3 text-green-500" />
+                            <span className="text-xs font-medium text-black dark:text-white">已完成交换</span>
+                          </>
+                        ) : (
+                          <>
+                            <Loader2 className="w-3 h-3 text-yellow-500 animate-spin" />
+                            <span className="text-xs font-medium text-black dark:text-white">交换中...</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-xs text-gray-600 dark:text-gray-400">A2A服务器状态</Label>
+                      <div className="flex items-center gap-1.5">
+                        {serverStatus === "online" ? (
+                          <>
+                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                            <span className="text-xs font-medium text-black dark:text-white">在线</span>
+                          </>
+                        ) : (
+                          <>
+                            <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                            <span className="text-xs font-medium text-black dark:text-white">离线</span>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
 
-
-                  <div>
-                    <Label className="text-gray-700 dark:text-gray-300">A2A服务器状态</Label>
-                    <div className="flex items-center gap-2">
-                      <div className={`w-3 h-3 rounded-full ${serverStatus === "online" ? "bg-green-500" : "bg-red-500"}`} />
-                      <span className="text-gray-900 dark:text-white">
-                        {serverStatus === "online" ? "在线" : "离线"}
-                      </span>
-                    </div>
+                  {/* Control Buttons */}
+                  <div className="flex gap-1.5 pt-3 border-t border-gray-200 dark:border-gray-800">
+                    <LiquidButton
+                      onClick={handleStartServer}
+                      size="sm"
+                      className="flex-1 h-7"
+                      disabled={isConnecting || serverStatus === "online"}
+                      title="Start A2A Server"
+                    >
+                      {isConnecting ? (
+                        <Loader2 className="w-3 h-3 animate-spin" />
+                      ) : (
+                        <Play className="w-3 h-3" />
+                      )}
+                    </LiquidButton>
+                    
+                    <LiquidButton
+                      onClick={handleStopServer}
+                      size="sm"
+                      className="flex-1 h-7"
+                      disabled={isConnecting || serverStatus === "offline"}
+                      title="Stop Server"
+                    >
+                      {isConnecting ? (
+                        <Loader2 className="w-3 h-3 animate-spin" />
+                      ) : (
+                        <Square className="w-3 h-3" />
+                      )}
+                    </LiquidButton>
+                    
+                    <LiquidButton
+                      onClick={handleRefresh}
+                      size="sm"
+                      className="flex-1 h-7"
+                      disabled={isConnecting}
+                      title="Reset System"
+                    >
+                      <RefreshCw className={`w-3 h-3 ${isConnecting ? 'animate-spin' : ''}`} />
+                    </LiquidButton>
                   </div>
                 </div>
+              </LiquidGlassBorder>
+            </motion.div>
 
-                <div className="flex gap-3 pt-4">
-                  <LiquidButton 
-                    onClick={handleStartServer}
-                    className="flex-1"
-                    size="lg"
-                    disabled={isConnecting || serverStatus === "online"}
-                  >
-                    {isConnecting ? (
-                      <RefreshCw className="w-4 h-4 mr-2 flex-shrink-0 animate-spin" />
-                    ) : (
-                      <Play className="w-4 h-4 mr-2 flex-shrink-0" />
-                    )}
-                    <span className="flex-shrink-0">
-                      {isConnecting ? "启动中..." : "启动A2A服务器"}
-                    </span>
-                  </LiquidButton>
-                  
-                  <LiquidButton 
-                    onClick={handleStopServer}
-                    className="flex-1"
-                    size="lg"
-                    disabled={isConnecting || serverStatus === "offline"}
-                  >
-                    {isConnecting ? (
-                      <RefreshCw className="w-4 h-4 mr-2 flex-shrink-0 animate-spin" />
-                    ) : (
-                      <Square className="w-4 h-4 mr-2 flex-shrink-0" />
-                    )}
-                    <span className="flex-shrink-0">
-                      {isConnecting ? "停止中..." : "停止A2A服务器"}
-                    </span>
-                  </LiquidButton>
-                  
-                  <LiquidButton 
-                    onClick={handleRefresh}
-                    size="lg"
-                    disabled={isConnecting}
-                    title="重置系统：停止所有通信，重启服务器，清空对话历史"
-                  >
-                    <RefreshCw className={`w-4 h-4 flex-shrink-0 ${isConnecting ? 'animate-spin' : ''}`} />
-                    <span className="ml-2 text-sm">
-                      {isConnecting ? "重置中..." : "重置系统"}
-                    </span>
-                  </LiquidButton>
-                </div>
-              </div>
-            </LiquidGlassBorder>
-
-            {/* Client Configuration */}
-            <LiquidGlassBorder variant="default" className="p-6 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-gray-200 dark:border-white/20">
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Eye className="w-5 h-5" />
-                  客户端配置
-                </h2>
-                
+            {/* Client Configuration Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <LiquidGlassBorder className="p-4 rounded-xl">
                 <div className="space-y-3">
-                  <div>
-                    <Label className="text-gray-700 dark:text-gray-300">隐蔽信息</Label>
-                    <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Eye className="w-4 h-4 text-black dark:text-white" />
+                    <div>
+                      <h2 className="text-sm font-semibold text-black dark:text-white">客户端配置</h2>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">配置隐蔽通信参数</p>
+                    </div>
+                  </div>
+                  {/* Covert Information File Upload */}
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-black dark:text-white flex items-center gap-1.5">
+                      <FileText className="w-3 h-3" />
+                      隐蔽信息
+                    </Label>
+                    <div className="flex flex-col gap-1.5">
                       <input
                         type="file"
                         id="covert-info-file"
@@ -546,56 +793,58 @@ export default function A2ACovertDemo() {
                       />
                       <label
                         htmlFor="covert-info-file"
-                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/10 border border-gray-300 dark:border-white/20 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-white/20 transition-colors"
+                        className="flex items-center gap-1.5 px-2 py-1.5 bg-gray-100 dark:bg-zinc-800 border border-gray-300 dark:border-gray-700 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors text-xs"
                       >
-                        <span className="text-gray-900 dark:text-white text-sm">选择文件</span>
+                        <Upload className="w-3 h-3" />
+                        <span className="font-medium text-black dark:text-white">选择文件</span>
                       </label>
                       {covertInfoFile && (
-                        <div className="flex items-center gap-2 text-green-400">
-                          <FileText className="w-4 h-4" />
-                          <span className="text-sm">{covertInfoFile.name}</span>
+                        <div className="flex items-center gap-1.5 text-green-600 dark:text-green-400 text-xs">
+                          <FileText className="w-3 h-3" />
+                          <span className="font-medium truncate">{covertInfoFile.name}</span>
                         </div>
                       )}
                     </div>
-                    {covertInfoFile && (
-                      <p className="text-xs text-gray-400 mt-1">
-                        文件大小: {Math.round(covertInfoFile.size / 1024)}KB
-                      </p>
-                    )}
                   </div>
 
-                  {/* 文件上传部分 */}
-                  <div className="space-y-3">
-                    <div>
-                      <Label className="text-gray-700 dark:text-gray-300">问题文件上传</Label>
-                      <div className="flex items-center gap-3">
-                        <input
-                          type="file"
-                          id="question-file"
-                          accept=".txt,.md,.json"
-                          onChange={handleQuestionFileUpload}
-                          className="hidden"
-                        />
+                  {/* Question File Upload */}
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-black dark:text-white flex items-center gap-1.5">
+                      <FileText className="w-3 h-3" />
+                      问题文件上传
+                    </Label>
+                    <div className="flex flex-col gap-1.5">
+                      <input
+                        type="file"
+                        id="question-file"
+                        accept=".txt,.md,.json"
+                        onChange={handleQuestionFileUpload}
+                        className="hidden"
+                      />
                       <label
                         htmlFor="question-file"
-                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/10 border border-gray-300 dark:border-white/20 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-white/20 transition-colors"
+                        className="flex items-center gap-1.5 px-2 py-1.5 bg-gray-100 dark:bg-zinc-800 border border-gray-300 dark:border-gray-700 rounded-md cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors text-xs"
                       >
-                        <span className="text-gray-900 dark:text-white text-sm">选择文件</span>
+                        <Upload className="w-3 h-3" />
+                        <span className="font-medium text-black dark:text-white">选择文件</span>
                       </label>
-                        {questionFile && (
-                          <div className="flex items-center gap-2 text-green-400">
-                            <FileText className="w-4 h-4" />
-                            <span className="text-sm">{questionFile.name}</span>
-                          </div>
-                        )}
-                      </div>
+                      {questionFile && (
+                        <div className="flex items-center gap-1.5 text-green-600 dark:text-green-400 text-xs">
+                          <FileText className="w-3 h-3" />
+                          <span className="font-medium truncate">{questionFile.name}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  <div>
-                    <Label className="text-gray-700 dark:text-gray-300">客户端隐写算法</Label>
+                  {/* Client Steganography Algorithm */}
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-black dark:text-white flex items-center gap-1.5">
+                      <Shield className="w-3 h-3" />
+                      客户端隐写算法
+                    </Label>
                     <Select defaultValue="meteor">
-                      <SelectTrigger className="bg-white/80 dark:bg-white/5 border-gray-300 dark:border-white/20 text-gray-900 dark:text-white">
+                      <SelectTrigger className="h-8 text-xs bg-white dark:bg-zinc-800 border-gray-300 dark:border-gray-700 text-black dark:text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -605,89 +854,81 @@ export default function A2ACovertDemo() {
                       </SelectContent>
                     </Select>
                   </div>
-                </div>
 
-                <div className="pt-4">
-                  <LiquidButton 
-                    onClick={handleStartCovertCommunication}
-                    className="w-full flex items-center justify-center"
-                    size="lg"
-                    disabled={isConnecting}
-                  >
-                    {isConnecting ? (
-                      <>
-                        <RefreshCw className="w-5 h-5 mr-2 flex-shrink-0 animate-spin" />
-                        <span className="flex-shrink-0">连接中...</span>
-                      </>
-                    ) : (
-                      <>
-                        <MessageSquare className="w-5 h-5 mr-2 flex-shrink-0" />
-                        <span className="flex-shrink-0">启动隐蔽通信</span>
-                      </>
-                    )}
-                  </LiquidButton>
+                  {/* Start Communication Button */}
+                  <div className="pt-3 border-t border-gray-200 dark:border-gray-800">
+                    <LiquidButton
+                      onClick={handleStartCovertCommunication}
+                      className="w-full h-8 text-xs"
+                      disabled={isConnecting || isSimulating}
+                      title="Start Covert Communication"
+                    >
+                      {isConnecting || isSimulating ? (
+                        <Loader2 className="w-3 h-3 animate-spin" />
+                      ) : (
+                        <MessageSquare className="w-3 h-3" />
+                      )}
+                    </LiquidButton>
+                  </div>
                 </div>
-              </div>
-            </LiquidGlassBorder>
+              </LiquidGlassBorder>
+            </motion.div>
           </div>
+        </motion.div>
 
-          {/* Agent Dialogue Window */}
-          <LiquidGlassBorder variant="default" className="mt-6 p-6 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-gray-200 dark:border-white/20">
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                <MessageSquare className="w-5 h-5" />
-                Agent对话窗口
-              </h2>
-              
-              <div className="bg-gray-100 dark:bg-black/20 rounded-lg p-4 min-h-[200px] border border-gray-200 dark:border-white/10">
-                {agentDialogue.length === 0 ? (
-                  <div className="text-center text-gray-500 dark:text-gray-400 py-8">
-                    <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                    <p>等待Agent开始对话...</p>
-                    <p className="text-sm mt-2">点击&apos;启动隐蔽通信&apos;按钮开始演示</p>
+        {/* Right Content Area - Agent Dialogue Window */}
+        <motion.div
+          className="flex-1 flex flex-col"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <LiquidGlassBorder className="m-4 p-6 rounded-2xl flex-1 flex flex-col">
+            <div className="flex flex-col h-full">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-transparent rounded-lg flex items-center justify-center">
+                    <MessageSquare className="w-5 h-5 text-black dark:text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold text-black dark:text-white">Agent对话窗口</h2>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Agent之间的对话内容</p>
+                  </div>
+                </div>
+                <div className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700 rounded-md">
+                  <span className="text-xs font-medium text-yellow-800 dark:text-yellow-200">调试模式</span>
+                </div>
+              </div>
+              <div className="bg-gray-50 dark:bg-zinc-950/50 rounded-lg flex-1 border border-gray-200 dark:border-gray-800 overflow-hidden">
+                {!chatConfig ? (
+                  <div className="flex flex-col items-center justify-center h-full py-12 text-center">
+                    <MessageSquare className="w-16 h-16 text-gray-300 dark:text-gray-700 mb-4" />
+                    <p className="text-gray-600 dark:text-gray-400 text-lg font-medium mb-2">
+                      等待Agent开始对话...
+                    </p>
+                    <p className="text-sm text-gray-500 dark:text-gray-500">
+                      点击&apos;启动隐蔽通信&apos;按钮开始演示
+                    </p>
                   </div>
                 ) : (
-                  <div className="space-y-2">
-                    {agentDialogue.map((message, index) => (
-                      <div key={index} className="text-gray-900 dark:text-white font-mono text-sm">
-                        {message}
-                      </div>
-                    ))}
+                  <div className="h-full w-full [&>div]:h-full [&>div]:w-full">
+                    <ChatComponent 
+                      config={chatConfig} 
+                      uiConfig={{
+                        ...uiConfig,
+                        containerWidth: undefined,
+                        containerHeight: undefined,
+                        backgroundColor: 'transparent'
+                      }}
+                    />
                   </div>
                 )}
               </div>
             </div>
           </LiquidGlassBorder>
-
-          {/* GPT Credibility Assessment Results */}
-          <LiquidGlassBorder variant="default" className="mt-6 p-6 bg-white/80 dark:bg-white/10 backdrop-blur-sm border-gray-200 dark:border-white/20">
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                <Shield className="w-5 h-5" />
-                GPT可信度评估结果
-              </h2>
-              
-              <div className="bg-gray-100 dark:bg-black/20 rounded-lg p-4 min-h-[150px] border border-gray-200 dark:border-white/10">
-                {evaluationResults.length === 0 ? (
-                  <div className="text-center text-gray-500 dark:text-gray-400 py-8">
-                    <Shield className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                    <p>等待评估结果...</p>
-                    <p className="text-sm mt-2">对话开始后将显示每轮的评估结果</p>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    {evaluationResults.map((result, index) => (
-                      <div key={index} className="text-gray-900 dark:text-white font-mono text-sm">
-                        {result}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </LiquidGlassBorder>
-        </div>
+        </motion.div>
       </div>
-    </AuroraBackground>
+    </main>
   );
 }
+

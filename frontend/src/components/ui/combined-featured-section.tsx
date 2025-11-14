@@ -8,7 +8,6 @@ import { Card } from '@/components/ui/card'
 import { WorldMap } from '@/components/ui/world-map'
 import { LiquidGlassBorder } from '@/components/ui/liquid-glass-border'
 import { LiquidButton } from '@/components/ui/liquid-glass-button'
-import { AuroraBackground } from '@/components/ui/aurora-background'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import * as React from "react"
@@ -27,8 +26,7 @@ export default function CombinedFeaturedSection() {
   }
 
   return (
-    <AuroraBackground>
-            <div className="relative z-10 py-20">
+    <main className="relative flex flex-col min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-900 text-slate-950 py-20">
         <section className="bg-background/10 backdrop-blur-sm rounded-3xl mx-4">
           {/* Header Section */}
           <div className="max-w-7xl mx-auto px-6 text-center mb-20 pt-8">
@@ -121,8 +119,7 @@ export default function CombinedFeaturedSection() {
         </LiquidGlassBorder>
       </div>
         </section>
-      </div>
-    </AuroraBackground>
+    </main>
   )
 }
 

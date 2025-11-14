@@ -2,7 +2,6 @@
 import { Settings, Shield, Network, Lock, Globe, Zap, Eye } from "lucide-react";
 import { LiquidGlassBorder } from "@/components/ui/liquid-glass-border";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import { motion } from "framer-motion";
 
 export default function SettingsPage() {
@@ -46,8 +45,7 @@ export default function SettingsPage() {
   ];
 
   return (
-    <AuroraBackground>
-            <div className="relative z-10 pt-20 pb-20">
+    <main className="relative flex flex-col min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-900 text-slate-950 pt-20 pb-20">
         <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <motion.div
@@ -171,7 +169,6 @@ export default function SettingsPage() {
           </LiquidGlassBorder>
         </motion.div>
         </div>
-      </div>
-    </AuroraBackground>
+    </main>
   );
 }

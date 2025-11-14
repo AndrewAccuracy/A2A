@@ -35,39 +35,54 @@ const GlassEffect: React.FC<GlassEffectProps> = ({
   target = "_blank",
 }) => {
   const glassStyle = {
-    boxShadow: "0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1)",
-    transitionTimingFunction: "cubic-bezier(0.175, 0.885, 0.32, 2.2)",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(0, 0, 0, 0.1)",
+    transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)",
     ...style,
   };
 
   const content = (
     <div
-      className={`relative flex font-semibold overflow-hidden text-black cursor-pointer transition-all duration-700 ${className}`}
+      className={`relative flex font-semibold overflow-hidden text-black cursor-pointer group ${className}`}
       style={glassStyle}
     >
-      {/* Glass Layers */}
+      {/* Glass Layers - Enhanced glassmorphism */}
       <div
         className="absolute inset-0 z-0 overflow-hidden rounded-inherit rounded-3xl"
         style={{
-          backdropFilter: "blur(3px)",
+          backdropFilter: "blur(12px) saturate(180%)",
+          WebkitBackdropFilter: "blur(12px) saturate(180%)",
           filter: "url(#glass-distortion)",
           isolation: "isolate",
+          background: "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
         }}
       />
+      {/* Glass highlight layer */}
       <div
-        className="absolute inset-0 z-10 rounded-inherit"
-        style={{ background: "rgba(255, 255, 255, 0.25)" }}
+        className="absolute inset-0 z-10 rounded-inherit rounded-3xl"
+        style={{ 
+          background: "linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 100%)",
+          transition: "opacity 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
       />
+      {/* Glass border effect */}
       <div
         className="absolute inset-0 z-20 rounded-inherit rounded-3xl overflow-hidden"
         style={{
           boxShadow:
-            "inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5)",
+            "inset 0 1px 2px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.2)",
+          transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      />
+      {/* Hover glow effect */}
+      <div
+        className="absolute inset-0 z-[15] rounded-inherit rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background: "radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, transparent 70%)",
         }}
       />
 
       {/* Content */}
-      <div className="relative z-30">{children}</div>
+      <div className="relative z-30 transform transition-transform duration-300 ease-out group-hover:scale-[1.03]">{children}</div>
     </div>
   );
 
@@ -159,15 +174,26 @@ export function FloatingSidebar({ items, className }: FloatingSidebarProps) {
               key={item.name}
               href={item.url}
               className={cn(
-                "rounded-3xl px-4 py-3 hover:px-5 hover:py-4 hover:rounded-4xl",
-                isActive && "bg-gradient-to-r from-gray-500/20 to-gray-700/20"
+                "rounded-3xl px-4 py-3",
+                isActive && "bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-purple-500/20"
               )}
             >
               <div className="flex items-center justify-center">
-                <div className="p-3 rounded-xl bg-white/10 dark:bg-black/10">
+                <div className={cn(
+                  "p-3 rounded-xl transition-all duration-300",
+                  "bg-white/20 dark:bg-black/20",
+                  "backdrop-blur-sm",
+                  "border border-white/30 dark:border-white/10",
+                  "group-hover:bg-white/30 dark:group-hover:bg-white/15",
+                  isActive && "bg-white/30 dark:bg-white/25 shadow-lg"
+                )}>
                   <Icon 
                     size={20} 
-                    className="text-gray-600 dark:text-gray-400"
+                    className={cn(
+                      "text-gray-700 dark:text-gray-300 transition-colors duration-300",
+                      "group-hover:text-blue-600 dark:group-hover:text-blue-400",
+                      isActive && "text-blue-600 dark:text-blue-400"
+                    )}
                   />
                 </div>
               </div>

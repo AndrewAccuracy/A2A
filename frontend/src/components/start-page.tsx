@@ -1,7 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
 import { LiquidGlassBorder } from "@/components/ui/liquid-glass-border";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import { 
   Shield, 
   Network, 
@@ -47,8 +46,7 @@ export function StartPage() {
   ];
 
   return (
-    <AuroraBackground>
-            <div className="relative z-10 flex flex-col items-center justify-center px-4 pt-32 pb-20">
+    <main className="relative flex flex-col min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-900 text-slate-950 px-4 pt-32 pb-20">
         {/* Main Content */}
         <motion.div 
           className="text-center max-w-4xl mx-auto"
@@ -149,7 +147,6 @@ export function StartPage() {
             </p>
           </motion.div>
         </motion.div>
-      </div>
-    </AuroraBackground>
+    </main>
   );
 }
