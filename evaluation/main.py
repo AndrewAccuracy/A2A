@@ -9,7 +9,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description='AgentStego 评估端')
 
     parser.add_argument('--evaluation_model','-em',
-    default='/root/autodl-tmp/Meta-Llama-3-8B-Instruct', 
+    default='/root/autodl-fs/Meta-Llama-3-8B-Instruct', 
     help='选择评估模型路径')
 
     parser.add_argument('--evaluation_conversation','-ec',

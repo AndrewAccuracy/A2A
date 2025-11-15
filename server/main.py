@@ -20,8 +20,8 @@ def prase_args():
     parser = argparse.ArgumentParser(description='AgentStego 服务器')
 
     parser.add_argument('--stego_model_path','-smp',
-    choices=['/root/autodl-tmp/Llama-3.2-3B-Instruct','/root/autodl-tmp/Qwen2-7B-Instruct'],
-    default='/root/autodl-tmp/Llama-3.2-3B-Instruct',
+    choices=['/root/autodl-fs/Llama-3.2-3B-Instruct','/root/autodl-fs/Qwen2-7B-Instruct','/root/autodl-fs/Qwen2.5-7B-Instruct'],
+    default='/root/autodl-fs/Llama-3.2-3B-Instruct',
     help='选择不同隐写模型路径')
 
     parser.add_argument('--stego_algorithm','-sa',

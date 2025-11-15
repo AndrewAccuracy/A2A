@@ -323,7 +323,7 @@ if __name__ == "__main__":
     print("开始测试隐写算法...")
     
     # 测试配置
-    test_model_path = "/root/autodl-tmp/Llama-3.2-3B-Instruct"  # 使用轻量级模型进行测试
+    test_model_path = "/root/autodl-fs/Llama-3.2-3B-Instruct"  # 使用轻量级模型进行测试
     test_algorithm = "ac"  # 使用AC算法进行测试
     test_bit_stream = "01001010000000000000110011010101110100011101011100100001011000111110100101101010110"  # 测试比特流
     test_prompt = "这是一个测试提示，用于验证隐写算法的功能。"

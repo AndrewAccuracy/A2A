@@ -201,7 +201,7 @@ AGENT_MODEL_CONFIG = {
 
 # 隐写模型配置 (隐写算法用)
 LLM_CONFIG = {
-    "model_name_or_path": "/root/autodl-tmp/Meta-Llama-3-8B-Instruct",
+    "model_name_or_path": "/root/autodl-fs/Meta-Llama-3-8B-Instruct",
     "precision": "half",
     "max_new_tokens": 256,
     "base_prompt": "旅行专家对话模板..."

@@ -88,7 +88,7 @@ start_server() {
         --stego_algorithm meteor \
         --stego_key 7b9ec09254aa4a7589e4d0cfd80d46cc \
         --session_id covert-session-server \
-        --stego_model_path /root/autodl-tmp/Llama-3.2-3B-Instruct \
+        --stego_model_path /root/autodl-fs/Llama-3.2-3B-Instruct \
         > logs/server_backend.log 2>&1 &
     
     SERVER_PID=$!
@@ -108,7 +108,7 @@ start_client1() {
         --stego_algorithm meteor \
         --stego_key 7b9ec09254aa4a7589e4d0cfd80d46cc \
         --session_id $SESSION_ID1 \
-        --stego_model_path /root/autodl-tmp/Llama-3.2-3B-Instruct \
+        --stego_model_path /root/autodl-fs/Llama-3.2-3B-Instruct \
         --question_path data/question/general.txt \
         --question_index 0 \
         --secret_bit_path data/stego/secret_bits_512.txt \
@@ -130,7 +130,7 @@ start_client2() {
         --stego_algorithm meteor \
         --stego_key 7b9ec09254aa4a7589e4d0cfd80d46cc \
         --session_id $SESSION_ID2 \
-        --stego_model_path /root/autodl-tmp/Llama-3.2-3B-Instruct \
+        --stego_model_path /root/autodl-fs/Llama-3.2-3B-Instruct \
         --question_path data/question/general.txt \
         --question_index 1 \
         --secret_bit_path data/stego/secret_bits_512.txt \

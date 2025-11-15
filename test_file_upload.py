@@ -103,7 +103,7 @@ def test_file_upload():
     print("\n5. 测试启动隐蔽通信...")
     try:
         data = {
-            "stego_model_path": "/root/autodl-tmp/Llama-3.2-3B-Instruct",
+            "stego_model_path": "/root/autodl-fs/Llama-3.2-3B-Instruct",
             "stego_algorithm": "meteor",
             "question_path": "data/question/test_question.txt",
             "question_index": 0,

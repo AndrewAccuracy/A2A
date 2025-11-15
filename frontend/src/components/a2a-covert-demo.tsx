@@ -314,7 +314,7 @@ export default function A2ACovertDemo() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          stego_model_path: '/root/autodl-tmp/Llama-3.2-3B-Instruct',
+          stego_model_path: '/root/autodl-fs/Llama-3.2-3B-Instruct',
           stego_algorithm: 'meteor',
           stego_key: '7b9ec09254aa4a7589e4d0cfd80d46cc',
           decrypted_bits_path: 'data/stego/decrypted_bits.txt',
@@ -405,7 +405,7 @@ export default function A2ACovertDemo() {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                stego_model_path: '/root/autodl-tmp/Llama-3.2-3B-Instruct',
+                stego_model_path: '/root/autodl-fs/Llama-3.2-3B-Instruct',
                 stego_algorithm: 'meteor',
                 stego_key: '7b9ec09254aa4a7589e4d0cfd80d46cc',
                 decrypted_bits_path: 'data/stego/decrypted_bits.txt',
