@@ -63,18 +63,18 @@ export default function A2ACovertDemo() {
       dotColor: '#6b7280'
     },
     leftChat: {
-      backgroundColor: '#ffffff',
-      textColor: '#1f2937',
-      borderColor: '#e5e7eb',
+      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+      textColor: '#ffffff',
+      borderColor: 'rgba(255, 255, 255, 0.2)',
       showBorder: true,
       nameColor: '#ffffff'
     },
     rightChat: {
-      backgroundColor: '#eff6ff',
-      textColor: '#1f2937',
-      borderColor: '#bfdbfe',
+      backgroundColor: 'rgba(59, 130, 246, 0.2)',
+      textColor: '#ffffff',
+      borderColor: 'rgba(59, 130, 246, 0.3)',
       showBorder: true,
-      nameColor: '#3b82f6'
+      nameColor: '#60a5fa'
     }
   };
 

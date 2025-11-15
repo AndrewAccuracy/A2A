@@ -203,16 +203,30 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
     onContentReady?.();
   }, [onContentReady]);
 
-  // Memoize bubble styling
+  // Memoize bubble styling with glass morphism effect
   const bubbleStyle = useMemo(() => ({
     backgroundColor: chatStyle.backgroundColor,
     color: chatStyle.textColor,
     borderColor: chatStyle.borderColor,
-    borderWidth: chatStyle.showBorder ? '0.5px' : '0'
-  }), [chatStyle.backgroundColor, chatStyle.textColor, chatStyle.borderColor, chatStyle.showBorder]);
+    borderWidth: chatStyle.showBorder ? '1px' : '0',
+    backdropFilter: 'blur(12px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+    boxShadow: isLeft 
+      ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)'
+      : '0 4px 6px -1px rgba(59, 130, 246, 0.2), 0 2px 4px -1px rgba(59, 130, 246, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)'
+  }), [chatStyle.backgroundColor, chatStyle.textColor, chatStyle.borderColor, chatStyle.showBorder, isLeft]);
 
   // 带柔和小尖尖的聊天气泡样式（类似 iMessage/WhatsApp 风格）
   const roundedClass = isLeft ? "rounded-2xl rounded-tl-sm" : "rounded-2xl rounded-tr-sm";
+  
+  // 添加渐变遮罩层以增强视觉效果
+  const gradientOverlay = useMemo(() => {
+    if (isLeft) {
+      return 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)';
+    } else {
+      return 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 197, 253, 0.1) 100%)';
+    }
+  }, [isLeft]);
 
   // Always use minimal padding for images, adjust content spacing internally
   const paddingClass = message.type === 'image' ? 'p-1' : 'p-4';
@@ -285,12 +299,22 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
 
   return (
     <div
-      className={`${roundedClass} ${paddingClass} w-full relative`}
+      className={`${roundedClass} ${paddingClass} w-full relative transition-all duration-200 hover:scale-[1.01]`}
       style={{
         ...bubbleStyle,
-        borderStyle: chatStyle.showBorder ? 'solid' : 'none'
+        borderStyle: chatStyle.showBorder ? 'solid' : 'none',
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
+      {/* 渐变遮罩层 */}
+      <div 
+        className="absolute inset-0 pointer-events-none rounded-2xl"
+        style={{
+          background: gradientOverlay,
+          opacity: 0.6
+        }}
+      />
       {/* 柔顺的小尖尖（SVG 路径） */}
       {tailPath}
       <AnimatePresence mode="wait">
@@ -313,6 +337,7 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
+            className="relative z-10"
           >
             {/* Text message */}
             {message.type === 'text' && (
@@ -320,7 +345,7 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
                 className="text-sm leading-relaxed font-medium" 
                 style={{ 
                   color: chatStyle.textColor,
-                  filter: 'brightness(1.1) contrast(1.1)'
+                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
                 }}
               >
                 {message.content}
@@ -351,7 +376,7 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
                   className="text-sm leading-relaxed mb-3 font-medium" 
                   style={{ 
                     color: chatStyle.textColor,
-                    filter: 'brightness(1.1) contrast(1.1)'
+                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
                   }}
                 >
                   {message.content}
