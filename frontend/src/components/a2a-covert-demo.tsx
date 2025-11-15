@@ -45,11 +45,11 @@ export default function A2ACovertDemo() {
   const agentConfig = {
     leftPerson: {
       name: "Alice",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+      avatar: "/fraud-avatar.png"
     },
     rightPerson: {
       name: "Bob",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+      avatar: "/technical-support-avatar.png"
     }
   };
 
@@ -67,7 +67,7 @@ export default function A2ACovertDemo() {
       textColor: '#1f2937',
       borderColor: '#e5e7eb',
       showBorder: true,
-      nameColor: '#4b5563'
+      nameColor: '#ffffff'
     },
     rightChat: {
       backgroundColor: '#eff6ff',
@@ -807,7 +807,7 @@ export default function A2ACovertDemo() {
       <div className="flex w-full pt-36 md:pt-40 relative z-10">
         {/* Left Sidebar - Configuration Panels */}
         <motion.div 
-          className="w-80 flex-shrink-0 p-4 overflow-visible sticky top-0 h-screen"
+          className="w-80 flex-shrink-0 p-4 fixed top-36 md:top-40 left-4 z-40 max-h-[calc(100vh-10rem)] overflow-y-auto custom-scrollbar"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
@@ -1055,7 +1055,7 @@ export default function A2ACovertDemo() {
 
         {/* Right Content Area - Agent Dialogue Window */}
         <motion.div
-          className="flex-1 flex flex-col"
+          className="flex-1 flex flex-col ml-[336px]"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}

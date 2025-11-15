@@ -482,7 +482,7 @@ const MessageWrapper = React.memo<MessageWrapperProps>(({
               <motion.img
                 src={person.avatar}
                 alt={person.name}
-                className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2 border-white shadow-md"
+                className="w-12 h-12 rounded-full object-cover flex-shrink-0 shadow-md"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
@@ -492,7 +492,7 @@ const MessageWrapper = React.memo<MessageWrapperProps>(({
               className="text-xs leading-relaxed font-medium tracking-wide"
               style={{ 
                 color: chatStyle.nameColor || '#582F0E',
-                filter: 'brightness(1.2)',
+                filter: isLeft ? 'brightness(1.8)' : 'brightness(1.2)',
                 textShadow: '0 1px 2px rgba(0,0,0,0.1)'
               }}
             >
