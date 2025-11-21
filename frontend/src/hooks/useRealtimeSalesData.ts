@@ -59,21 +59,25 @@ const generateRandomBLEU = (): number => {
 
 export interface BitsPerRoundDataPoint {
   time: string;
+  round: number;
   bitsPerRound: number; // 每轮传输比特数（单位：bits/round）
 }
 
 export interface PPLDataPoint {
   time: string;
+  round: number;
   ppl: number; // 困惑度
 }
 
 export interface ROUGE1DataPoint {
   time: string;
+  round: number;
   rouge1: number; // ROUGE-1 F1分数
 }
 
 export interface BLEUDataPoint {
   time: string;
+  round: number;
   bleu: number; // BLEU分数
 }
 
@@ -114,7 +118,7 @@ export const useRealtimeModelData = () => {
     // 转换为时:分:秒格式
     const hours = Math.floor(elapsed / (1000 * 60 * 60));
     const minutes = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((elapsed % (1000 * 60)) / 1000));
+    const seconds = Math.floor((elapsed % (1000 * 60)) / 1000);
     
     // 格式化为 HH:MM:SS
     return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
@@ -149,25 +153,25 @@ export const useRealtimeModelData = () => {
 
     // 添加到每轮传输比特数图表数据
     setBitsPerRoundData((prev) => {
-      const newData = [...prev, { time: currentTime, bitsPerRound: bitsPerRound }];
+      const newData = [...prev, { time: currentTime, round: totalRoundsRef.current, bitsPerRound: bitsPerRound }];
       return newData.slice(-120);
     });
 
     // 添加到PPL图表数据
     setPplData((prev) => {
-      const newData = [...prev, { time: currentTime, ppl: ppl }];
+      const newData = [...prev, { time: currentTime, round: totalRoundsRef.current, ppl: ppl }];
       return newData.slice(-120);
     });
 
     // 添加到ROUGE-1图表数据
     setRouge1Data((prev) => {
-      const newData = [...prev, { time: currentTime, rouge1: rouge1 }];
+      const newData = [...prev, { time: currentTime, round: totalRoundsRef.current, rouge1: rouge1 }];
       return newData.slice(-120);
     });
 
     // 添加到BLEU图表数据
     setBleuData((prev) => {
-      const newData = [...prev, { time: currentTime, bleu: bleu }];
+      const newData = [...prev, { time: currentTime, round: totalRoundsRef.current, bleu: bleu }];
       return newData.slice(-120);
     });
 
@@ -188,6 +192,12 @@ export const useRealtimeModelData = () => {
   }, [formatTime]);
 
   useEffect(() => {
+    // 重置计数器，确保固定为5轮
+    totalBitsRef.current = 0;
+    totalRoundsRef.current = 0;
+    bitsHistoryRef.current = [];
+    pplHistoryRef.current = [];
+    
     // 从 localStorage 获取开始交流的时间
     const startTimeStr = localStorage.getItem('covertCommunicationStartTime');
     const startTime = startTimeStr ? parseInt(startTimeStr, 10) : Date.now();
@@ -209,16 +219,17 @@ export const useRealtimeModelData = () => {
       return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     };
     
-    for (let i = 29; i >= 0; i--) {
+    // 固定生成5轮数据，不再动态添加
+    for (let i = 4; i >= 0; i--) {
       // 计算相对时间（从开始交流算起）
       // 如果开始时间存在，使用相对时间；否则使用当前时间
       let timeStr: string;
       if (startTimeStr) {
-        const elapsed = Math.max(0, now - startTime - (29 - i) * 1000); // 假设每1秒一轮
+        const elapsed = Math.max(0, now - startTime - (4 - i) * 1000); // 假设每1秒一轮
         timeStr = getRelativeTime(elapsed);
       } else {
         // 如果没有开始时间，使用当前时间作为后备
-        const time = new Date(now - (29 - i) * 1000);
+        const time = new Date(now - (4 - i) * 1000);
         timeStr = time.toLocaleTimeString('en-US', {
           hour12: false,
           hour: '2-digit',
@@ -246,21 +257,24 @@ export const useRealtimeModelData = () => {
       });
     }
 
-    // 初始化图表数据
-    setBitsPerRoundData(initialData.map(d => ({ time: d.time, bitsPerRound: d.bitsPerRound })));
-    setPplData(initialData.map(d => ({ time: d.time, ppl: d.ppl })));
-    setRouge1Data(initialData.map(d => ({ time: d.time, rouge1: d.rouge1 })));
-    setBleuData(initialData.map(d => ({ time: d.time, bleu: d.bleu })));
+    // 初始化图表数据（固定5轮）
+    setBitsPerRoundData(initialData.map(d => ({ time: d.time, round: d.round, bitsPerRound: d.bitsPerRound })));
+    setPplData(initialData.map(d => ({ time: d.time, round: d.round, ppl: d.ppl })));
+    setRouge1Data(initialData.map(d => ({ time: d.time, round: d.round, rouge1: d.rouge1 })));
+    setBleuData(initialData.map(d => ({ time: d.time, round: d.round, bleu: d.bleu })));
 
-    // 开始每0.5-1.5秒生成新轮次（提高刷新率）
-    const generateRound = () => {
-      addNewRound();
-      const nextInterval = Math.random() * 1000 + 500; // 0.5-1.5秒
-      intervalRef.current = setTimeout(generateRound, nextInterval);
-    };
+    // 初始化最新轮次数据（固定5轮）
+    const initialRounds: LatestRound[] = initialData.map((d, index) => ({
+      id: `round-${index}`,
+      round: d.round,
+      bitsPerRound: d.bitsPerRound,
+      ppl: d.ppl,
+      rouge1: d.rouge1,
+      time: d.time,
+    }));
+    setLatestRounds(initialRounds);
 
-    // 延迟启动
-    intervalRef.current = setTimeout(generateRound, 500);
+    // 不再动态生成新轮次，固定为5轮
 
     return () => {
       if (intervalRef.current) {
@@ -270,8 +284,9 @@ export const useRealtimeModelData = () => {
   }, [addNewRound]);
 
   // 计算汇总指标
+  // 固定为5轮，确保不会因为重复初始化而累加
   const totalBits = totalBitsRef.current;
-  const totalRounds = totalRoundsRef.current;
+  const totalRounds = Math.min(totalRoundsRef.current, 5); // 确保最多显示5轮
   const avgBitsPerRound = totalRounds > 0 ? totalBits / totalRounds : 0;
   const avgPPL = pplHistoryRef.current.length > 0
     ? pplHistoryRef.current.reduce((sum, p) => sum + p, 0) / pplHistoryRef.current.length

@@ -16,33 +16,33 @@ export function StartPage() {
   const features = [
     {
       icon: Shield,
-      title: "安全通信",
-      description: "端到端加密保护，确保通信安全"
+      title: "理论模型创新",
+      description: "形式化模型、隐蔽事件信道、三维解构、理论完备"
     },
     {
       icon: Network,
-      title: "分布式网络",
-      description: "全球节点部署，无单点故障"
+      title: "分层安全属性",
+      description: "统计不可知、意图不可察、纵深防御、双重标准"
     },
     {
       icon: Lock,
-      title: "隐私保护",
-      description: "匿名化处理，保护用户隐私"
+      title: "可证明安全性",
+      description: "密码学规约、数学级保证、归约证明、底层依赖"
     },
     {
       icon: Globe,
-      title: "全球覆盖",
-      description: "支持全球范围内的智能体通信"
+      title: "协议工程鲁棒",
+      description: "π_CCAP协议、统一头部、隐式确认、多级校验"
     },
     {
       icon: Zap,
-      title: "高性能",
-      description: "毫秒级响应，支持大规模并发"
+      title: "高效传输性能",
+      description: "高有效吞吐、百分百解码、低协议开销、动态嵌入"
     },
     {
       icon: Eye,
-      title: "隐蔽操作",
-      description: "隐秘模式，支持特殊任务执行"
+      title: "抗智能审查力",
+      description: "国产大模型、抗统计分析、抗意图审查、对抗性验证"
     }
   ];
 
@@ -80,7 +80,7 @@ export function StartPage() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              智能体间隐蔽通信系统
+              基于可证明安全的智能体隐蔽通信网络系统
             </motion.p>
             
             <motion.p 
@@ -102,8 +102,7 @@ export function StartPage() {
           >
             <LiquidGlassBorder className="p-8 rounded-2xl bg-white/10 backdrop-blur-md">
               <p className="text-lg text-white leading-relaxed">
-                一个革命性的分布式智能体通信平台，专为安全、隐蔽的AI智能体交互而设计。
-                支持全球范围内的安全通信，确保隐私保护和高效协作。
+                专为全球AI智能体打造的革命性分布式平台，实现安全、隐蔽且高效的无痕协作
               </p>
             </LiquidGlassBorder>
           </motion.div>
@@ -148,7 +147,6 @@ export function StartPage() {
             transition={{ delay: 1.6 }}
           >
             <p className="text-sm text-white/70">
-              © 2024 A2A Covert System. All rights reserved.
             </p>
           </motion.div>
         </motion.div>

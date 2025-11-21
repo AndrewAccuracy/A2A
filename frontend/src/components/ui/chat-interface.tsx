@@ -71,6 +71,7 @@ interface ChatConfig {
 interface ChatComponentProps {
   config: ChatConfig;
   uiConfig?: UiConfig;
+  onMessageComplete?: (message: { id: number; content: string; sender: 'left' | 'right' }) => void;
 }
 
 interface MessageLoaderProps {
@@ -96,6 +97,7 @@ interface MessageWrapperProps {
   config: ChatConfig;
   uiConfig: Required<UiConfig>;
   previousMessageComplete: boolean;
+  previousMessageVisible: boolean; // 前一条消息是否已经开始显示
   onMessageComplete?: (messageId: number) => void;
   previousMessage: Message | null;
   nextMessage: Message | null;
@@ -188,19 +190,73 @@ LinkBadge.displayName = 'LinkBadge';
  */
 const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfig, onContentReady, isLoading, isVisible }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const chatStyle = isLeft ? uiConfig.leftChat! : uiConfig.rightChat!;
+  
+  const [streamedContent, setStreamedContent] = useState('');
 
-  // Notify parent when text content is ready
+  const chatStyle = isLeft ? uiConfig.leftChat! : uiConfig.rightChat!;
   useEffect(() => {
-    if (isVisible && (message.type === 'text' || message.type === 'text-with-links')) {
-      onContentReady?.();
+    // 图像加载逻辑保持不变
+    if (isVisible && message.type === 'image') {
+      // onContentReady 由 handleImageLoad 调用
     }
-  }, [isVisible, message.type, onContentReady]);
+  }, [isVisible, message.type]);
+
+  useEffect(() => {
+    const isStreamable = (message.type === 'text' || message.type === 'text-with-links');
+
+    // 立即设置非流式内容 (例如图片)
+    if (!isStreamable) {
+      setStreamedContent(message.content);
+      return;
+    }
+
+    // 如果不可见或仍在加载，则不开始打字
+    if (!isVisible || isLoading) {
+      return;
+    }
+
+    // 将内容按空格分割
+    const words = message.content.split(' ');
+    let currentContent = '';
+    let wordIndex = 0;
+    const delayPerChunk = 800; // 每个词块之间的延迟
+
+    let timeoutId: NodeJS.Timeout;
+
+    const stream = () => {
+      if (wordIndex >= words.length) {
+        setStreamedContent(message.content);
+        // 流式显示完成后立即标记为完成
+        // 这会立即触发 WardenView 开始工作
+        // 消息完成状态的更新会在 handleMessageComplete 中延迟4秒
+        onContentReady?.();
+        return;
+      }
+
+      // 每次只显示1个词，进一步减慢速度
+      const chunkLength = 2; // 改为每次只显示1个词，确保更慢的显示速度
+      const chunk = words.slice(wordIndex, wordIndex + chunkLength).join(' ');
+      
+      currentContent = currentContent ? `${currentContent} ${chunk}` : chunk;
+      setStreamedContent(currentContent);
+      
+      wordIndex += chunkLength;
+
+      // 设置下一次
+      timeoutId = setTimeout(stream, delayPerChunk);
+    };
+
+    const startDelay = 1200; // 开始流式显示前的延迟
+    timeoutId = setTimeout(stream, startDelay);
+
+    return () => clearTimeout(timeoutId);
+
+  }, [message.content, message.type, isVisible, isLoading, onContentReady]);
 
   // Handle image load completion
   const handleImageLoad = useCallback(() => {
     setImageLoaded(true);
-    onContentReady?.();
+    //onContentReady?.();
   }, [onContentReady]);
 
   // Memoize bubble styling with glass morphism effect
@@ -348,7 +404,10 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
                   textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
                 }}
               >
-                {message.content}
+                {streamedContent}
+                {streamedContent.length < message.content.length && (
+                  <span className="inline-block w-[2px] h-4 bg-current ml-1 animate-pulse" style={{ animationDuration: '1s' }} />
+                )}
               </p>
             )}
 
@@ -379,7 +438,10 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
                     textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
                   }}
                 >
-                  {message.content}
+                  {streamedContent}
+                  {streamedContent.length < message.content.length && (
+                    <span className="inline-block w-[2px] h-4 bg-current ml-1 animate-pulse" style={{ animationDuration: '1s' }} />
+                  )}
                 </p>
                 <div className="flex flex-wrap gap-1">
                   {message.links?.map((link, index) => (
@@ -413,6 +475,7 @@ const MessageWrapper = React.memo<MessageWrapperProps>(({
   config,
   uiConfig,
   previousMessageComplete,
+  previousMessageVisible,
   onMessageComplete,
   previousMessage,
   nextMessage,
@@ -422,6 +485,7 @@ const MessageWrapper = React.memo<MessageWrapperProps>(({
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [messageCompleted, setMessageCompleted] = useState(false);
+  const [timestamp, setTimestamp] = useState<string | null>(null);
 
   const isLeft = message.sender === 'left';
   const person = isLeft ? config.leftPerson : config.rightPerson;
@@ -432,16 +496,38 @@ const MessageWrapper = React.memo<MessageWrapperProps>(({
   const nextMessageSameSender = nextMessage?.sender === message.sender;
   const shouldShowAvatar = !nextMessageSameSender || !isNextVisible;
 
-  // Sequential message loading
+  // Sequential message loading - 严格交替：Alice说完后Bob说，不允许连续发送
   useEffect(() => {
-    if (!previousMessageComplete) return;
+    const isFirstMessage = previousMessage === null;
+    
+    // 无论是否同一发送者，都必须等待前一条消息完全完成
+    // 这样即使字数差异大也不会出问题，完全基于消息完成状态
+    if (!isFirstMessage) {
+      // 必须等待前一条消息完全完成（包括流式内容显示完成）
+      if (!previousMessageComplete || !previousMessageVisible) {
+        setIsVisible(false);
+        setIsLoading(false);
+        return;
+      }
+    }
 
     const { loader } = message;
-    const loaderDelay = 500;
-    const totalDelay = loaderDelay + (loader?.duration || 1000);
+    // 移除时间延迟，只保留最小的加载器延迟用于视觉效果
+    const loaderDelay = loader?.enabled ? 500 : 0; // 加载器显示前的延迟（仅用于视觉效果）
+    const totalDelay = loaderDelay + (loader?.duration || 1000); // 消息显示前的总延迟
 
     if (loader?.enabled) {
-      const loaderTimeout = setTimeout(() => setIsLoading(true), loaderDelay);
+      const loaderTimeout = setTimeout(() => {
+        setIsLoading(true);
+        const now = new Date();
+        setTimestamp(now.toLocaleTimeString('zh-CN', { // 使用 'zh-CN' 保证格式
+          hour12: false,
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }));
+      }, loaderDelay);
+      
       const messageTimeout = setTimeout(() => {
         setIsLoading(false);
         setIsVisible(true);
@@ -453,22 +539,24 @@ const MessageWrapper = React.memo<MessageWrapperProps>(({
         clearTimeout(messageTimeout);
       };
     } else {
-      const messageTimeout = setTimeout(() => {
-        setIsVisible(true);
-        onVisibilityChange?.(message.id);
-      }, 0);
-
-      return () => clearTimeout(messageTimeout);
+      // 没有加载器时，立即显示（因为已经等待前一条消息完全完成）
+      setIsVisible(true);
+      onVisibilityChange?.(message.id);
     }
-  }, [message, previousMessageComplete, onVisibilityChange]);
+  }, [message, previousMessageComplete, previousMessageVisible, previousMessage, onVisibilityChange]);
 
   // Notify parent when content is fully loaded
   const handleContentReady = useCallback(() => {
-    if (!messageCompleted) {
-      setMessageCompleted(true);
-      setTimeout(() => onMessageComplete?.(message.id), 350); // Match animation duration
-    }
-  }, [messageCompleted, onMessageComplete, message.id]);
+    setMessageCompleted(isCompleted => {
+      if (!isCompleted) {
+        // 流式内容显示完成后，立即触发消息完成回调
+        // 这会立即触发 WardenView 开始工作
+        // 消息完成状态的更新会在 handleMessageComplete 中延迟4秒
+        onMessageComplete?.(message.id);
+      }
+      return true; // 设置 state 为 true
+    });
+  }, [onMessageComplete, message.id]);
 
   // Memoize layout classes
   // Agent A (left): 头像在左，消息在右，整体靠左
@@ -523,6 +611,11 @@ const MessageWrapper = React.memo<MessageWrapperProps>(({
             >
               {person.name}
             </span>
+            {timestamp && (
+              <span className="text-xs text-gray-400 dark:text-gray-500 font-normal opacity-75">
+                {timestamp}
+              </span>
+            )}
           </motion.div>
         )}
 
@@ -549,7 +642,7 @@ MessageWrapper.displayName = 'MessageWrapper';
  * Main chat interface component with auto-scrolling, message sequencing,
  * and auto-restart functionality
  */
-const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) => {
+const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {}, onMessageComplete: onExternalMessageComplete }) => {
   // Refs
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -597,21 +690,39 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) 
   // ============================================================================
 
   const handleMessageComplete = useCallback((messageId: number) => {
-    setCompletedMessages(prev => {
-      const newCompleted = [...prev, messageId];
-
-      // Auto-restart when all messages are complete
-      if (newCompleted.length === config.messages.length && ui.autoRestart) {
+    // 立即通知外部组件消息完成，触发 WardenView 开始工作
+    if (onExternalMessageComplete) {
+      const message = config.messages.find(m => m.id === messageId);
+      if (message) {
         setTimeout(() => {
-          setCompletedMessages([]);
-          setVisibleMessages([]);
-          setKey(prevKey => prevKey + 1); // Force remount
-        }, ui.restartDelay);
+          onExternalMessageComplete({
+            id: message.id,
+            content: message.content,
+            sender: message.sender
+          });
+        }, 0);
       }
+    }
 
-      return newCompleted;
-    });
-  }, [config.messages.length, ui.autoRestart, ui.restartDelay]);
+    // 延迟4秒后才标记消息完成，这样下一条消息会等待4秒
+    // 这4秒是给攻击者模型运行的时间
+    setTimeout(() => {
+      setCompletedMessages(prev => {
+        const newCompleted = [...prev, messageId];
+
+        // Auto-restart when all messages are complete
+        if (newCompleted.length === config.messages.length && ui.autoRestart) {
+          setTimeout(() => {
+            setCompletedMessages([]);
+            setVisibleMessages([]);
+            setKey(prevKey => prevKey + 1); // Force remount
+          }, ui.restartDelay);
+        }
+
+        return newCompleted;
+      });
+    }, 4000);
+  }, [config.messages, ui.autoRestart, ui.restartDelay, onExternalMessageComplete]);
 
   const handleVisibilityChange = useCallback((messageId: number) => {
     setVisibleMessages(prev =>
@@ -747,6 +858,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) 
           {config.messages.map((message, index) => {
             const previousMessageComplete = index === 0 || completedMessages.includes(config.messages[index - 1].id);
             const previousMessage = index > 0 ? config.messages[index - 1] : null;
+            const previousMessageVisible = index === 0 || (previousMessage ? visibleMessages.includes(previousMessage.id) : false);
             const nextMessage = index < config.messages.length - 1 ? config.messages[index + 1] : null;
             const isNextVisible = nextMessage ? visibleMessages.includes(nextMessage.id) : false;
             const isContinuation = previousMessage?.sender === message.sender;
@@ -761,6 +873,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) 
                   config={config}
                   uiConfig={ui}
                   previousMessageComplete={previousMessageComplete}
+                  previousMessageVisible={previousMessageVisible}
                   onMessageComplete={handleMessageComplete}
                   onVisibilityChange={handleVisibilityChange}
                   previousMessage={previousMessage}

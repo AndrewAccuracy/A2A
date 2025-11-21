@@ -4,10 +4,10 @@ import { join } from 'path';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { sessionId: string } }
+  context: { params: { sessionId: string } }
 ) {
   try {
-    const sessionId = params.sessionId;
+    const sessionId = context.params.sessionId;
     
     // 从项目根目录读取文件
     // process.cwd() 在Next.js中通常是frontend目录

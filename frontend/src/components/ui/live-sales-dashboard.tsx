@@ -4,6 +4,12 @@ import React, { FC, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import HeroWave from '@/components/ui/dynamic-wave-canvas-background';
 
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { Button } from '@/components/ui/button';
+import { Download } from 'lucide-react';
+import { toPng } from 'html-to-image';
+
 import { useRealtimeModelData, BitsPerRoundDataPoint, LatestRound, PPLDataPoint, ROUGE1DataPoint, BLEUDataPoint } from '@/hooks/useRealtimeSalesData';
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from '@/components/ui/card';
@@ -82,9 +88,10 @@ interface RealtimeChartProps {
   lineColor: string;
   tooltipFormatter?: (value: number) => string;
   legendName: string;
+  xAxisKey?: string;
 }
 
-const RealtimeChart: FC<RealtimeChartProps> = React.memo(({ data, title, dataKey, lineColor, tooltipFormatter, legendName }) => {
+const RealtimeChart: FC<RealtimeChartProps> = React.memo(({ data, title, dataKey, lineColor, tooltipFormatter, legendName, xAxisKey = 'time'}) => {
   // Memoize the chart data and filter to show only last 2 minutes of data
   const chartData = useMemo(() => {
     const validData = data || [];
@@ -143,14 +150,13 @@ const RealtimeChart: FC<RealtimeChartProps> = React.memo(({ data, title, dataKey
             >
               <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} strokeOpacity={0.5} />
               <XAxis 
-                dataKey="time" 
+                dataKey={xAxisKey}
                 stroke={colors.axis}
                 fontSize={12}
                 interval="preserveStartEnd"
                 tick={{ fontSize: 10, fill: colors.axis }}
                 tickFormatter={(tick) => {
-                  if (typeof tick === 'string' && tick.includes(':')) {
-                    // Show only minutes:seconds for better readability
+                  if (xAxisKey === 'time' && typeof tick === 'string' && tick.includes(':')) {
                     const parts = tick.split(':');
                     return parts.length >= 3 ? `${parts[1]}:${parts[2]}` : tick;
                   }
@@ -222,11 +228,77 @@ export const SalesDashboard: FC = () => {
   const safeBleuData = Array.isArray(bleuData) ? bleuData : [];
   const safeLatestRounds = Array.isArray(latestRounds) ? latestRounds : [];
 
+  const handleExportPDF = async () => {
+    const element = document.getElementById('dashboard-container');
+    if (!element) return;
+
+    // 获取按钮容器（为了在截图时隐藏它）
+    const buttonContainer = document.getElementById('export-button-container');
+
+    try {
+      // 1. 截图前临时隐藏按钮
+      if (buttonContainer) buttonContainer.style.display = 'none';
+
+      // 2. 使用 html-to-image 直接生成图片数据 (支持所有现代 CSS)
+      const dataUrl = await toPng(element, {
+        backgroundColor: '#020617', // 保持深色背景
+        cacheBust: true,            // 避免图片缓存问题
+      });
+
+      // 3. 恢复按钮显示
+      if (buttonContainer) buttonContainer.style.display = 'block';
+
+      // 4. 生成 PDF
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210; // A4 宽度
+      const pageHeight = 297; // A4 高度
+      
+      // 创建一个临时 Image 对象来获取截图的真实尺寸
+      const img = new Image();
+      img.src = dataUrl;
+      
+      img.onload = () => {
+        const imgHeight = (img.height * imgWidth) / img.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        // 第一页
+        pdf.addImage(dataUrl, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        // 如果内容很长，自动分页
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(dataUrl, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        pdf.save('实时可信评估结果.pdf');
+      };
+
+    } catch (error) {
+      console.error('Export failed:', error);
+      // 出错也要确保按钮恢复显示
+      if (buttonContainer) buttonContainer.style.display = 'block';
+    }
+  };
+
   return (
-    <div className="min-h-screen w-full text-white p-4 md:p-8 flex flex-col gap-8 md:gap-12 relative overflow-hidden">
+    <div id="dashboard-container" className="min-h-screen w-full text-white p-4 md:p-8 flex flex-col gap-8 md:gap-12 relative overflow-hidden bg-[#020617]">
       {/* Dynamic Wave Background */}
       <div className="absolute inset-0 z-0">
         <HeroWave />
+      </div>
+      <div className="absolute top-6 right-8 z-50">
+        <Button 
+          onClick={handleExportPDF}
+          variant="outline" 
+          className="bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 gap-2"
+        >
+          <Download className="w-4 h-4" />
+          可信评估结果
+        </Button>
       </div>
       <div className="relative z-10">
       {/* Title with Animation */}
@@ -242,7 +314,7 @@ export const SalesDashboard: FC = () => {
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.1 }}
         >
-          GPT可信度评估结果
+          可信度评估结果
         </motion.h1>
         <motion.p 
           className="text-center text-md md:text-lg text-white/90 mb-4 drop-shadow-lg"
@@ -253,6 +325,7 @@ export const SalesDashboard: FC = () => {
           Real-time Credibility Assessment Results
         </motion.p>
       </motion.div>
+      
 
       {/* Metrics Section with Animation */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 md:mb-12">
@@ -262,12 +335,12 @@ export const SalesDashboard: FC = () => {
           transition={{ delay: 0.3, duration: 0.3 }}
         >
           <MetricCard
-            title="总传输比特数"
-            value={totalBits || 0}
+            title="当前轮的传输token量" // [修改标题]
+            value={latestRounds[0]?.bitsPerRound || 0} // [修改取值] 取最新一轮的 bitsPerRound
             unit=""
             icon={<Brain className="h-4 w-4 text-white" />}
-            description="累计传输的总比特数"
-            valueClassName="text-emerald-500"
+            description="当前通信轮次传输比特数"
+            valueClassName="text-[#10b981]"
           />
         </motion.div>
         <motion.div
@@ -293,7 +366,7 @@ export const SalesDashboard: FC = () => {
             unit=""
             icon={<TrendingUp className="h-4 w-4 text-white" />}
             description="平均每轮传输比特数"
-            valueClassName="text-blue-400"
+            valueClassName="text-[#60a5fa]"
           />
         </motion.div>
         <motion.div
@@ -301,22 +374,14 @@ export const SalesDashboard: FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45, duration: 0.3 }}
         >
-          <LiquidGlassBorder className="flex-1 min-w-[250px] bg-white/10 backdrop-blur-md">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-white">活动状态</CardTitle>
-            <Clock className="h-4 w-4 text-white animate-pulse" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold flex items-center gap-2 text-white">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-              </span>
-              运行中
-            </div>
-            <p className="text-xs text-white/80 mt-1">实时数据流传输中</p>
-          </CardContent>
-        </LiquidGlassBorder>
+          <MetricCard
+            title="总传输token量"
+            value={totalBits || 0}
+            unit=""
+            icon={<Activity className="h-4 w-4 text-white" />}
+            description="累计传输的总比特数"
+            valueClassName="text-white"
+          />
         </motion.div>
       </div>
 
@@ -339,6 +404,7 @@ export const SalesDashboard: FC = () => {
             lineColor="#10b981"
             tooltipFormatter={(value) => `${formatBits(value)} bits/round`}
             legendName="每轮传输比特数"
+            xAxisKey="round"
           />
         </motion.div>
         <motion.div
@@ -408,7 +474,7 @@ export const SalesDashboard: FC = () => {
                   >
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-semibold text-sm text-white">轮次 {round.round}</span>
-                      <Badge variant="outline" className="text-xs text-white border-white/30">{formatBits(round.bitsPerRound)} bits</Badge>
+                      <Badge variant="outline" className="text-xs text-white border-white/30 bg-transparent">{formatBits(round.bitsPerRound)} bits</Badge>
                     </div>
                     <div className="flex items-center justify-between text-xs text-white/80">
                       <span>PPL: {round.ppl.toFixed(1)}</span>

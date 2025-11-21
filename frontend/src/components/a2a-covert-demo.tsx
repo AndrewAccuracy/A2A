@@ -27,10 +27,19 @@ import {
 } from "lucide-react";
 import HeroWave from "@/components/ui/dynamic-wave-canvas-background";
 
-export default function A2ACovertDemo() {
+interface A2ACovertDemoProps {
+  layoutMode?: 'default' | 'three-column';
+  hideTitle?: boolean;
+  showConfigOnly?: boolean;
+  showDialogueOnly?: boolean;
+  onMessageComplete?: (message: { id: number; content: string; sender: 'left' | 'right' }) => void;
+}
+
+export default function A2ACovertDemo({ layoutMode = 'default', hideTitle = false, showConfigOnly = false, showDialogueOnly = false, onMessageComplete }: A2ACovertDemoProps = {}) {
   const [serverStatus, setServerStatus] = useState<"offline" | "online">("online");
   const [covertInfo, setCovertInfo] = useState("0100100001100101011011000110110001101111001000000101011101101111011100100110110001100100");
   const [chatConfig, setChatConfig] = useState<ChatConfig | null>(null);
+  const [chatKey, setChatKey] = useState(0); // 用于刷新对话窗口
   const [evaluationResults, setEvaluationResults] = useState<string[]>([]);
   const [questionFile, setQuestionFile] = useState<File | null>(null);
   const [stegoFile, setStegoFile] = useState<File | null>(null);
@@ -77,6 +86,36 @@ export default function A2ACovertDemo() {
       nameColor: '#60a5fa'
     }
   };
+
+  // 在三列模式下，showDialogueOnly 时监听共享状态更新
+  useEffect(() => {
+    if (layoutMode === 'three-column' && showDialogueOnly) {
+      const handleChatConfigUpdate = (e: Event) => {
+        const customEvent = e as CustomEvent<ChatConfig | null>;
+        if (customEvent.detail) {
+          console.log('📥 对话窗口收到共享状态更新:', customEvent.detail);
+          setChatConfig(customEvent.detail);
+        }
+      };
+      
+      const handleEvaluationUpdate = (e: Event) => {
+        const customEvent = e as CustomEvent<string[]>;
+        if (customEvent.detail && customEvent.detail.length > 0) {
+          console.log('📥 对话窗口收到评估结果更新:', customEvent.detail);
+          setEvaluationResults(customEvent.detail);
+        }
+      };
+
+      window.addEventListener('a2a:chatConfigUpdated', handleChatConfigUpdate);
+      window.addEventListener('a2a:evaluationResultsUpdated', handleEvaluationUpdate);
+
+      return () => {
+        window.removeEventListener('a2a:chatConfigUpdated', handleChatConfigUpdate);
+        window.removeEventListener('a2a:evaluationResultsUpdated', handleEvaluationUpdate);
+      };
+    }
+  }, [layoutMode, showDialogueOnly]);
+
 
   // 模拟对话数据 - 转换为新格式
   const createMockMessages = (): Message[] => {
@@ -243,6 +282,7 @@ export default function A2ACovertDemo() {
       "   轮次 2: PPL=39.8, ROUGE-1=0.69, 传输=2.8 bits",
       "   轮次 3: PPL=43.1, ROUGE-1=0.73, 传输=2.6 bits",
       "   轮次 4: PPL=38.5, ROUGE-1=0.75, 传输=2.9 bits",
+      "   轮次 5: PPL=40.3, ROUGE-1=0.72, 传输=3.1 bits",
       "",
       "📊 评估总结:",
       `   ✓ 文本自然度: ${pplStatus}`,
@@ -275,28 +315,12 @@ export default function A2ACovertDemo() {
     initialize();
   }, []);
 
-  // 轮询机制：定期检查对话历史是否有更新
-  useEffect(() => {
-    if (!isPolling) return;
-
-    const sessionId = 'covert-session-uuid-1755191426667-bq2hsuoaw';
-    
-    const pollInterval = setInterval(async () => {
-      try {
-        const conversationConfig = await fetchConversationHistory(sessionId);
-        if (conversationConfig && conversationConfig.messages.length > lastConversationLength) {
-          // 有新消息，更新对话
-          setChatConfig(conversationConfig);
-          setLastConversationLength(conversationConfig.messages.length);
-          console.log(`检测到新消息，当前共 ${conversationConfig.messages.length} 条消息`);
-        }
-      } catch (error) {
-        console.error("轮询获取对话历史失败:", error);
-      }
-    }, 3000); // 每3秒检查一次
-
-    return () => clearInterval(pollInterval);
-  }, [isPolling, lastConversationLength]);
+  // 轮询机制已禁用 - 因为现在使用随机选择对话，不需要轮询更新
+  // 如果将来需要实时更新功能，可以在这里重新启用
+  // useEffect(() => {
+  //   if (!isPolling) return;
+  //   // 轮询逻辑...
+  // }, [isPolling, lastConversationLength]);
 
   // 同步评估结果到localStorage
   useEffect(() => {
@@ -473,26 +497,35 @@ export default function A2ACovertDemo() {
   const handleQuestionFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setQuestionFile(file);
+      // 从文件名提取类别 (art.txt -> art, general.txt -> general)
+      const fileName = file.name.toLowerCase();
+      const categoryMatch = fileName.match(/^(.+)\.txt$/);
       
-      try {
-        // 上传文件到服务器
-        const formData = new FormData();
-        formData.append('file', file);
+      if (categoryMatch) {
+        const category = categoryMatch[1];
+        // 只保存文件，不立即加载对话
+    setQuestionFile(file);
+        console.log(`✅ 问题文件已上传: ${file.name}`);
+        console.log(`   检测到类别: ${category}`);
         
-        const response = await fetch('http://localhost:9999/upload/question', {
-          method: 'POST',
-          body: formData,
-        });
+        // 清空之前的对话，等待用户点击按钮
+            setChatConfig(null);
+            setLastConversationLength(0);
+        setIsPolling(false);
         
-        if (response.ok) {
-          const result = await response.json();
-          console.log("问题文件上传成功:", result);
-        } else {
-          throw new Error(`上传失败: ${response.status}`);
-        }
-      } catch (error) {
-        console.error("上传问题文件失败:", error);
+        // 设置提示信息
+        setEvaluationResults([
+          `✅ 问题文件已上传: ${file.name}`,
+          `📁 类别: ${category}`,
+          `💡 请点击"启动隐蔽通信"按钮开始加载随机对话`
+        ]);
+              } else {
+        console.warn(`文件名格式不正确: ${file.name}`);
+        setEvaluationResults([
+          "⚠️ 文件名格式不正确",
+          `文件名 "${file.name}" 不符合要求`,
+          "💡 请上传 art.txt 或 general.txt 文件"
+        ]);
       }
     }
   };
@@ -614,7 +647,7 @@ export default function A2ACovertDemo() {
             sender: 'left',
             type: 'text',
             content: round.clientTurn.publicCarrierMessage || round.clientTurn.normalMessage || '发送消息',
-            loader: { enabled: true, delay: 500, duration: 1200 }
+            loader: { enabled: true, delay: 800, duration: 2000 } // 增加延迟和持续时间，确保Alice说完后Bob再说
           });
         }
         
@@ -625,7 +658,7 @@ export default function A2ACovertDemo() {
             sender: 'right',
             type: 'text',
             content: round.serverTurn.publicResponseMessage,
-            loader: { enabled: true, delay: 500, duration: 1500 }
+            loader: { enabled: true, delay: 800, duration: 2000 } // 增加延迟和持续时间，确保Bob在Alice说完后再说
           });
         }
       });
@@ -678,6 +711,16 @@ export default function A2ACovertDemo() {
   const handleStartCovertCommunication = async () => {
     if (isConnecting || isSimulating) return;
     
+    // 完全清空对话窗口：先清空数据，再刷新组件
+    setChatConfig(null);
+    setEvaluationResults([]);
+    
+    // 刷新对话窗口：更新 key 强制重新挂载组件（完全清空并重新开始）
+    setChatKey(prev => prev + 1);
+    
+    // 刷新攻击者模型：发送事件通知 WardenView 完全重置
+    window.dispatchEvent(new CustomEvent('a2a:refreshWardenView'));
+    
     // 调试模式：使用模拟对话
     const DEBUG_MODE = false; // 设置为 false 来使用真实API
     
@@ -686,38 +729,283 @@ export default function A2ACovertDemo() {
       return;
     }
     
-    const sessionId = 'covert-session-uuid-1755191426667-bq2hsuoaw';
-    
     try {
       setIsConnecting(true);
-      // 清空之前的数据
-      setChatConfig(null);
-      setEvaluationResults([]);
       
-      // 优先直接加载已有的对话数据
-      console.log('=== 开始加载对话数据 ===');
-      console.log('SessionId:', sessionId);
       let conversationConfig: ChatConfig | null = null;
+      let selectedFileInfo: { category: string; fileName: string; totalFiles: number } | null = null;
       
-      try {
-        console.log('尝试调用 fetchConversationHistory...');
-        conversationConfig = await fetchConversationHistory(sessionId);
-        console.log('fetchConversationHistory 返回:', conversationConfig ? '成功' : 'null');
-      } catch (error) {
-        console.error('从API获取对话数据失败:', error);
-        console.error('错误详情:', error instanceof Error ? error.message : String(error));
-        // 继续执行，不抛出错误
+      // 优先检查是否上传了问题文件，如果上传了，根据文件随机选择对话
+      if (questionFile) {
+        const fileName = questionFile.name.toLowerCase();
+        const categoryMatch = fileName.match(/^(.+)\.txt$/);
+        if (categoryMatch) {
+          const category = categoryMatch[1];
+          
+          // 验证类别是否有效
+          const validCategories = ['art', 'general', 'philosophy'];
+          if (!validCategories.includes(category)) {
+            console.warn(`无效的类别: ${category}, 有效类别: ${validCategories.join(', ')}`);
+            const errorConfig: ChatConfig = {
+              leftPerson: agentConfig.leftPerson,
+              rightPerson: agentConfig.rightPerson,
+              messages: [
+                {
+                  id: 1,
+                  sender: 'left',
+                  type: 'text',
+                  content: '⚠️ 无效的文件类别',
+                  loader: { enabled: false }
+                },
+                {
+                  id: 2,
+                  sender: 'left',
+                  type: 'text',
+                  content: `文件名 "${questionFile.name}" 对应的类别 "${category}" 无效。请上传 art.txt、general.txt 或 philosophy.txt 文件。`,
+                  loader: { enabled: false }
+                }
+              ]
+            };
+            setChatConfig(errorConfig);
+            setEvaluationResults([
+              "⚠️ 无效的文件类别",
+              `类别 "${category}" 无效`,
+              "💡 请上传 art.txt、general.txt 或 philosophy.txt 文件"
+            ]);
+            setIsConnecting(false);
+            return;
+          }
+          
+          console.log('=== 根据上传的问题文件随机选择对话 ===');
+          console.log('问题文件:', questionFile.name);
+          console.log('检测到类别:', category);
+          
+          try {
+            const randomResponse = await fetch(`/api/conversation/random/${category}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+            
+            if (randomResponse.ok) {
+              const randomData = await randomResponse.json();
+              console.log(`✅ 成功获取随机对话:`, randomData.selected_file);
+              console.log(`   共 ${randomData.total_files} 个文件, 随机选择了 1 个`);
+              
+              // 保存选中的文件信息，用于后续显示
+              selectedFileInfo = {
+                category: category,
+                fileName: randomData.selected_file,
+                totalFiles: randomData.total_files
+              };
+              
+              // 转换对话数据为ChatComponent格式
+              const conversation = randomData.conversation;
+              if (conversation && conversation.rounds && conversation.rounds.length > 0) {
+                const messages: Message[] = [];
+                let messageId = 1;
+                
+                // 遍历每一轮对话
+                conversation.rounds.forEach((round: any) => {
+                  // Agent A (客户端) 发送的消息
+                  if (round.clientTurn) {
+                    messages.push({
+                      id: messageId++,
+                      sender: 'left',
+                      type: 'text',
+                      content: round.clientTurn.publicCarrierMessage || round.clientTurn.normalMessage || '发送消息',
+                      loader: { enabled: true, delay: 800, duration: 2000 } // 增加延迟和持续时间，确保Alice说完后Bob再说
+                    });
+                  }
+                  
+                  // Agent B (服务器) 回复的消息
+                  if (round.serverTurn && round.serverTurn.publicResponseMessage) {
+                    messages.push({
+                      id: messageId++,
+                      sender: 'right',
+                      type: 'text',
+                      content: round.serverTurn.publicResponseMessage,
+                      loader: { enabled: true, delay: 800, duration: 2000 } // 增加延迟和持续时间，确保Bob在Alice说完后再说
+                    });
+                  }
+                });
+                
+                // 添加双方致谢消息，代表结束
+                if (conversation.finalVerification && conversation.finalVerification.status === 'SUCCESS') {
+                  messages.push({
+                    id: messageId++,
+                    sender: 'left',
+                    type: 'text',
+                    content: 'Thank you for your cooperation. The covert communication has been successfully completed!',
+                    loader: { enabled: true, delay: 500, duration: 1000 }
+                  });
+                  messages.push({
+                    id: messageId++,
+                    sender: 'right',
+                    type: 'text',
+                    content: 'Pleasure working with you. Looking forward to our next exchange!',
+                    loader: { enabled: true, delay: 500, duration: 1000 }
+                  });
+                }
+                
+                conversationConfig = {
+                  leftPerson: agentConfig.leftPerson,
+                  rightPerson: agentConfig.rightPerson,
+                  messages
+                };
+                
+                console.log('✅ 对话已转换，共', messages.length, '条消息');
+              } else {
+                console.warn("随机对话数据格式不正确，rounds为空");
+              }
+            } else {
+              const errorData = await randomResponse.json().catch(() => ({ error: '未知错误' }));
+              console.error(`获取随机对话失败: ${errorData.error || '类别文件夹不存在或为空'}`);
+              
+              // 设置错误提示
+              const errorConfig: ChatConfig = {
+                leftPerson: agentConfig.leftPerson,
+                rightPerson: agentConfig.rightPerson,
+                messages: [
+                  {
+                    id: 1,
+                    sender: 'left',
+                    type: 'text',
+                    content: `⚠️ 无法从 ${category} 类别中获取随机对话`,
+                    loader: { enabled: false }
+                  },
+                  {
+                    id: 2,
+                    sender: 'left',
+                    type: 'text',
+                    content: `错误: ${errorData.error || '类别文件夹不存在或为空'}`,
+                    loader: { enabled: false }
+                  }
+                ]
+              };
+              setChatConfig(errorConfig);
+              setEvaluationResults([
+                `⚠️ 无法从 ${category} 类别中获取随机对话`,
+                `错误: ${errorData.error || '类别文件夹不存在或为空'}`,
+                `💡 提示: 请确保 data/conversation/${category} 文件夹存在且包含对话文件`
+              ]);
+              setIsConnecting(false);
+              return;
+            }
+          } catch (randomError) {
+            console.error("获取随机对话时出错:", randomError);
+            const errorConfig: ChatConfig = {
+              leftPerson: agentConfig.leftPerson,
+              rightPerson: agentConfig.rightPerson,
+              messages: [
+                {
+                  id: 1,
+                  sender: 'left',
+                  type: 'text',
+                  content: '⚠️ 获取随机对话时出错',
+                  loader: { enabled: false }
+                },
+                {
+                  id: 2,
+                  sender: 'left',
+                  type: 'text',
+                  content: `错误详情: ${randomError instanceof Error ? randomError.message : String(randomError)}`,
+                  loader: { enabled: false }
+                }
+              ]
+            };
+            setChatConfig(errorConfig);
+            setEvaluationResults([
+              "⚠️ 获取随机对话时出错",
+              `错误: ${randomError instanceof Error ? randomError.message : String(randomError)}`
+            ]);
+            setIsConnecting(false);
+            return;
+          }
+        } else {
+          // 文件名格式不正确
+          console.warn(`文件名格式不正确: ${questionFile.name}, 应该是 art.txt、general.txt 或 philosophy.txt`);
+          const errorConfig: ChatConfig = {
+            leftPerson: agentConfig.leftPerson,
+            rightPerson: agentConfig.rightPerson,
+            messages: [
+              {
+                id: 1,
+                sender: 'left',
+                type: 'text',
+                content: '⚠️ 文件名格式不正确',
+                loader: { enabled: false }
+              },
+              {
+                id: 2,
+                sender: 'left',
+                type: 'text',
+                content: `文件名 "${questionFile.name}" 不符合要求。请上传 art.txt、general.txt 或 philosophy.txt 文件。`,
+                loader: { enabled: false }
+              }
+            ]
+          };
+          setChatConfig(errorConfig);
+          setEvaluationResults([
+            "⚠️ 文件名格式不正确",
+            `文件名 "${questionFile.name}" 不符合要求`,
+            "💡 请上传 art.txt、general.txt 或 philosophy.txt 文件"
+          ]);
+          setIsConnecting(false);
+          return;
+        }
       }
       
-      if (conversationConfig) {
+      // 如果没有通过问题文件获取到对话，提示用户上传文件
+      if (!conversationConfig) {
+        console.log('❌ 未找到对话数据');
+        setIsConnecting(false);
+        
+        // 提示用户上传问题文件
+        const errorConfig: ChatConfig = {
+          leftPerson: agentConfig.leftPerson,
+          rightPerson: agentConfig.rightPerson,
+          messages: [
+            {
+              id: 1,
+              sender: 'left',
+              type: 'text',
+              content: '⚠️ 请先上传问题文件',
+              loader: { enabled: false }
+            },
+            {
+              id: 2,
+              sender: 'left',
+              type: 'text',
+              content: '请上传 art.txt、general.txt 或 philosophy.txt 文件，系统将根据文件类别随机选择对应的对话进行显示。',
+              loader: { enabled: false }
+            }
+          ]
+        };
+        setChatConfig(errorConfig);
+        
+        setEvaluationResults([
+          "⚠️ 未上传问题文件",
+          "请先上传问题文件（art.txt、general.txt 或 philosophy.txt）",
+          "上传后点击「开始会话」按钮，系统将根据文件类别随机选择对话"
+        ]);
+        return;
+      }
+      
         // 如果找到对话数据，直接显示并完成
         console.log('✅ 找到对话数据，准备显示');
         console.log('消息数量:', conversationConfig.messages.length);
         setChatConfig(conversationConfig);
         setLastConversationLength(conversationConfig.messages.length);
-        setIsPolling(true); // 启动轮询以获取更新
+      setIsPolling(false); // 不需要轮询，因为对话是静态的
         setIsConnecting(false);
         console.log('对话数据已设置到状态');
+        
+        // 在三列模式下，通过事件同步状态
+        if (layoutMode === 'three-column') {
+          window.dispatchEvent(new CustomEvent('a2a:chatConfigUpdated', { detail: conversationConfig }));
+        }
         
         // 记录开始交流的时间（用于图表时间轴）
         const startTime = Date.now();
@@ -725,19 +1013,29 @@ export default function A2ACovertDemo() {
         console.log('记录开始交流时间:', new Date(startTime).toLocaleTimeString());
         
         // 设置评估结果
-        setEvaluationResults([
-          "✅ 评估服务已连接",
-          "开始监控通信质量...",
-          `已加载 ${conversationConfig.messages.length} 条对话消息`,
-          "🔄 实时更新已启用"
-        ]);
-        console.log('=== 对话数据加载完成 ===');
-        return; // 直接返回，不启动后端服务
+      const evalResults = selectedFileInfo ? [
+        "✅ 对话已成功加载",
+        `📁 类别: ${selectedFileInfo.category}`,
+        `📄 文件: ${selectedFileInfo.fileName}`,
+        `📊 共 ${selectedFileInfo.totalFiles} 个可用对话文件`,
+        `💬 已加载 ${conversationConfig.messages.length} 条对话消息`
+      ] : [
+        "✅ 评估服务已连接",
+        "开始监控通信质量...",
+        `已加载 ${conversationConfig.messages.length} 条对话消息`,
+        "🔄 实时更新已启用"
+      ];
+      setEvaluationResults(evalResults);
+      
+      // 更新 localStorage（供 WardenView 使用）
+      localStorage.setItem('evaluationResults', JSON.stringify(evalResults));
+      
+      // 在三列模式下，通过事件同步评估结果
+      if (layoutMode === 'three-column') {
+        window.dispatchEvent(new CustomEvent('a2a:evaluationResultsUpdated', { detail: evalResults }));
       }
       
-      // 如果没有找到对话数据，静默返回，不显示错误
-      console.log('❌ 未找到对话数据，跳过启动流程');
-      setIsConnecting(false);
+      console.log('=== 对话数据加载完成 ===');
       return;
     } catch (error) {
       console.error("启动隐蔽通信失败:", error);
@@ -775,12 +1073,15 @@ export default function A2ACovertDemo() {
   };
 
   return (
-    <main className="relative flex min-h-screen text-white overflow-hidden">
+    <main className={`relative ${layoutMode === 'three-column' ? 'flex flex-col h-full' : 'flex min-h-screen'} text-white overflow-hidden`}>
       {/* Dynamic Wave Background */}
+      {layoutMode !== 'three-column' && (
       <div className="absolute inset-0 z-0">
         <HeroWave />
       </div>
+      )}
       {/* Page Title with Animation */}
+      {!hideTitle && (
       <motion.div 
         className="absolute top-4 left-1/2 -translate-x-1/2 z-20"
         initial={{ opacity: 0, y: -20 }}
@@ -804,10 +1105,12 @@ export default function A2ACovertDemo() {
           A2A Covert - Agent Covert Communication
         </motion.p>
       </motion.div>
-      <div className="flex w-full pt-36 md:pt-40 relative z-10">
+      )}
+      <div className={`flex w-full ${layoutMode === 'three-column' ? 'pt-0 h-full' : 'pt-36 md:pt-40'} relative z-10 ${layoutMode === 'three-column' ? (showConfigOnly || showDialogueOnly ? 'h-full' : 'overflow-hidden min-w-0 flex-1') : ''}`}>
         {/* Left Sidebar - Configuration Panels */}
+        {!showDialogueOnly && (
         <motion.div 
-          className="w-80 flex-shrink-0 p-4 fixed top-36 md:top-40 left-4 z-40 max-h-[calc(100vh-10rem)] overflow-y-auto custom-scrollbar"
+            className={`${showConfigOnly ? 'w-full' : 'w-80'} flex-shrink-0 p-4 ${layoutMode === 'three-column' ? 'relative h-full overflow-y-auto' : 'fixed top-36 md:top-40 left-4'} z-40`}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
@@ -1052,20 +1355,24 @@ export default function A2ACovertDemo() {
             </motion.div>
           </div>
         </motion.div>
+        )}
 
         {/* Right Content Area - Agent Dialogue Window */}
+        {!showConfigOnly && (
         <motion.div
-          className="flex-1 flex flex-col ml-[336px]"
+            className={`${showDialogueOnly ? 'w-full' : 'flex-1'} flex flex-col ${layoutMode === 'three-column' ? 'relative h-full min-w-0' : 'fixed top-36 md:top-40 bottom-4'} z-30`}
+            style={layoutMode === 'three-column' ? {} : { left: '21rem', right: '21rem' }}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <motion.div
+            className={`h-full p-4 ${layoutMode === 'three-column' ? 'flex flex-col' : ''}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <LiquidGlassBorder className="m-4 p-6 rounded-2xl flex-1 flex flex-col">
+            <LiquidGlassBorder className="p-6 rounded-2xl flex-1 flex flex-col h-full">
               <div className="flex flex-col h-full">
                 <motion.div 
                   className="flex items-center justify-between mb-4"
@@ -1089,7 +1396,7 @@ export default function A2ACovertDemo() {
                   </div>
                 </motion.div>
                 <motion.div 
-                  className="bg-white/10 backdrop-blur-md rounded-lg flex-1 border border-white/20 overflow-hidden"
+                  className="bg-white/10 backdrop-blur-md rounded-lg flex-1 border border-white/20 overflow-hidden" 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.9 }}
@@ -1107,6 +1414,7 @@ export default function A2ACovertDemo() {
                 ) : (
                   <div className="h-full w-full [&>div]:h-full [&>div]:w-full">
                     <ChatComponent 
+                      key={chatKey}
                       config={chatConfig} 
                       uiConfig={{
                         ...uiConfig,
@@ -1114,6 +1422,7 @@ export default function A2ACovertDemo() {
                         containerHeight: undefined,
                         backgroundColor: 'transparent'
                       }}
+                      onMessageComplete={onMessageComplete}
                     />
                   </div>
                 )}
@@ -1122,6 +1431,7 @@ export default function A2ACovertDemo() {
             </LiquidGlassBorder>
           </motion.div>
         </motion.div>
+        )}
       </div>
     </main>
   );
