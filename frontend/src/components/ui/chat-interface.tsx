@@ -233,8 +233,8 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
         return;
       }
 
-      // 每次只显示1个词，进一步减慢速度
-      const chunkLength = 2; // 改为每次只显示1个词，确保更慢的显示速度
+      // 每次显示3个词
+      const chunkLength = 3; // 改为每次显示3个词
       const chunk = words.slice(wordIndex, wordIndex + chunkLength).join(' ');
       
       currentContent = currentContent ? `${currentContent} ${chunk}` : chunk;
