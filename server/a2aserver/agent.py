@@ -13,6 +13,8 @@ from modules.timestamp.timestamp_mannager import TimestampMannager
 from modules.math.math import Math
 from modules.package_head.package_head_mannager import PackageHead
 from modules.stego.stego import decrypt
+from concurrent.futures import ThreadPoolExecutor
+import asyncio
 
 logger = LoggingMannager.get_logger(__name__)
 class ServerAgent:
@@ -60,6 +62,13 @@ class ServerAgent:
         
         # 存储会话历史
         self.conversation_history = {}
+        
+        # 创建线程池执行器用于处理 CPU/GPU 密集型任务，避免阻塞事件循环
+        # 线程池大小设置为 CPU 核心数，但考虑到 GPU 操作，使用较小的值
+        cpu_count = os.cpu_count() or 4
+        max_workers = max(2, min(cpu_count, 4))  # 最多4个线程，避免过多线程竞争 GPU
+        self.executor = ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix="decrypt")
+        logger.info(f"创建线程池执行器，最大线程数: {max_workers}")
         
         logger.info(f"隐写模型路径: {self.stego_model_path}")
         logger.info(f"隐写算法: {self.stego_algorithm}")
@@ -139,7 +148,17 @@ class ServerAgent:
               
         chat_history = await self.get_chat_history(user_id)
         base_prompt = config.LLM_CONFIG["base_prompt"]
-        decrypted_bits, _, _ = decrypt(self.stego_model,self.stego_tokenizer,self.stego_algorithm,user_input, base_prompt.format(conversation_history=chat_history))
+        # 将同步的 decrypt 操作放到线程池中执行，避免阻塞事件循环
+        loop = asyncio.get_event_loop()
+        decrypted_bits, _, _ = await loop.run_in_executor(
+            self.executor,
+            decrypt,
+            self.stego_model,
+            self.stego_tokenizer,
+            self.stego_algorithm,
+            user_input,
+            base_prompt.format(conversation_history=chat_history)
+        )
         answer = await self.send_message_to_agent(user_input, user_id=user_id)      
         if torch.cuda.is_available():
             torch.cuda.empty_cache()

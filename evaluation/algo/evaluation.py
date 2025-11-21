@@ -273,6 +273,17 @@ def parse_conversation(model:AutoModelForCausalLM,tokenizer:AutoTokenizer,conver
     lex_div_list = []
     bits_per_round_list = []
     rounds = conversation['rounds']
+    
+    # 验证轮数：固定为5轮
+    EXPECTED_ROUNDS = 5
+    if len(rounds) != EXPECTED_ROUNDS:
+        print(f"    警告: 对话轮数为 {len(rounds)}，期望为 {EXPECTED_ROUNDS} 轮")
+        if len(rounds) > EXPECTED_ROUNDS:
+            print(f"    将只处理前 {EXPECTED_ROUNDS} 轮数据")
+            rounds = rounds[:EXPECTED_ROUNDS]
+        elif len(rounds) < EXPECTED_ROUNDS:
+            print(f"    数据不完整，只有 {len(rounds)} 轮")
+    
     for round in rounds:
         stego_text = round['clientTurn']['publicCarrierMessage']
         cover_text = round['clientTurn']['normalMessage']

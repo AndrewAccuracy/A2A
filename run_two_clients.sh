@@ -36,6 +36,13 @@ fi
 # 激活虚拟环境
 source a2a-covert/bin/activate
 
+# 获取虚拟环境的 Python 路径
+VENV_PYTHON=$(which python)
+if [ -z "$VENV_PYTHON" ]; then
+    VENV_PYTHON="$PWD/a2a-covert/bin/python"
+fi
+log_info "使用Python: $VENV_PYTHON"
+
 # 检查端口是否被占用
 check_port() {
     local port=$1
@@ -83,7 +90,7 @@ start_server() {
     fi
     
     # 启动服务端
-    python server/main.py \
+    $VENV_PYTHON server/main.py \
         --server_url http://0.0.0.0:9999 \
         --stego_algorithm meteor \
         --stego_key 7b9ec09254aa4a7589e4d0cfd80d46cc \
@@ -103,7 +110,7 @@ start_client1() {
     # 生成唯一的session_id
     SESSION_ID1="covert-session-client1-$(date +%s)"
     
-    python client/main.py \
+    $VENV_PYTHON client/main.py \
         --server_url http://localhost:9999 \
         --stego_algorithm meteor \
         --stego_key 7b9ec09254aa4a7589e4d0cfd80d46cc \
@@ -125,7 +132,7 @@ start_client2() {
     # 生成唯一的session_id
     SESSION_ID2="covert-session-client2-$(date +%s)"
     
-    python client/main.py \
+    $VENV_PYTHON client/main.py \
         --server_url http://localhost:9999 \
         --stego_algorithm meteor \
         --stego_key 7b9ec09254aa4a7589e4d0cfd80d46cc \

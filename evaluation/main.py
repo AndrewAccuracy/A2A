@@ -1,7 +1,10 @@
 import argparse
 import sys
 import os
+# 添加项目根目录到路径
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# 添加当前目录（evaluation）到路径，以便导入algo模块
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from algo.evaluation import parse_conversation
 

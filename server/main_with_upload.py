@@ -271,4 +271,10 @@ if __name__ == "__main__":
     logger.info("  GET /status - 获取服务器状态")
     logger.info("  GET /conversation/{session_id} - 获取对话历史")
     
-    uvicorn.run(app, host=host, port=port, log_level="info")
+    # 增加 workers 数量以充分利用多核 CPU，提升并发处理能力
+    # workers 数量设置为 CPU 核心数，但考虑到模型加载，使用稍少一些的值
+    import os
+    cpu_count = os.cpu_count() or 4
+    workers = max(2, min(cpu_count - 1, 8))  # 至少2个，最多8个，留一个核心给系统
+    logger.info(f"启动 {workers} 个 worker 进程 (CPU核心数: {cpu_count})")
+    uvicorn.run(app, host=host, port=port, log_level="info", workers=workers)
