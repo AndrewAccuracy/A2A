@@ -1,0 +1,5143 @@
+{
+  "generated_at": "2025-11-21T11:31:07.619783Z",
+  "domains": {
+    "art": {
+      "conversations": [
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347448625-fpvbb74h8.json",
+          "source": "data/evaluation/art/evaluation_conversation_covert-session-uuid-1755347448625-fpvbb74h8.json.json",
+          "conversation_info": "data/conversation/conversation_covert-session-uuid-1755347448625-fpvbb74h8.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/art.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 2.75,
+            "round_per_bit": 0.36363636363636365,
+            "total_bits_transmitted": 11.0,
+            "bits_per_round_list": [
+              2,
+              6,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 15.982421875,
+            "entropy": null,
+            "rouge1_precision": 0.4699528067560855,
+            "rouge1_recall": 0.3496002587124083,
+            "rouge1_f1": 0.3851217125026649,
+            "bleu": 0.033555233651765035,
+            "lex_div_ttr": 0.804162094063572,
+            "lex_div_rttr": 6.057650902866879,
+            "lex_div_unigram_entropy": 5.37248910941509
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 2.0,
+              "ppl": 10.4609375,
+              "rouge1": 0.28571428571428575,
+              "bleu": 0.024064234440454427,
+              "entropy": null,
+              "tokensPerRound": 1.2121212121212122
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 6.0,
+              "ppl": 15.34375,
+              "rouge1": 0.382716049382716,
+              "bleu": 0.016208704793158994,
+              "entropy": null,
+              "tokensPerRound": 3.6363636363636367
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 11.625,
+              "rouge1": 0.423076923076923,
+              "bleu": 0.024433251292226867,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 26.5,
+              "rouge1": 0.4489795918367347,
+              "bleu": 0.06951474408121987,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347714724-m7m89ktea.json",
+          "source": "data/evaluation/art/evaluation_conversation_covert-session-uuid-1755347714724-m7m89ktea.json.json",
+          "conversation_info": "data/conversation/conversation_covert-session-uuid-1755347714724-m7m89ktea.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/art.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.625,
+            "round_per_bit": 0.6153846153846154,
+            "total_bits_transmitted": 6.5,
+            "bits_per_round_list": [
+              2,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 15.759765625,
+            "entropy": null,
+            "rouge1_precision": 0.4573397435897436,
+            "rouge1_recall": 0.36473120694818806,
+            "rouge1_f1": 0.4043734839433764,
+            "bleu": 0.059052358706466176,
+            "lex_div_ttr": 0.7469244513862325,
+            "lex_div_rttr": 5.820056059817489,
+            "lex_div_unigram_entropy": 5.324144081648657
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 2.0,
+              "ppl": 21.890625,
+              "rouge1": 0.33333333333333337,
+              "bleu": 0.011483207471289609,
+              "entropy": null,
+              "tokensPerRound": 1.2121212121212122
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 19.5,
+              "rouge1": 0.4567901234567901,
+              "bleu": 0.09038532809025013,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 9.8671875,
+              "rouge1": 0.37575757575757573,
+              "bleu": 0.10885071215686229,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 11.78125,
+              "rouge1": 0.45161290322580644,
+              "bleu": 0.025490187107462682,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347792167-q9emh34su.json",
+          "source": "data/evaluation/art/evaluation_conversation_covert-session-uuid-1755347792167-q9emh34su.json.json",
+          "conversation_info": "data/conversation/conversation_covert-session-uuid-1755347792167-q9emh34su.json",
+          "experiment_config": {
+            "steganography_algorithm": "discop",
+            "question_domain": "data/question/art.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.5,
+            "round_per_bit": 0.6666666666666666,
+            "total_bits_transmitted": 3.0,
+            "bits_per_round_list": [
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 11.8984375,
+            "entropy": null,
+            "rouge1_precision": 0.33620129870129867,
+            "rouge1_recall": 0.38784648187633264,
+            "rouge1_f1": 0.3585253456221198,
+            "bleu": 0.05073850907653497,
+            "lex_div_ttr": 0.7716781708369285,
+            "lex_div_rttr": 6.355388339042623,
+            "lex_div_unigram_entropy": 5.570512864463353
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 12.6640625,
+              "rouge1": 0.34285714285714286,
+              "bleu": 0.0691791023737071,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 11.1328125,
+              "rouge1": 0.37419354838709673,
+              "bleu": 0.032297915779362835,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "totalBits": 20.5,
+        "totalRounds": 10,
+        "avgBitsPerRound": 2.05,
+        "avgPPL": 15.0765625,
+        "avgROUGE1": 0.3875031477028405,
+        "avgBLEU": 0.047190738758599485
+      },
+      "charts": {
+        "bitsPerRound": [
+          {
+            "time": "00:00:00",
+            "round": 1,
+            "bitsPerRound": 2.0
+          },
+          {
+            "time": "00:00:05",
+            "round": 2,
+            "bitsPerRound": 6.0
+          },
+          {
+            "time": "00:00:10",
+            "round": 3,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:15",
+            "round": 4,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:20",
+            "round": 5,
+            "bitsPerRound": 2.0
+          },
+          {
+            "time": "00:00:25",
+            "round": 6,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:30",
+            "round": 7,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:35",
+            "round": 8,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:40",
+            "round": 9,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:45",
+            "round": 10,
+            "bitsPerRound": 1.5
+          }
+        ],
+        "ppl": [
+          {
+            "time": "00:00:00",
+            "round": 1,
+            "ppl": 10.4609375
+          },
+          {
+            "time": "00:00:05",
+            "round": 2,
+            "ppl": 15.34375
+          },
+          {
+            "time": "00:00:10",
+            "round": 3,
+            "ppl": 11.625
+          },
+          {
+            "time": "00:00:15",
+            "round": 4,
+            "ppl": 26.5
+          },
+          {
+            "time": "00:00:20",
+            "round": 5,
+            "ppl": 21.890625
+          },
+          {
+            "time": "00:00:25",
+            "round": 6,
+            "ppl": 19.5
+          },
+          {
+            "time": "00:00:30",
+            "round": 7,
+            "ppl": 9.8671875
+          },
+          {
+            "time": "00:00:35",
+            "round": 8,
+            "ppl": 11.78125
+          },
+          {
+            "time": "00:00:40",
+            "round": 9,
+            "ppl": 12.6640625
+          },
+          {
+            "time": "00:00:45",
+            "round": 10,
+            "ppl": 11.1328125
+          }
+        ],
+        "rouge1": [
+          {
+            "time": "00:00:00",
+            "round": 1,
+            "rouge1": 0.28571428571428575
+          },
+          {
+            "time": "00:00:05",
+            "round": 2,
+            "rouge1": 0.382716049382716
+          },
+          {
+            "time": "00:00:10",
+            "round": 3,
+            "rouge1": 0.423076923076923
+          },
+          {
+            "time": "00:00:15",
+            "round": 4,
+            "rouge1": 0.4489795918367347
+          },
+          {
+            "time": "00:00:20",
+            "round": 5,
+            "rouge1": 0.33333333333333337
+          },
+          {
+            "time": "00:00:25",
+            "round": 6,
+            "rouge1": 0.4567901234567901
+          },
+          {
+            "time": "00:00:30",
+            "round": 7,
+            "rouge1": 0.37575757575757573
+          },
+          {
+            "time": "00:00:35",
+            "round": 8,
+            "rouge1": 0.45161290322580644
+          },
+          {
+            "time": "00:00:40",
+            "round": 9,
+            "rouge1": 0.34285714285714286
+          },
+          {
+            "time": "00:00:45",
+            "round": 10,
+            "rouge1": 0.37419354838709673
+          }
+        ],
+        "bleu": [
+          {
+            "time": "00:00:00",
+            "round": 1,
+            "bleu": 0.024064234440454427
+          },
+          {
+            "time": "00:00:05",
+            "round": 2,
+            "bleu": 0.016208704793158994
+          },
+          {
+            "time": "00:00:10",
+            "round": 3,
+            "bleu": 0.024433251292226867
+          },
+          {
+            "time": "00:00:15",
+            "round": 4,
+            "bleu": 0.06951474408121987
+          },
+          {
+            "time": "00:00:20",
+            "round": 5,
+            "bleu": 0.011483207471289609
+          },
+          {
+            "time": "00:00:25",
+            "round": 6,
+            "bleu": 0.09038532809025013
+          },
+          {
+            "time": "00:00:30",
+            "round": 7,
+            "bleu": 0.10885071215686229
+          },
+          {
+            "time": "00:00:35",
+            "round": 8,
+            "bleu": 0.025490187107462682
+          },
+          {
+            "time": "00:00:40",
+            "round": 9,
+            "bleu": 0.0691791023737071
+          },
+          {
+            "time": "00:00:45",
+            "round": 10,
+            "bleu": 0.032297915779362835
+          }
+        ]
+      },
+      "latestRounds": [
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347792167-q9emh34su.json-round-2",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755347792167-q9emh34su.json",
+          "round": 2,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 11.1328125,
+          "rouge1": 0.37419354838709673,
+          "time": "00:00:45"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347792167-q9emh34su.json-round-1",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755347792167-q9emh34su.json",
+          "round": 1,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 12.6640625,
+          "rouge1": 0.34285714285714286,
+          "time": "00:00:40"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347714724-m7m89ktea.json-round-4",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755347714724-m7m89ktea.json",
+          "round": 4,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 11.78125,
+          "rouge1": 0.45161290322580644,
+          "time": "00:00:35"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347714724-m7m89ktea.json-round-3",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755347714724-m7m89ktea.json",
+          "round": 3,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 9.8671875,
+          "rouge1": 0.37575757575757573,
+          "time": "00:00:30"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347714724-m7m89ktea.json-round-2",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755347714724-m7m89ktea.json",
+          "round": 2,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 19.5,
+          "rouge1": 0.4567901234567901,
+          "time": "00:00:25"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347714724-m7m89ktea.json-round-1",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755347714724-m7m89ktea.json",
+          "round": 1,
+          "bitsPerRound": 2.0,
+          "tokensPerRound": 1.2121212121212122,
+          "ppl": 21.890625,
+          "rouge1": 0.33333333333333337,
+          "time": "00:00:20"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347448625-fpvbb74h8.json-round-4",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755347448625-fpvbb74h8.json",
+          "round": 4,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 26.5,
+          "rouge1": 0.4489795918367347,
+          "time": "00:00:15"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347448625-fpvbb74h8.json-round-3",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755347448625-fpvbb74h8.json",
+          "round": 3,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 11.625,
+          "rouge1": 0.423076923076923,
+          "time": "00:00:10"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347448625-fpvbb74h8.json-round-2",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755347448625-fpvbb74h8.json",
+          "round": 2,
+          "bitsPerRound": 6.0,
+          "tokensPerRound": 3.6363636363636367,
+          "ppl": 15.34375,
+          "rouge1": 0.382716049382716,
+          "time": "00:00:05"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347448625-fpvbb74h8.json-round-1",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755347448625-fpvbb74h8.json",
+          "round": 1,
+          "bitsPerRound": 2.0,
+          "tokensPerRound": 1.2121212121212122,
+          "ppl": 10.4609375,
+          "rouge1": 0.28571428571428575,
+          "time": "00:00:00"
+        }
+      ]
+    },
+    "general": {
+      "conversations": [
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755191426667-bq2hsuoaw.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755191426667-bq2hsuoaw.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755191426667-bq2hsuoaw.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 3.1,
+            "round_per_bit": 0.3225806451612903,
+            "total_bits_transmitted": 15.5,
+            "bits_per_round_list": [
+              1.5,
+              6,
+              5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 11.4171875,
+            "entropy": null,
+            "rouge1_precision": 0.44612379219377196,
+            "rouge1_recall": 0.35874891759486616,
+            "rouge1_f1": 0.38160816646171525,
+            "bleu": 0.058970266947258154,
+            "lex_div_ttr": 0.7704512491214619,
+            "lex_div_rttr": 6.1201230214438835,
+            "lex_div_unigram_entropy": 5.423269870871407
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 6.1796875,
+              "rouge1": 0.37735849056603776,
+              "bleu": 0.08865423896892298,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 6.0,
+              "ppl": 15.765625,
+              "rouge1": 0.36496350364963503,
+              "bleu": 0.06534734601773602,
+              "entropy": null,
+              "tokensPerRound": 3.6363636363636367
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 5.0,
+              "ppl": 8.1484375,
+              "rouge1": 0.41206030150753764,
+              "bleu": 0.0757968625928813,
+              "entropy": null,
+              "tokensPerRound": 3.0303030303030303
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 12.46875,
+              "rouge1": 0.4,
+              "bleu": 0.032955887022779136,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 14.5234375,
+              "rouge1": 0.3536585365853659,
+              "bleu": 0.03209700013397134,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755191692845-1qi98bhhj.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755191692845-1qi98bhhj.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755191692845-1qi98bhhj.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.5,
+            "round_per_bit": 0.6666666666666666,
+            "total_bits_transmitted": 7.5,
+            "bits_per_round_list": [
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 7.59140625,
+            "entropy": null,
+            "rouge1_precision": 0.5164790717220995,
+            "rouge1_recall": 0.47347266438397934,
+            "rouge1_f1": 0.48880363104118796,
+            "bleu": 0.12851769697906285,
+            "lex_div_ttr": 0.6947794733305026,
+            "lex_div_rttr": 6.573925828129802,
+            "lex_div_unigram_entropy": 5.655054946131683
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 6.19140625,
+              "rouge1": 0.4550898203592814,
+              "bleu": 0.07145291041448013,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 8.7890625,
+              "rouge1": 0.4198895027624309,
+              "bleu": 0.10480606889372313,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 6.3515625,
+              "rouge1": 0.5865724381625441,
+              "bleu": 0.2101362815970815,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 8.1171875,
+              "rouge1": 0.5169491525423728,
+              "bleu": 0.1468322381444998,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 8.5078125,
+              "rouge1": 0.4655172413793104,
+              "bleu": 0.1093609858455298,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755192311970-4xwblizw5.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755192311970-4xwblizw5.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755192311970-4xwblizw5.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.5,
+            "round_per_bit": 0.6666666666666666,
+            "total_bits_transmitted": 4.5,
+            "bits_per_round_list": [
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 7.33203125,
+            "entropy": null,
+            "rouge1_precision": 0.42972029421853786,
+            "rouge1_recall": 0.5394869750132908,
+            "rouge1_f1": 0.4770165533663633,
+            "bleu": 0.15231935405462194,
+            "lex_div_ttr": 0.685125897724323,
+            "lex_div_rttr": 7.055482837869936,
+            "lex_div_unigram_entropy": 5.8419106428822465
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 8.7421875,
+              "rouge1": 0.37714285714285717,
+              "bleu": 0.07647807777338182,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 7.4765625,
+              "rouge1": 0.5367965367965368,
+              "bleu": 0.18098024434363344,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 5.77734375,
+              "rouge1": 0.5171102661596958,
+              "bleu": 0.19949974004685056,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755192677670-izxxd6kct.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755192677670-izxxd6kct.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755192677670-izxxd6kct.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.6666666666666667,
+            "round_per_bit": 0.6,
+            "total_bits_transmitted": 10.0,
+            "bits_per_round_list": [
+              2,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              2
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 9.553385416666666,
+            "entropy": null,
+            "rouge1_precision": 0.47412675044253993,
+            "rouge1_recall": 0.33707621016654604,
+            "rouge1_f1": 0.3850132672671828,
+            "bleu": 0.0537431721618584,
+            "lex_div_ttr": 0.7557376924521465,
+            "lex_div_rttr": 5.740199576720207,
+            "lex_div_unigram_entropy": 5.228119032357792
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 2.0,
+              "ppl": 11.203125,
+              "rouge1": 0.3287671232876712,
+              "bleu": 0.06953857154910552,
+              "entropy": null,
+              "tokensPerRound": 1.2121212121212122
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 11.0703125,
+              "rouge1": 0.3221476510067114,
+              "bleu": 0.00781141609809214,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 9.125,
+              "rouge1": 0.38848920863309355,
+              "bleu": 0.07209584804430699,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 7.3671875,
+              "rouge1": 0.5833333333333334,
+              "bleu": 0.1475551802882035,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 8.359375,
+              "rouge1": 0.33862433862433866,
+              "bleu": 0.007695881044416653,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 6,
+              "bitsPerRound": 2.0,
+              "ppl": 10.1953125,
+              "rouge1": 0.3487179487179487,
+              "bleu": 0.01776213594702556,
+              "entropy": null,
+              "tokensPerRound": 1.2121212121212122
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755193332871-322hmnmr6.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755193332871-322hmnmr6.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755193332871-322hmnmr6.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 2.0,
+            "round_per_bit": 0.5,
+            "total_bits_transmitted": 10.0,
+            "bits_per_round_list": [
+              1.5,
+              4,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 9.42421875,
+            "entropy": null,
+            "rouge1_precision": 0.48114018173110307,
+            "rouge1_recall": 0.48709632219493965,
+            "rouge1_f1": 0.4822537201196712,
+            "bleu": 0.15955853472119416,
+            "lex_div_ttr": 0.744013518621305,
+            "lex_div_rttr": 5.884051668345011,
+            "lex_div_unigram_entropy": 5.263449596857267
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 8.8125,
+              "rouge1": 0.375,
+              "bleu": 0.11688399196951627,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 4.0,
+              "ppl": 10.140625,
+              "rouge1": 0.5757575757575757,
+              "bleu": 0.29784874410578543,
+              "entropy": null,
+              "tokensPerRound": 2.4242424242424243
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 8.96875,
+              "rouge1": 0.4413793103448276,
+              "bleu": 0.09703955511228164,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 6.55859375,
+              "rouge1": 0.4635761589403974,
+              "bleu": 0.1267008909241259,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 12.640625,
+              "rouge1": 0.5555555555555555,
+              "bleu": 0.1593194914942615,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755338971247-s3v9fzoqz.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755338971247-s3v9fzoqz.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755338971247-s3v9fzoqz.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.8,
+            "round_per_bit": 0.5555555555555556,
+            "total_bits_transmitted": 9.0,
+            "bits_per_round_list": [
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              3
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 16.234375,
+            "entropy": null,
+            "rouge1_precision": 0.48356129860162367,
+            "rouge1_recall": 0.31977343058031804,
+            "rouge1_f1": 0.38194581884610534,
+            "bleu": 0.04500526358449269,
+            "lex_div_ttr": 0.784068499445841,
+            "lex_div_rttr": 5.900879268162116,
+            "lex_div_unigram_entropy": 5.26095558175931
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 6.328125,
+              "rouge1": 0.4109589041095891,
+              "bleu": 0.040266760826473486,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 13.046875,
+              "rouge1": 0.41558441558441556,
+              "bleu": 0.07207157769425072,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 14.8125,
+              "rouge1": 0.3205128205128205,
+              "bleu": 0.04565438907994049,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 28.4375,
+              "rouge1": 0.36619718309859156,
+              "bleu": 0.02538492027983616,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 3.0,
+              "ppl": 18.546875,
+              "rouge1": 0.39647577092511016,
+              "bleu": 0.0416486700419626,
+              "entropy": null,
+              "tokensPerRound": 1.8181818181818183
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755345660357-jvv58oa65.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755345660357-jvv58oa65.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755345660357-jvv58oa65.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.0,
+            "round_per_bit": 1.0,
+            "total_bits_transmitted": 3.0,
+            "bits_per_round_list": [
+              0,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 8.201822916666666,
+            "entropy": null,
+            "rouge1_precision": 0.40499533146591976,
+            "rouge1_recall": 0.4778843591793232,
+            "rouge1_f1": 0.40440360708154016,
+            "bleu": 0.094195315404709,
+            "lex_div_ttr": 0.6995494199980826,
+            "lex_div_rttr": 6.847783828784242,
+            "lex_div_unigram_entropy": 5.726941525208911
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 0.0,
+              "ppl": 7.41796875,
+              "rouge1": 0.4313725490196078,
+              "bleu": 0.12942700173481947,
+              "entropy": null,
+              "tokensPerRound": 0.0
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 11.15625,
+              "rouge1": 0.287292817679558,
+              "bleu": 0.04112554659309623,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 6.03125,
+              "rouge1": 0.4945454545454545,
+              "bleu": 0.1120333978862113,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755346988396-wzld4k1s9.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755346988396-wzld4k1s9.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755346988396-wzld4k1s9.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.9,
+            "round_per_bit": 0.5263157894736842,
+            "total_bits_transmitted": 9.5,
+            "bits_per_round_list": [
+              2,
+              3,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 8.5421875,
+            "entropy": null,
+            "rouge1_precision": 0.44788109796291015,
+            "rouge1_recall": 0.3848259963647648,
+            "rouge1_f1": 0.40904085541015,
+            "bleu": 0.06786263834834919,
+            "lex_div_ttr": 0.7416643888867237,
+            "lex_div_rttr": 6.707296160838451,
+            "lex_div_unigram_entropy": 5.649953036371713
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 2.0,
+              "ppl": 10.15625,
+              "rouge1": 0.375,
+              "bleu": 0.059068096033555506,
+              "entropy": null,
+              "tokensPerRound": 1.2121212121212122
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 3.0,
+              "ppl": 6.84765625,
+              "rouge1": 0.5384615384615384,
+              "bleu": 0.11794112400119314,
+              "entropy": null,
+              "tokensPerRound": 1.8181818181818183
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 8.640625,
+              "rouge1": 0.35000000000000003,
+              "bleu": 0.0504938851299323,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 6.94921875,
+              "rouge1": 0.39999999999999997,
+              "bleu": 0.09294844614132297,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 10.1171875,
+              "rouge1": 0.3817427385892116,
+              "bleu": 0.018861640435742007,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755347530849-xtgkhuknj.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755347530849-xtgkhuknj.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755347530849-xtgkhuknj.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.4,
+            "round_per_bit": 0.7142857142857143,
+            "total_bits_transmitted": 7.0,
+            "bits_per_round_list": [
+              1,
+              1.5,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 10.71796875,
+            "entropy": null,
+            "rouge1_precision": 0.47337007290954664,
+            "rouge1_recall": 0.34489506393355274,
+            "rouge1_f1": 0.3877320954899213,
+            "bleu": 0.050176713275896276,
+            "lex_div_ttr": 0.7391617341225405,
+            "lex_div_rttr": 5.4151526327371045,
+            "lex_div_unigram_entropy": 5.057560409322564
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.0,
+              "ppl": 6.90234375,
+              "rouge1": 0.4628099173553719,
+              "bleu": 0.04825369540502904,
+              "entropy": null,
+              "tokensPerRound": 0.6060606060606061
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 14.78125,
+              "rouge1": 0.3909774436090226,
+              "bleu": 0.07948607701570928,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 13.1171875,
+              "rouge1": 0.3617021276595745,
+              "bleu": 0.042756902947823895,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 10.75,
+              "rouge1": 0.3790849673202615,
+              "bleu": 0.018732826905093914,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 8.0390625,
+              "rouge1": 0.34408602150537637,
+              "bleu": 0.06165406410582527,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755348413631-ty0nv755r.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755348413631-ty0nv755r.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755348413631-ty0nv755r.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.375,
+            "round_per_bit": 0.7272727272727273,
+            "total_bits_transmitted": 5.5,
+            "bits_per_round_list": [
+              1,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 9.060546875,
+            "entropy": null,
+            "rouge1_precision": 0.36518343312079393,
+            "rouge1_recall": 0.4856548680078092,
+            "rouge1_f1": 0.41146271604219914,
+            "bleu": 0.07000737060878008,
+            "lex_div_ttr": 0.6756499523456528,
+            "lex_div_rttr": 6.403690499438617,
+            "lex_div_unigram_entropy": 5.608923411198905
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.0,
+              "ppl": 8.5859375,
+              "rouge1": 0.3865546218487395,
+              "bleu": 0.029825144974292565,
+              "entropy": null,
+              "tokensPerRound": 0.6060606060606061
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 9.65625,
+              "rouge1": 0.3726708074534162,
+              "bleu": 0.026772378467607584,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 11.3515625,
+              "rouge1": 0.4020100502512563,
+              "bleu": 0.0767127901579258,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 6.6484375,
+              "rouge1": 0.4846153846153846,
+              "bleu": 0.14671916883529437,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755349783185-atmdnbzh2.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755349783185-atmdnbzh2.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755349783185-atmdnbzh2.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 2.2,
+            "round_per_bit": 0.45454545454545453,
+            "total_bits_transmitted": 11.0,
+            "bits_per_round_list": [
+              1.5,
+              1.5,
+              5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 9.3125,
+            "entropy": null,
+            "rouge1_precision": 0.5019744577828075,
+            "rouge1_recall": 0.3786225917422672,
+            "rouge1_f1": 0.42209763154713925,
+            "bleu": 0.1081870433542624,
+            "lex_div_ttr": 0.7621859393339688,
+            "lex_div_rttr": 6.285664104323403,
+            "lex_div_unigram_entropy": 5.432377689971516
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 5.14453125,
+              "rouge1": 0.5294117647058824,
+              "bleu": 0.21338638797556642,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 8.8125,
+              "rouge1": 0.356687898089172,
+              "bleu": 0.026565719166048305,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 5.0,
+              "ppl": 7.18359375,
+              "rouge1": 0.40490797546012264,
+              "bleu": 0.12144918799353353,
+              "entropy": null,
+              "tokensPerRound": 3.0303030303030303
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 14.4140625,
+              "rouge1": 0.39090909090909093,
+              "bleu": 0.08292811924105846,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 11.0078125,
+              "rouge1": 0.42857142857142855,
+              "bleu": 0.09660580239510529,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755350023892-4gxvaxsjh.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755350023892-4gxvaxsjh.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755350023892-4gxvaxsjh.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 3.7,
+            "round_per_bit": 0.27027027027027023,
+            "total_bits_transmitted": 18.5,
+            "bits_per_round_list": [
+              2,
+              4,
+              8,
+              1.5,
+              3
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 11.034375,
+            "entropy": null,
+            "rouge1_precision": 0.48155580192165565,
+            "rouge1_recall": 0.4170522892284964,
+            "rouge1_f1": 0.4450717721994318,
+            "bleu": 0.09195550948871789,
+            "lex_div_ttr": 0.7703111436348639,
+            "lex_div_rttr": 6.152339714613158,
+            "lex_div_unigram_entropy": 5.394640681707182
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 2.0,
+              "ppl": 9.0546875,
+              "rouge1": 0.3697478991596639,
+              "bleu": 0.10129223389248491,
+              "entropy": null,
+              "tokensPerRound": 1.2121212121212122
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 4.0,
+              "ppl": 10.359375,
+              "rouge1": 0.423076923076923,
+              "bleu": 0.022737702376208972,
+              "entropy": null,
+              "tokensPerRound": 2.4242424242424243
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 8.0,
+              "ppl": 11.9453125,
+              "rouge1": 0.574468085106383,
+              "bleu": 0.2266298355910832,
+              "entropy": null,
+              "tokensPerRound": 4.848484848484849
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 11.0703125,
+              "rouge1": 0.39215686274509803,
+              "bleu": 0.06968615523706248,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 3.0,
+              "ppl": 12.7421875,
+              "rouge1": 0.4659090909090909,
+              "bleu": 0.03943162034674985,
+              "entropy": null,
+              "tokensPerRound": 1.8181818181818183
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755350387447-ovyvuuylu.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755350387447-ovyvuuylu.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755350387447-ovyvuuylu.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 2.3,
+            "round_per_bit": 0.4347826086956522,
+            "total_bits_transmitted": 11.5,
+            "bits_per_round_list": [
+              1.5,
+              1.5,
+              1.5,
+              4,
+              3
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 8.68046875,
+            "entropy": null,
+            "rouge1_precision": 0.5065955489484901,
+            "rouge1_recall": 0.41204390761383686,
+            "rouge1_f1": 0.45080666416595905,
+            "bleu": 0.10719391058188146,
+            "lex_div_ttr": 0.7285608949945718,
+            "lex_div_rttr": 5.9974383758603285,
+            "lex_div_unigram_entropy": 5.342921677927068
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 6.16796875,
+              "rouge1": 0.3311258278145695,
+              "bleu": 0.021921284107216422,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 5.703125,
+              "rouge1": 0.5664739884393063,
+              "bleu": 0.1631904331130184,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 10.5859375,
+              "rouge1": 0.5357142857142857,
+              "bleu": 0.20915662263188622,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 4.0,
+              "ppl": 10.21875,
+              "rouge1": 0.43157894736842106,
+              "bleu": 0.06194210406383154,
+              "entropy": null,
+              "tokensPerRound": 2.4242424242424243
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 3.0,
+              "ppl": 10.7265625,
+              "rouge1": 0.3891402714932127,
+              "bleu": 0.07975910899345462,
+              "entropy": null,
+              "tokensPerRound": 1.8181818181818183
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755350632808-vnnjh24xw.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755350632808-vnnjh24xw.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755350632808-vnnjh24xw.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.4,
+            "round_per_bit": 0.7142857142857143,
+            "total_bits_transmitted": 7.0,
+            "bits_per_round_list": [
+              1,
+              1.5,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 12.8875,
+            "entropy": null,
+            "rouge1_precision": 0.4729122807017543,
+            "rouge1_recall": 0.43717533423836885,
+            "rouge1_f1": 0.44761608151638954,
+            "bleu": 0.12032068680254349,
+            "lex_div_ttr": 0.7496454263523591,
+            "lex_div_rttr": 6.316398847071506,
+            "lex_div_unigram_entropy": 5.538144775258057
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.0,
+              "ppl": 10.7734375,
+              "rouge1": 0.5443037974683543,
+              "bleu": 0.2071747109667042,
+              "entropy": null,
+              "tokensPerRound": 0.6060606060606061
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 9.984375,
+              "rouge1": 0.4148148148148148,
+              "bleu": 0.032256069065501144,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 21.546875,
+              "rouge1": 0.511904761904762,
+              "bleu": 0.23143518259717763,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 14.296875,
+              "rouge1": 0.40268456375838924,
+              "bleu": 0.07161773799707094,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 7.8359375,
+              "rouge1": 0.3643724696356276,
+              "bleu": 0.05911973338626348,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755418918095-swlu9v304.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755418918095-swlu9v304.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755418918095-swlu9v304.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.375,
+            "round_per_bit": 0.7272727272727273,
+            "total_bits_transmitted": 5.5,
+            "bits_per_round_list": [
+              1,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 11.951171875,
+            "entropy": null,
+            "rouge1_precision": 0.4525678294573643,
+            "rouge1_recall": 0.3573980836236934,
+            "rouge1_f1": 0.3949634977595504,
+            "bleu": 0.0715110912581716,
+            "lex_div_ttr": 0.7986919607748728,
+            "lex_div_rttr": 6.117018515732279,
+            "lex_div_unigram_entropy": 5.33939091336157
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.0,
+              "ppl": 11.3125,
+              "rouge1": 0.36363636363636365,
+              "bleu": 0.038408266603600326,
+              "entropy": null,
+              "tokensPerRound": 0.6060606060606061
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 16.953125,
+              "rouge1": 0.37593984962406013,
+              "bleu": 0.10746896175966247,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 8.46875,
+              "rouge1": 0.4444444444444445,
+              "bleu": 0.07973214191591411,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 11.0703125,
+              "rouge1": 0.39583333333333337,
+              "bleu": 0.06043499475350945,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755419449987-wgrn1j2ok.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755419449987-wgrn1j2ok.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755419449987-wgrn1j2ok.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.875,
+            "round_per_bit": 0.5333333333333333,
+            "total_bits_transmitted": 15.0,
+            "bits_per_round_list": [
+              1.5,
+              1.5,
+              1.5,
+              5,
+              1.5,
+              1.5,
+              1.5,
+              1
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 11.93359375,
+            "entropy": null,
+            "rouge1_precision": 0.48910061257138326,
+            "rouge1_recall": 0.30614931330793305,
+            "rouge1_f1": 0.37061516184990506,
+            "bleu": 0.06175391301235633,
+            "lex_div_ttr": 0.7751127173484741,
+            "lex_div_rttr": 5.84422787521084,
+            "lex_div_unigram_entropy": 5.273324056420576
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 12.109375,
+              "rouge1": 0.3661971830985915,
+              "bleu": 0.04305030632057997,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 14.7265625,
+              "rouge1": 0.3622047244094488,
+              "bleu": 0.0682701556646143,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 10.4609375,
+              "rouge1": 0.3908045977011495,
+              "bleu": 0.02408981135335765,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 5.0,
+              "ppl": 12.8671875,
+              "rouge1": 0.4827586206896552,
+              "bleu": 0.16376875683199374,
+              "entropy": null,
+              "tokensPerRound": 3.0303030303030303
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 14.21875,
+              "rouge1": 0.3225806451612903,
+              "bleu": 0.05423000251082001,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 6,
+              "bitsPerRound": 1.5,
+              "ppl": 12.7421875,
+              "rouge1": 0.34567901234567905,
+              "bleu": 0.0532795996639562,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 7,
+              "bitsPerRound": 1.5,
+              "ppl": 10.5234375,
+              "rouge1": 0.40229885057471265,
+              "bleu": 0.06866840406432001,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 8,
+              "bitsPerRound": 1.0,
+              "ppl": 7.8203125,
+              "rouge1": 0.2923976608187135,
+              "bleu": 0.018674267689208733,
+              "entropy": null,
+              "tokensPerRound": 0.6060606060606061
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755420257246-w6w499osl.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755420257246-w6w499osl.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755420257246-w6w499osl.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 2.2,
+            "round_per_bit": 0.45454545454545453,
+            "total_bits_transmitted": 11.0,
+            "bits_per_round_list": [
+              5,
+              1.5,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 15.32890625,
+            "entropy": null,
+            "rouge1_precision": 0.5349136006330867,
+            "rouge1_recall": 0.3859460748351026,
+            "rouge1_f1": 0.42846106257009986,
+            "bleu": 0.07451411512424705,
+            "lex_div_ttr": 0.7489170063113726,
+            "lex_div_rttr": 5.5975236025431645,
+            "lex_div_unigram_entropy": 5.16472498130418
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 5.0,
+              "ppl": 5.76171875,
+              "rouge1": 0.3511450381679389,
+              "bleu": 0.011322915995349724,
+              "entropy": null,
+              "tokensPerRound": 3.0303030303030303
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 12.96875,
+              "rouge1": 0.5,
+              "bleu": 0.17733244676930557,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 25.59375,
+              "rouge1": 0.3676470588235294,
+              "bleu": 0.03136146425738189,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 25.9375,
+              "rouge1": 0.41250000000000003,
+              "bleu": 0.05571532287619883,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 6.3828125,
+              "rouge1": 0.5110132158590308,
+              "bleu": 0.09683842572299924,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755420412280-cmbn4q6a3.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755420412280-cmbn4q6a3.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755420412280-cmbn4q6a3.json",
+          "experiment_config": {
+            "steganography_algorithm": "discop",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 2.0,
+            "round_per_bit": 0.5,
+            "total_bits_transmitted": 6.0,
+            "bits_per_round_list": [
+              1.5,
+              1.5,
+              3
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 12.453125,
+            "entropy": null,
+            "rouge1_precision": 0.4355947535052013,
+            "rouge1_recall": 0.3996344300432037,
+            "rouge1_f1": 0.40490394337714863,
+            "bleu": 0.06735785754828999,
+            "lex_div_ttr": 0.7193864878291109,
+            "lex_div_rttr": 5.953518582927317,
+            "lex_div_unigram_entropy": 5.390511333464414
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 11.8515625,
+              "rouge1": 0.3255813953488372,
+              "bleu": 0.026282375342443712,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 14.4375,
+              "rouge1": 0.39999999999999997,
+              "bleu": 0.02091931916063202,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 3.0,
+              "ppl": 11.0703125,
+              "rouge1": 0.4891304347826087,
+              "bleu": 0.15487187814179423,
+              "entropy": null,
+              "tokensPerRound": 1.8181818181818183
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755420474553-lhu7zvn67.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755420474553-lhu7zvn67.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755420474553-lhu7zvn67.json",
+          "experiment_config": {
+            "steganography_algorithm": "discop",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 2.0,
+            "round_per_bit": 0.5,
+            "total_bits_transmitted": 6.0,
+            "bits_per_round_list": [
+              1.5,
+              1.5,
+              3
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 8.58203125,
+            "entropy": null,
+            "rouge1_precision": 0.42298111848976433,
+            "rouge1_recall": 0.4725412087912088,
+            "rouge1_f1": 0.4274760287982895,
+            "bleu": 0.07404113942480527,
+            "lex_div_ttr": 0.730335322534811,
+            "lex_div_rttr": 6.618223057711539,
+            "lex_div_unigram_entropy": 5.629814925234598
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 7.55078125,
+              "rouge1": 0.35555555555555557,
+              "bleu": 0.02499795574023378,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 10.5859375,
+              "rouge1": 0.445859872611465,
+              "bleu": 0.11134982546704836,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 3.0,
+              "ppl": 7.609375,
+              "rouge1": 0.4810126582278481,
+              "bleu": 0.08577563706713363,
+              "entropy": null,
+              "tokensPerRound": 1.8181818181818183
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755429155124-9nfnqhx7h.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755429155124-9nfnqhx7h.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755429155124-9nfnqhx7h.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.6666666666666667,
+            "round_per_bit": 0.6,
+            "total_bits_transmitted": 10.0,
+            "bits_per_round_list": [
+              1.5,
+              1.5,
+              1,
+              1.5,
+              1.5,
+              3
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 11.570963541666666,
+            "entropy": null,
+            "rouge1_precision": 0.5486445462363797,
+            "rouge1_recall": 0.3749015750724313,
+            "rouge1_f1": 0.4297686707533255,
+            "bleu": 0.08865715157901895,
+            "lex_div_ttr": 0.7384112460867137,
+            "lex_div_rttr": 5.803461647322191,
+            "lex_div_unigram_entropy": 5.250692418229575
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 9.734375,
+              "rouge1": 0.4935064935064935,
+              "bleu": 0.08146732694387919,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 10.859375,
+              "rouge1": 0.3636363636363636,
+              "bleu": 0.027044323185834378,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.0,
+              "ppl": 6.24609375,
+              "rouge1": 0.34444444444444444,
+              "bleu": 0.04972902056406089,
+              "entropy": null,
+              "tokensPerRound": 0.6060606060606061
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 12.6640625,
+              "rouge1": 0.37254901960784315,
+              "bleu": 0.049653515737172825,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 10.875,
+              "rouge1": 0.5588235294117646,
+              "bleu": 0.2062478427981665,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 6,
+              "bitsPerRound": 3.0,
+              "ppl": 19.046875,
+              "rouge1": 0.4456521739130435,
+              "bleu": 0.11780088024499995,
+              "entropy": null,
+              "tokensPerRound": 1.8181818181818183
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755430103573-skmhuhpdr.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755430103573-skmhuhpdr.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755430103573-skmhuhpdr.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.3571428571428572,
+            "round_per_bit": 0.7368421052631579,
+            "total_bits_transmitted": 9.5,
+            "bits_per_round_list": [
+              1,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1.5,
+              1
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 12.747767857142858,
+            "entropy": null,
+            "rouge1_precision": 0.5048551033484125,
+            "rouge1_recall": 0.31342628071751827,
+            "rouge1_f1": 0.37800519832084295,
+            "bleu": 0.05125273893782689,
+            "lex_div_ttr": 0.7635003752473821,
+            "lex_div_rttr": 5.317343796613732,
+            "lex_div_unigram_entropy": 5.021656982688053
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.0,
+              "ppl": 6.6484375,
+              "rouge1": 0.31746031746031744,
+              "bleu": 0.02299914370006448,
+              "entropy": null,
+              "tokensPerRound": 0.6060606060606061
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 15.921875,
+              "rouge1": 0.3779527559055118,
+              "bleu": 0.05989641062460102,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 10.921875,
+              "rouge1": 0.4109589041095891,
+              "bleu": 0.06395730989236832,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 9.8046875,
+              "rouge1": 0.3119266055045872,
+              "bleu": 0.03078582109776724,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 1.5,
+              "ppl": 15.1640625,
+              "rouge1": 0.4606060606060606,
+              "bleu": 0.07438204713660494,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 6,
+              "bitsPerRound": 1.5,
+              "ppl": 17.65625,
+              "rouge1": 0.3626373626373627,
+              "bleu": 0.036463282893957547,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 7,
+              "bitsPerRound": 1.0,
+              "ppl": 13.1171875,
+              "rouge1": 0.40449438202247195,
+              "bleu": 0.07028515721942467,
+              "entropy": null,
+              "tokensPerRound": 0.6060606060606061
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755606135553-62u9wij2z.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755606135553-62u9wij2z.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755606135553-62u9wij2z.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 2.375,
+            "round_per_bit": 0.42105263157894735,
+            "total_bits_transmitted": 9.5,
+            "bits_per_round_list": [
+              5,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 14.697265625,
+            "entropy": null,
+            "rouge1_precision": 0.4175363693864642,
+            "rouge1_recall": 0.4290032883782884,
+            "rouge1_f1": 0.4179596817633628,
+            "bleu": 0.0825634527454063,
+            "lex_div_ttr": 0.7223574062025591,
+            "lex_div_rttr": 5.64180466379453,
+            "lex_div_unigram_entropy": 5.182995502976011
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 5.0,
+              "ppl": 18.328125,
+              "rouge1": 0.4545454545454545,
+              "bleu": 0.03938938913434852,
+              "entropy": null,
+              "tokensPerRound": 3.0303030303030303
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 10.2421875,
+              "rouge1": 0.39316239316239315,
+              "bleu": 0.11355613131358884,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 12.96875,
+              "rouge1": 0.33333333333333337,
+              "bleu": 0.021280994282134,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 17.25,
+              "rouge1": 0.49079754601226994,
+              "bleu": 0.15602729625155382,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755608425172-rboii4ktu.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755608425172-rboii4ktu.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755608425172-rboii4ktu.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 2.875,
+            "round_per_bit": 0.34782608695652173,
+            "total_bits_transmitted": 11.5,
+            "bits_per_round_list": [
+              7,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 7.6728515625,
+            "entropy": null,
+            "rouge1_precision": 0.41974537037037035,
+            "rouge1_recall": 0.4263599190175551,
+            "rouge1_f1": 0.4202811449931883,
+            "bleu": 0.09815209550088115,
+            "lex_div_ttr": 0.6715804165588958,
+            "lex_div_rttr": 5.928874809929758,
+            "lex_div_unigram_entropy": 5.403741822886142
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 7.0,
+              "ppl": 7.24609375,
+              "rouge1": 0.21794871794871795,
+              "bleu": 0.016981808291941916,
+              "entropy": null,
+              "tokensPerRound": 4.242424242424242
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 7.91015625,
+              "rouge1": 0.5393258426966292,
+              "bleu": 0.15087958170831298,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 7.8359375,
+              "rouge1": 0.4623115577889447,
+              "bleu": 0.12953490998108097,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 7.69921875,
+              "rouge1": 0.4615384615384615,
+              "bleu": 0.09521208202218874,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755916088442-wvfl2890s.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755916088442-wvfl2890s.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755916088442-wvfl2890s.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.9,
+            "round_per_bit": 0.5263157894736842,
+            "total_bits_transmitted": 9.5,
+            "bits_per_round_list": [
+              1.5,
+              3,
+              1.5,
+              1.5,
+              2
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 13.91875,
+            "entropy": null,
+            "rouge1_precision": 0.4718053676921435,
+            "rouge1_recall": 0.39260789596169854,
+            "rouge1_f1": 0.4240531851686139,
+            "bleu": 0.09381887380523339,
+            "lex_div_ttr": 0.7406804443082728,
+            "lex_div_rttr": 5.725875772441034,
+            "lex_div_unigram_entropy": 5.21879421781628
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 17.453125,
+              "rouge1": 0.4426229508196721,
+              "bleu": 0.05689630114130155,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 3.0,
+              "ppl": 13.171875,
+              "rouge1": 0.5170068027210885,
+              "bleu": 0.17489877637401308,
+              "entropy": null,
+              "tokensPerRound": 1.8181818181818183
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 8.1484375,
+              "rouge1": 0.36269430051813467,
+              "bleu": 0.09044539897907934,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 20.171875,
+              "rouge1": 0.45751633986928103,
+              "bleu": 0.13510837818403676,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 2.0,
+              "ppl": 10.6484375,
+              "rouge1": 0.3404255319148936,
+              "bleu": 0.01174551434773622,
+              "entropy": null,
+              "tokensPerRound": 1.2121212121212122
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.9,
+            "round_per_bit": 0.5263157894736842,
+            "total_bits_transmitted": 9.5,
+            "bits_per_round_list": [
+              2,
+              1.5,
+              1.5,
+              1.5,
+              3
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 14.4625,
+            "entropy": null,
+            "rouge1_precision": 0.49492794034147425,
+            "rouge1_recall": 0.39590759777856555,
+            "rouge1_f1": 0.4348132392646652,
+            "bleu": 0.07869527616906899,
+            "lex_div_ttr": 0.7368474188720301,
+            "lex_div_rttr": 5.374611240700521,
+            "lex_div_unigram_entropy": 5.062685394166404
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 2.0,
+              "ppl": 9.359375,
+              "rouge1": 0.43697478991596644,
+              "bleu": 0.12913177473433296,
+              "entropy": null,
+              "tokensPerRound": 1.2121212121212122
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 17.078125,
+              "rouge1": 0.4031007751937985,
+              "bleu": 0.05185495374276245,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 11.671875,
+              "rouge1": 0.46560846560846564,
+              "bleu": 0.10995453063084788,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 17.96875,
+              "rouge1": 0.44799999999999995,
+              "bleu": 0.07246686155762831,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 5,
+              "bitsPerRound": 3.0,
+              "ppl": 16.234375,
+              "rouge1": 0.42038216560509556,
+              "bleu": 0.030068260179773335,
+              "entropy": null,
+              "tokensPerRound": 1.8181818181818183
+            }
+          ]
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755917271838-0v9by34ol.json",
+          "source": "data/evaluation/general/evaluation_conversation_covert-session-uuid-1755917271838-0v9by34ol.json.json",
+          "conversation_info": "data/conversation/general/conversation_covert-session-uuid-1755917271838-0v9by34ol.json",
+          "experiment_config": {
+            "steganography_algorithm": "meteor",
+            "question_domain": "data/question/general.txt",
+            "question_index": 0
+          },
+          "capacity_metrics": {
+            "bits_per_round": 1.5,
+            "round_per_bit": 0.6666666666666666,
+            "total_bits_transmitted": 6.0,
+            "bits_per_round_list": [
+              1.5,
+              1.5,
+              1.5,
+              1.5
+            ]
+          },
+          "quality_metrics": {
+            "ppl": 8.265625,
+            "entropy": null,
+            "rouge1_precision": 0.4275263198513824,
+            "rouge1_recall": 0.4151797720191566,
+            "rouge1_f1": 0.41940547397147765,
+            "bleu": 0.056087222532112714,
+            "lex_div_ttr": 0.726635676993957,
+            "lex_div_rttr": 6.217540039376752,
+            "lex_div_unigram_entropy": 5.479932567238863
+          },
+          "rounds": [
+            {
+              "round": 1,
+              "bitsPerRound": 1.5,
+              "ppl": 6.171875,
+              "rouge1": 0.4556962025316456,
+              "bleu": 0.11004791342457562,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 2,
+              "bitsPerRound": 1.5,
+              "ppl": 11.578125,
+              "rouge1": 0.34285714285714286,
+              "bleu": 0.05751459441680822,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 3,
+              "bitsPerRound": 1.5,
+              "ppl": 7.4453125,
+              "rouge1": 0.4816326530612245,
+              "bleu": 0.04157394300659656,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            },
+            {
+              "round": 4,
+              "bitsPerRound": 1.5,
+              "ppl": 7.8671875,
+              "rouge1": 0.39743589743589747,
+              "bleu": 0.015212439280470448,
+              "entropy": null,
+              "tokensPerRound": 0.9090909090909092
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "totalBits": 238.5,
+        "totalRounds": 124,
+        "avgBitsPerRound": 1.9233870967741935,
+        "avgPPL": 11.09280493951613,
+        "avgROUGE1": 0.4178940273077628,
+        "avgBLEU": 0.08312992737821476
+      },
+      "charts": {
+        "bitsPerRound": [
+          {
+            "time": "00:00:00",
+            "round": 1,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:05",
+            "round": 2,
+            "bitsPerRound": 6.0
+          },
+          {
+            "time": "00:00:10",
+            "round": 3,
+            "bitsPerRound": 5.0
+          },
+          {
+            "time": "00:00:15",
+            "round": 4,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:20",
+            "round": 5,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:25",
+            "round": 6,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:30",
+            "round": 7,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:35",
+            "round": 8,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:40",
+            "round": 9,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:45",
+            "round": 10,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:50",
+            "round": 11,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:00:55",
+            "round": 12,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:01:00",
+            "round": 13,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:01:05",
+            "round": 14,
+            "bitsPerRound": 2.0
+          },
+          {
+            "time": "00:01:10",
+            "round": 15,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:01:15",
+            "round": 16,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:01:20",
+            "round": 17,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:01:25",
+            "round": 18,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:01:30",
+            "round": 19,
+            "bitsPerRound": 2.0
+          },
+          {
+            "time": "00:01:35",
+            "round": 20,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:01:40",
+            "round": 21,
+            "bitsPerRound": 4.0
+          },
+          {
+            "time": "00:01:45",
+            "round": 22,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:01:50",
+            "round": 23,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:01:55",
+            "round": 24,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:02:00",
+            "round": 25,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:02:05",
+            "round": 26,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:02:10",
+            "round": 27,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:02:15",
+            "round": 28,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:02:20",
+            "round": 29,
+            "bitsPerRound": 3.0
+          },
+          {
+            "time": "00:02:25",
+            "round": 30,
+            "bitsPerRound": 0.0
+          },
+          {
+            "time": "00:02:30",
+            "round": 31,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:02:35",
+            "round": 32,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:02:40",
+            "round": 33,
+            "bitsPerRound": 2.0
+          },
+          {
+            "time": "00:02:45",
+            "round": 34,
+            "bitsPerRound": 3.0
+          },
+          {
+            "time": "00:02:50",
+            "round": 35,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:02:55",
+            "round": 36,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:03:00",
+            "round": 37,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:03:05",
+            "round": 38,
+            "bitsPerRound": 1.0
+          },
+          {
+            "time": "00:03:10",
+            "round": 39,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:03:15",
+            "round": 40,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:03:20",
+            "round": 41,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:03:25",
+            "round": 42,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:03:30",
+            "round": 43,
+            "bitsPerRound": 1.0
+          },
+          {
+            "time": "00:03:35",
+            "round": 44,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:03:40",
+            "round": 45,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:03:45",
+            "round": 46,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:03:50",
+            "round": 47,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:03:55",
+            "round": 48,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:04:00",
+            "round": 49,
+            "bitsPerRound": 5.0
+          },
+          {
+            "time": "00:04:05",
+            "round": 50,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:04:10",
+            "round": 51,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:04:15",
+            "round": 52,
+            "bitsPerRound": 2.0
+          },
+          {
+            "time": "00:04:20",
+            "round": 53,
+            "bitsPerRound": 4.0
+          },
+          {
+            "time": "00:04:25",
+            "round": 54,
+            "bitsPerRound": 8.0
+          },
+          {
+            "time": "00:04:30",
+            "round": 55,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:04:35",
+            "round": 56,
+            "bitsPerRound": 3.0
+          },
+          {
+            "time": "00:04:40",
+            "round": 57,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:04:45",
+            "round": 58,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:04:50",
+            "round": 59,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:04:55",
+            "round": 60,
+            "bitsPerRound": 4.0
+          },
+          {
+            "time": "00:05:00",
+            "round": 61,
+            "bitsPerRound": 3.0
+          },
+          {
+            "time": "00:05:05",
+            "round": 62,
+            "bitsPerRound": 1.0
+          },
+          {
+            "time": "00:05:10",
+            "round": 63,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:05:15",
+            "round": 64,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:05:20",
+            "round": 65,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:05:25",
+            "round": 66,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:05:30",
+            "round": 67,
+            "bitsPerRound": 1.0
+          },
+          {
+            "time": "00:05:35",
+            "round": 68,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:05:40",
+            "round": 69,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:05:45",
+            "round": 70,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:05:50",
+            "round": 71,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:05:55",
+            "round": 72,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:06:00",
+            "round": 73,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:06:05",
+            "round": 74,
+            "bitsPerRound": 5.0
+          },
+          {
+            "time": "00:06:10",
+            "round": 75,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:06:15",
+            "round": 76,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:06:20",
+            "round": 77,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:06:25",
+            "round": 78,
+            "bitsPerRound": 1.0
+          },
+          {
+            "time": "00:06:30",
+            "round": 79,
+            "bitsPerRound": 5.0
+          },
+          {
+            "time": "00:06:35",
+            "round": 80,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:06:40",
+            "round": 81,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:06:45",
+            "round": 82,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:06:50",
+            "round": 83,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:06:55",
+            "round": 84,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:07:00",
+            "round": 85,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:07:05",
+            "round": 86,
+            "bitsPerRound": 3.0
+          },
+          {
+            "time": "00:07:10",
+            "round": 87,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:07:15",
+            "round": 88,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:07:20",
+            "round": 89,
+            "bitsPerRound": 3.0
+          },
+          {
+            "time": "00:07:25",
+            "round": 90,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:07:30",
+            "round": 91,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:07:35",
+            "round": 92,
+            "bitsPerRound": 1.0
+          },
+          {
+            "time": "00:07:40",
+            "round": 93,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:07:45",
+            "round": 94,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:07:50",
+            "round": 95,
+            "bitsPerRound": 3.0
+          },
+          {
+            "time": "00:07:55",
+            "round": 96,
+            "bitsPerRound": 1.0
+          },
+          {
+            "time": "00:08:00",
+            "round": 97,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:08:05",
+            "round": 98,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:08:10",
+            "round": 99,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:08:15",
+            "round": 100,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:08:20",
+            "round": 101,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:08:25",
+            "round": 102,
+            "bitsPerRound": 1.0
+          },
+          {
+            "time": "00:08:30",
+            "round": 103,
+            "bitsPerRound": 5.0
+          },
+          {
+            "time": "00:08:35",
+            "round": 104,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:08:40",
+            "round": 105,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:08:45",
+            "round": 106,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:08:50",
+            "round": 107,
+            "bitsPerRound": 7.0
+          },
+          {
+            "time": "00:08:55",
+            "round": 108,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:09:00",
+            "round": 109,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:09:05",
+            "round": 110,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:09:10",
+            "round": 111,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:09:15",
+            "round": 112,
+            "bitsPerRound": 3.0
+          },
+          {
+            "time": "00:09:20",
+            "round": 113,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:09:25",
+            "round": 114,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:09:30",
+            "round": 115,
+            "bitsPerRound": 2.0
+          },
+          {
+            "time": "00:09:35",
+            "round": 116,
+            "bitsPerRound": 2.0
+          },
+          {
+            "time": "00:09:40",
+            "round": 117,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:09:45",
+            "round": 118,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:09:50",
+            "round": 119,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:09:55",
+            "round": 120,
+            "bitsPerRound": 3.0
+          },
+          {
+            "time": "00:10:00",
+            "round": 121,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:10:05",
+            "round": 122,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:10:10",
+            "round": 123,
+            "bitsPerRound": 1.5
+          },
+          {
+            "time": "00:10:15",
+            "round": 124,
+            "bitsPerRound": 1.5
+          }
+        ],
+        "ppl": [
+          {
+            "time": "00:00:00",
+            "round": 1,
+            "ppl": 6.1796875
+          },
+          {
+            "time": "00:00:05",
+            "round": 2,
+            "ppl": 15.765625
+          },
+          {
+            "time": "00:00:10",
+            "round": 3,
+            "ppl": 8.1484375
+          },
+          {
+            "time": "00:00:15",
+            "round": 4,
+            "ppl": 12.46875
+          },
+          {
+            "time": "00:00:20",
+            "round": 5,
+            "ppl": 14.5234375
+          },
+          {
+            "time": "00:00:25",
+            "round": 6,
+            "ppl": 6.19140625
+          },
+          {
+            "time": "00:00:30",
+            "round": 7,
+            "ppl": 8.7890625
+          },
+          {
+            "time": "00:00:35",
+            "round": 8,
+            "ppl": 6.3515625
+          },
+          {
+            "time": "00:00:40",
+            "round": 9,
+            "ppl": 8.1171875
+          },
+          {
+            "time": "00:00:45",
+            "round": 10,
+            "ppl": 8.5078125
+          },
+          {
+            "time": "00:00:50",
+            "round": 11,
+            "ppl": 8.7421875
+          },
+          {
+            "time": "00:00:55",
+            "round": 12,
+            "ppl": 7.4765625
+          },
+          {
+            "time": "00:01:00",
+            "round": 13,
+            "ppl": 5.77734375
+          },
+          {
+            "time": "00:01:05",
+            "round": 14,
+            "ppl": 11.203125
+          },
+          {
+            "time": "00:01:10",
+            "round": 15,
+            "ppl": 11.0703125
+          },
+          {
+            "time": "00:01:15",
+            "round": 16,
+            "ppl": 9.125
+          },
+          {
+            "time": "00:01:20",
+            "round": 17,
+            "ppl": 7.3671875
+          },
+          {
+            "time": "00:01:25",
+            "round": 18,
+            "ppl": 8.359375
+          },
+          {
+            "time": "00:01:30",
+            "round": 19,
+            "ppl": 10.1953125
+          },
+          {
+            "time": "00:01:35",
+            "round": 20,
+            "ppl": 8.8125
+          },
+          {
+            "time": "00:01:40",
+            "round": 21,
+            "ppl": 10.140625
+          },
+          {
+            "time": "00:01:45",
+            "round": 22,
+            "ppl": 8.96875
+          },
+          {
+            "time": "00:01:50",
+            "round": 23,
+            "ppl": 6.55859375
+          },
+          {
+            "time": "00:01:55",
+            "round": 24,
+            "ppl": 12.640625
+          },
+          {
+            "time": "00:02:00",
+            "round": 25,
+            "ppl": 6.328125
+          },
+          {
+            "time": "00:02:05",
+            "round": 26,
+            "ppl": 13.046875
+          },
+          {
+            "time": "00:02:10",
+            "round": 27,
+            "ppl": 14.8125
+          },
+          {
+            "time": "00:02:15",
+            "round": 28,
+            "ppl": 28.4375
+          },
+          {
+            "time": "00:02:20",
+            "round": 29,
+            "ppl": 18.546875
+          },
+          {
+            "time": "00:02:25",
+            "round": 30,
+            "ppl": 7.41796875
+          },
+          {
+            "time": "00:02:30",
+            "round": 31,
+            "ppl": 11.15625
+          },
+          {
+            "time": "00:02:35",
+            "round": 32,
+            "ppl": 6.03125
+          },
+          {
+            "time": "00:02:40",
+            "round": 33,
+            "ppl": 10.15625
+          },
+          {
+            "time": "00:02:45",
+            "round": 34,
+            "ppl": 6.84765625
+          },
+          {
+            "time": "00:02:50",
+            "round": 35,
+            "ppl": 8.640625
+          },
+          {
+            "time": "00:02:55",
+            "round": 36,
+            "ppl": 6.94921875
+          },
+          {
+            "time": "00:03:00",
+            "round": 37,
+            "ppl": 10.1171875
+          },
+          {
+            "time": "00:03:05",
+            "round": 38,
+            "ppl": 6.90234375
+          },
+          {
+            "time": "00:03:10",
+            "round": 39,
+            "ppl": 14.78125
+          },
+          {
+            "time": "00:03:15",
+            "round": 40,
+            "ppl": 13.1171875
+          },
+          {
+            "time": "00:03:20",
+            "round": 41,
+            "ppl": 10.75
+          },
+          {
+            "time": "00:03:25",
+            "round": 42,
+            "ppl": 8.0390625
+          },
+          {
+            "time": "00:03:30",
+            "round": 43,
+            "ppl": 8.5859375
+          },
+          {
+            "time": "00:03:35",
+            "round": 44,
+            "ppl": 9.65625
+          },
+          {
+            "time": "00:03:40",
+            "round": 45,
+            "ppl": 11.3515625
+          },
+          {
+            "time": "00:03:45",
+            "round": 46,
+            "ppl": 6.6484375
+          },
+          {
+            "time": "00:03:50",
+            "round": 47,
+            "ppl": 5.14453125
+          },
+          {
+            "time": "00:03:55",
+            "round": 48,
+            "ppl": 8.8125
+          },
+          {
+            "time": "00:04:00",
+            "round": 49,
+            "ppl": 7.18359375
+          },
+          {
+            "time": "00:04:05",
+            "round": 50,
+            "ppl": 14.4140625
+          },
+          {
+            "time": "00:04:10",
+            "round": 51,
+            "ppl": 11.0078125
+          },
+          {
+            "time": "00:04:15",
+            "round": 52,
+            "ppl": 9.0546875
+          },
+          {
+            "time": "00:04:20",
+            "round": 53,
+            "ppl": 10.359375
+          },
+          {
+            "time": "00:04:25",
+            "round": 54,
+            "ppl": 11.9453125
+          },
+          {
+            "time": "00:04:30",
+            "round": 55,
+            "ppl": 11.0703125
+          },
+          {
+            "time": "00:04:35",
+            "round": 56,
+            "ppl": 12.7421875
+          },
+          {
+            "time": "00:04:40",
+            "round": 57,
+            "ppl": 6.16796875
+          },
+          {
+            "time": "00:04:45",
+            "round": 58,
+            "ppl": 5.703125
+          },
+          {
+            "time": "00:04:50",
+            "round": 59,
+            "ppl": 10.5859375
+          },
+          {
+            "time": "00:04:55",
+            "round": 60,
+            "ppl": 10.21875
+          },
+          {
+            "time": "00:05:00",
+            "round": 61,
+            "ppl": 10.7265625
+          },
+          {
+            "time": "00:05:05",
+            "round": 62,
+            "ppl": 10.7734375
+          },
+          {
+            "time": "00:05:10",
+            "round": 63,
+            "ppl": 9.984375
+          },
+          {
+            "time": "00:05:15",
+            "round": 64,
+            "ppl": 21.546875
+          },
+          {
+            "time": "00:05:20",
+            "round": 65,
+            "ppl": 14.296875
+          },
+          {
+            "time": "00:05:25",
+            "round": 66,
+            "ppl": 7.8359375
+          },
+          {
+            "time": "00:05:30",
+            "round": 67,
+            "ppl": 11.3125
+          },
+          {
+            "time": "00:05:35",
+            "round": 68,
+            "ppl": 16.953125
+          },
+          {
+            "time": "00:05:40",
+            "round": 69,
+            "ppl": 8.46875
+          },
+          {
+            "time": "00:05:45",
+            "round": 70,
+            "ppl": 11.0703125
+          },
+          {
+            "time": "00:05:50",
+            "round": 71,
+            "ppl": 12.109375
+          },
+          {
+            "time": "00:05:55",
+            "round": 72,
+            "ppl": 14.7265625
+          },
+          {
+            "time": "00:06:00",
+            "round": 73,
+            "ppl": 10.4609375
+          },
+          {
+            "time": "00:06:05",
+            "round": 74,
+            "ppl": 12.8671875
+          },
+          {
+            "time": "00:06:10",
+            "round": 75,
+            "ppl": 14.21875
+          },
+          {
+            "time": "00:06:15",
+            "round": 76,
+            "ppl": 12.7421875
+          },
+          {
+            "time": "00:06:20",
+            "round": 77,
+            "ppl": 10.5234375
+          },
+          {
+            "time": "00:06:25",
+            "round": 78,
+            "ppl": 7.8203125
+          },
+          {
+            "time": "00:06:30",
+            "round": 79,
+            "ppl": 5.76171875
+          },
+          {
+            "time": "00:06:35",
+            "round": 80,
+            "ppl": 12.96875
+          },
+          {
+            "time": "00:06:40",
+            "round": 81,
+            "ppl": 25.59375
+          },
+          {
+            "time": "00:06:45",
+            "round": 82,
+            "ppl": 25.9375
+          },
+          {
+            "time": "00:06:50",
+            "round": 83,
+            "ppl": 6.3828125
+          },
+          {
+            "time": "00:06:55",
+            "round": 84,
+            "ppl": 11.8515625
+          },
+          {
+            "time": "00:07:00",
+            "round": 85,
+            "ppl": 14.4375
+          },
+          {
+            "time": "00:07:05",
+            "round": 86,
+            "ppl": 11.0703125
+          },
+          {
+            "time": "00:07:10",
+            "round": 87,
+            "ppl": 7.55078125
+          },
+          {
+            "time": "00:07:15",
+            "round": 88,
+            "ppl": 10.5859375
+          },
+          {
+            "time": "00:07:20",
+            "round": 89,
+            "ppl": 7.609375
+          },
+          {
+            "time": "00:07:25",
+            "round": 90,
+            "ppl": 9.734375
+          },
+          {
+            "time": "00:07:30",
+            "round": 91,
+            "ppl": 10.859375
+          },
+          {
+            "time": "00:07:35",
+            "round": 92,
+            "ppl": 6.24609375
+          },
+          {
+            "time": "00:07:40",
+            "round": 93,
+            "ppl": 12.6640625
+          },
+          {
+            "time": "00:07:45",
+            "round": 94,
+            "ppl": 10.875
+          },
+          {
+            "time": "00:07:50",
+            "round": 95,
+            "ppl": 19.046875
+          },
+          {
+            "time": "00:07:55",
+            "round": 96,
+            "ppl": 6.6484375
+          },
+          {
+            "time": "00:08:00",
+            "round": 97,
+            "ppl": 15.921875
+          },
+          {
+            "time": "00:08:05",
+            "round": 98,
+            "ppl": 10.921875
+          },
+          {
+            "time": "00:08:10",
+            "round": 99,
+            "ppl": 9.8046875
+          },
+          {
+            "time": "00:08:15",
+            "round": 100,
+            "ppl": 15.1640625
+          },
+          {
+            "time": "00:08:20",
+            "round": 101,
+            "ppl": 17.65625
+          },
+          {
+            "time": "00:08:25",
+            "round": 102,
+            "ppl": 13.1171875
+          },
+          {
+            "time": "00:08:30",
+            "round": 103,
+            "ppl": 18.328125
+          },
+          {
+            "time": "00:08:35",
+            "round": 104,
+            "ppl": 10.2421875
+          },
+          {
+            "time": "00:08:40",
+            "round": 105,
+            "ppl": 12.96875
+          },
+          {
+            "time": "00:08:45",
+            "round": 106,
+            "ppl": 17.25
+          },
+          {
+            "time": "00:08:50",
+            "round": 107,
+            "ppl": 7.24609375
+          },
+          {
+            "time": "00:08:55",
+            "round": 108,
+            "ppl": 7.91015625
+          },
+          {
+            "time": "00:09:00",
+            "round": 109,
+            "ppl": 7.8359375
+          },
+          {
+            "time": "00:09:05",
+            "round": 110,
+            "ppl": 7.69921875
+          },
+          {
+            "time": "00:09:10",
+            "round": 111,
+            "ppl": 17.453125
+          },
+          {
+            "time": "00:09:15",
+            "round": 112,
+            "ppl": 13.171875
+          },
+          {
+            "time": "00:09:20",
+            "round": 113,
+            "ppl": 8.1484375
+          },
+          {
+            "time": "00:09:25",
+            "round": 114,
+            "ppl": 20.171875
+          },
+          {
+            "time": "00:09:30",
+            "round": 115,
+            "ppl": 10.6484375
+          },
+          {
+            "time": "00:09:35",
+            "round": 116,
+            "ppl": 9.359375
+          },
+          {
+            "time": "00:09:40",
+            "round": 117,
+            "ppl": 17.078125
+          },
+          {
+            "time": "00:09:45",
+            "round": 118,
+            "ppl": 11.671875
+          },
+          {
+            "time": "00:09:50",
+            "round": 119,
+            "ppl": 17.96875
+          },
+          {
+            "time": "00:09:55",
+            "round": 120,
+            "ppl": 16.234375
+          },
+          {
+            "time": "00:10:00",
+            "round": 121,
+            "ppl": 6.171875
+          },
+          {
+            "time": "00:10:05",
+            "round": 122,
+            "ppl": 11.578125
+          },
+          {
+            "time": "00:10:10",
+            "round": 123,
+            "ppl": 7.4453125
+          },
+          {
+            "time": "00:10:15",
+            "round": 124,
+            "ppl": 7.8671875
+          }
+        ],
+        "rouge1": [
+          {
+            "time": "00:00:00",
+            "round": 1,
+            "rouge1": 0.37735849056603776
+          },
+          {
+            "time": "00:00:05",
+            "round": 2,
+            "rouge1": 0.36496350364963503
+          },
+          {
+            "time": "00:00:10",
+            "round": 3,
+            "rouge1": 0.41206030150753764
+          },
+          {
+            "time": "00:00:15",
+            "round": 4,
+            "rouge1": 0.4
+          },
+          {
+            "time": "00:00:20",
+            "round": 5,
+            "rouge1": 0.3536585365853659
+          },
+          {
+            "time": "00:00:25",
+            "round": 6,
+            "rouge1": 0.4550898203592814
+          },
+          {
+            "time": "00:00:30",
+            "round": 7,
+            "rouge1": 0.4198895027624309
+          },
+          {
+            "time": "00:00:35",
+            "round": 8,
+            "rouge1": 0.5865724381625441
+          },
+          {
+            "time": "00:00:40",
+            "round": 9,
+            "rouge1": 0.5169491525423728
+          },
+          {
+            "time": "00:00:45",
+            "round": 10,
+            "rouge1": 0.4655172413793104
+          },
+          {
+            "time": "00:00:50",
+            "round": 11,
+            "rouge1": 0.37714285714285717
+          },
+          {
+            "time": "00:00:55",
+            "round": 12,
+            "rouge1": 0.5367965367965368
+          },
+          {
+            "time": "00:01:00",
+            "round": 13,
+            "rouge1": 0.5171102661596958
+          },
+          {
+            "time": "00:01:05",
+            "round": 14,
+            "rouge1": 0.3287671232876712
+          },
+          {
+            "time": "00:01:10",
+            "round": 15,
+            "rouge1": 0.3221476510067114
+          },
+          {
+            "time": "00:01:15",
+            "round": 16,
+            "rouge1": 0.38848920863309355
+          },
+          {
+            "time": "00:01:20",
+            "round": 17,
+            "rouge1": 0.5833333333333334
+          },
+          {
+            "time": "00:01:25",
+            "round": 18,
+            "rouge1": 0.33862433862433866
+          },
+          {
+            "time": "00:01:30",
+            "round": 19,
+            "rouge1": 0.3487179487179487
+          },
+          {
+            "time": "00:01:35",
+            "round": 20,
+            "rouge1": 0.375
+          },
+          {
+            "time": "00:01:40",
+            "round": 21,
+            "rouge1": 0.5757575757575757
+          },
+          {
+            "time": "00:01:45",
+            "round": 22,
+            "rouge1": 0.4413793103448276
+          },
+          {
+            "time": "00:01:50",
+            "round": 23,
+            "rouge1": 0.4635761589403974
+          },
+          {
+            "time": "00:01:55",
+            "round": 24,
+            "rouge1": 0.5555555555555555
+          },
+          {
+            "time": "00:02:00",
+            "round": 25,
+            "rouge1": 0.4109589041095891
+          },
+          {
+            "time": "00:02:05",
+            "round": 26,
+            "rouge1": 0.41558441558441556
+          },
+          {
+            "time": "00:02:10",
+            "round": 27,
+            "rouge1": 0.3205128205128205
+          },
+          {
+            "time": "00:02:15",
+            "round": 28,
+            "rouge1": 0.36619718309859156
+          },
+          {
+            "time": "00:02:20",
+            "round": 29,
+            "rouge1": 0.39647577092511016
+          },
+          {
+            "time": "00:02:25",
+            "round": 30,
+            "rouge1": 0.4313725490196078
+          },
+          {
+            "time": "00:02:30",
+            "round": 31,
+            "rouge1": 0.287292817679558
+          },
+          {
+            "time": "00:02:35",
+            "round": 32,
+            "rouge1": 0.4945454545454545
+          },
+          {
+            "time": "00:02:40",
+            "round": 33,
+            "rouge1": 0.375
+          },
+          {
+            "time": "00:02:45",
+            "round": 34,
+            "rouge1": 0.5384615384615384
+          },
+          {
+            "time": "00:02:50",
+            "round": 35,
+            "rouge1": 0.35000000000000003
+          },
+          {
+            "time": "00:02:55",
+            "round": 36,
+            "rouge1": 0.39999999999999997
+          },
+          {
+            "time": "00:03:00",
+            "round": 37,
+            "rouge1": 0.3817427385892116
+          },
+          {
+            "time": "00:03:05",
+            "round": 38,
+            "rouge1": 0.4628099173553719
+          },
+          {
+            "time": "00:03:10",
+            "round": 39,
+            "rouge1": 0.3909774436090226
+          },
+          {
+            "time": "00:03:15",
+            "round": 40,
+            "rouge1": 0.3617021276595745
+          },
+          {
+            "time": "00:03:20",
+            "round": 41,
+            "rouge1": 0.3790849673202615
+          },
+          {
+            "time": "00:03:25",
+            "round": 42,
+            "rouge1": 0.34408602150537637
+          },
+          {
+            "time": "00:03:30",
+            "round": 43,
+            "rouge1": 0.3865546218487395
+          },
+          {
+            "time": "00:03:35",
+            "round": 44,
+            "rouge1": 0.3726708074534162
+          },
+          {
+            "time": "00:03:40",
+            "round": 45,
+            "rouge1": 0.4020100502512563
+          },
+          {
+            "time": "00:03:45",
+            "round": 46,
+            "rouge1": 0.4846153846153846
+          },
+          {
+            "time": "00:03:50",
+            "round": 47,
+            "rouge1": 0.5294117647058824
+          },
+          {
+            "time": "00:03:55",
+            "round": 48,
+            "rouge1": 0.356687898089172
+          },
+          {
+            "time": "00:04:00",
+            "round": 49,
+            "rouge1": 0.40490797546012264
+          },
+          {
+            "time": "00:04:05",
+            "round": 50,
+            "rouge1": 0.39090909090909093
+          },
+          {
+            "time": "00:04:10",
+            "round": 51,
+            "rouge1": 0.42857142857142855
+          },
+          {
+            "time": "00:04:15",
+            "round": 52,
+            "rouge1": 0.3697478991596639
+          },
+          {
+            "time": "00:04:20",
+            "round": 53,
+            "rouge1": 0.423076923076923
+          },
+          {
+            "time": "00:04:25",
+            "round": 54,
+            "rouge1": 0.574468085106383
+          },
+          {
+            "time": "00:04:30",
+            "round": 55,
+            "rouge1": 0.39215686274509803
+          },
+          {
+            "time": "00:04:35",
+            "round": 56,
+            "rouge1": 0.4659090909090909
+          },
+          {
+            "time": "00:04:40",
+            "round": 57,
+            "rouge1": 0.3311258278145695
+          },
+          {
+            "time": "00:04:45",
+            "round": 58,
+            "rouge1": 0.5664739884393063
+          },
+          {
+            "time": "00:04:50",
+            "round": 59,
+            "rouge1": 0.5357142857142857
+          },
+          {
+            "time": "00:04:55",
+            "round": 60,
+            "rouge1": 0.43157894736842106
+          },
+          {
+            "time": "00:05:00",
+            "round": 61,
+            "rouge1": 0.3891402714932127
+          },
+          {
+            "time": "00:05:05",
+            "round": 62,
+            "rouge1": 0.5443037974683543
+          },
+          {
+            "time": "00:05:10",
+            "round": 63,
+            "rouge1": 0.4148148148148148
+          },
+          {
+            "time": "00:05:15",
+            "round": 64,
+            "rouge1": 0.511904761904762
+          },
+          {
+            "time": "00:05:20",
+            "round": 65,
+            "rouge1": 0.40268456375838924
+          },
+          {
+            "time": "00:05:25",
+            "round": 66,
+            "rouge1": 0.3643724696356276
+          },
+          {
+            "time": "00:05:30",
+            "round": 67,
+            "rouge1": 0.36363636363636365
+          },
+          {
+            "time": "00:05:35",
+            "round": 68,
+            "rouge1": 0.37593984962406013
+          },
+          {
+            "time": "00:05:40",
+            "round": 69,
+            "rouge1": 0.4444444444444445
+          },
+          {
+            "time": "00:05:45",
+            "round": 70,
+            "rouge1": 0.39583333333333337
+          },
+          {
+            "time": "00:05:50",
+            "round": 71,
+            "rouge1": 0.3661971830985915
+          },
+          {
+            "time": "00:05:55",
+            "round": 72,
+            "rouge1": 0.3622047244094488
+          },
+          {
+            "time": "00:06:00",
+            "round": 73,
+            "rouge1": 0.3908045977011495
+          },
+          {
+            "time": "00:06:05",
+            "round": 74,
+            "rouge1": 0.4827586206896552
+          },
+          {
+            "time": "00:06:10",
+            "round": 75,
+            "rouge1": 0.3225806451612903
+          },
+          {
+            "time": "00:06:15",
+            "round": 76,
+            "rouge1": 0.34567901234567905
+          },
+          {
+            "time": "00:06:20",
+            "round": 77,
+            "rouge1": 0.40229885057471265
+          },
+          {
+            "time": "00:06:25",
+            "round": 78,
+            "rouge1": 0.2923976608187135
+          },
+          {
+            "time": "00:06:30",
+            "round": 79,
+            "rouge1": 0.3511450381679389
+          },
+          {
+            "time": "00:06:35",
+            "round": 80,
+            "rouge1": 0.5
+          },
+          {
+            "time": "00:06:40",
+            "round": 81,
+            "rouge1": 0.3676470588235294
+          },
+          {
+            "time": "00:06:45",
+            "round": 82,
+            "rouge1": 0.41250000000000003
+          },
+          {
+            "time": "00:06:50",
+            "round": 83,
+            "rouge1": 0.5110132158590308
+          },
+          {
+            "time": "00:06:55",
+            "round": 84,
+            "rouge1": 0.3255813953488372
+          },
+          {
+            "time": "00:07:00",
+            "round": 85,
+            "rouge1": 0.39999999999999997
+          },
+          {
+            "time": "00:07:05",
+            "round": 86,
+            "rouge1": 0.4891304347826087
+          },
+          {
+            "time": "00:07:10",
+            "round": 87,
+            "rouge1": 0.35555555555555557
+          },
+          {
+            "time": "00:07:15",
+            "round": 88,
+            "rouge1": 0.445859872611465
+          },
+          {
+            "time": "00:07:20",
+            "round": 89,
+            "rouge1": 0.4810126582278481
+          },
+          {
+            "time": "00:07:25",
+            "round": 90,
+            "rouge1": 0.4935064935064935
+          },
+          {
+            "time": "00:07:30",
+            "round": 91,
+            "rouge1": 0.3636363636363636
+          },
+          {
+            "time": "00:07:35",
+            "round": 92,
+            "rouge1": 0.34444444444444444
+          },
+          {
+            "time": "00:07:40",
+            "round": 93,
+            "rouge1": 0.37254901960784315
+          },
+          {
+            "time": "00:07:45",
+            "round": 94,
+            "rouge1": 0.5588235294117646
+          },
+          {
+            "time": "00:07:50",
+            "round": 95,
+            "rouge1": 0.4456521739130435
+          },
+          {
+            "time": "00:07:55",
+            "round": 96,
+            "rouge1": 0.31746031746031744
+          },
+          {
+            "time": "00:08:00",
+            "round": 97,
+            "rouge1": 0.3779527559055118
+          },
+          {
+            "time": "00:08:05",
+            "round": 98,
+            "rouge1": 0.4109589041095891
+          },
+          {
+            "time": "00:08:10",
+            "round": 99,
+            "rouge1": 0.3119266055045872
+          },
+          {
+            "time": "00:08:15",
+            "round": 100,
+            "rouge1": 0.4606060606060606
+          },
+          {
+            "time": "00:08:20",
+            "round": 101,
+            "rouge1": 0.3626373626373627
+          },
+          {
+            "time": "00:08:25",
+            "round": 102,
+            "rouge1": 0.40449438202247195
+          },
+          {
+            "time": "00:08:30",
+            "round": 103,
+            "rouge1": 0.4545454545454545
+          },
+          {
+            "time": "00:08:35",
+            "round": 104,
+            "rouge1": 0.39316239316239315
+          },
+          {
+            "time": "00:08:40",
+            "round": 105,
+            "rouge1": 0.33333333333333337
+          },
+          {
+            "time": "00:08:45",
+            "round": 106,
+            "rouge1": 0.49079754601226994
+          },
+          {
+            "time": "00:08:50",
+            "round": 107,
+            "rouge1": 0.21794871794871795
+          },
+          {
+            "time": "00:08:55",
+            "round": 108,
+            "rouge1": 0.5393258426966292
+          },
+          {
+            "time": "00:09:00",
+            "round": 109,
+            "rouge1": 0.4623115577889447
+          },
+          {
+            "time": "00:09:05",
+            "round": 110,
+            "rouge1": 0.4615384615384615
+          },
+          {
+            "time": "00:09:10",
+            "round": 111,
+            "rouge1": 0.4426229508196721
+          },
+          {
+            "time": "00:09:15",
+            "round": 112,
+            "rouge1": 0.5170068027210885
+          },
+          {
+            "time": "00:09:20",
+            "round": 113,
+            "rouge1": 0.36269430051813467
+          },
+          {
+            "time": "00:09:25",
+            "round": 114,
+            "rouge1": 0.45751633986928103
+          },
+          {
+            "time": "00:09:30",
+            "round": 115,
+            "rouge1": 0.3404255319148936
+          },
+          {
+            "time": "00:09:35",
+            "round": 116,
+            "rouge1": 0.43697478991596644
+          },
+          {
+            "time": "00:09:40",
+            "round": 117,
+            "rouge1": 0.4031007751937985
+          },
+          {
+            "time": "00:09:45",
+            "round": 118,
+            "rouge1": 0.46560846560846564
+          },
+          {
+            "time": "00:09:50",
+            "round": 119,
+            "rouge1": 0.44799999999999995
+          },
+          {
+            "time": "00:09:55",
+            "round": 120,
+            "rouge1": 0.42038216560509556
+          },
+          {
+            "time": "00:10:00",
+            "round": 121,
+            "rouge1": 0.4556962025316456
+          },
+          {
+            "time": "00:10:05",
+            "round": 122,
+            "rouge1": 0.34285714285714286
+          },
+          {
+            "time": "00:10:10",
+            "round": 123,
+            "rouge1": 0.4816326530612245
+          },
+          {
+            "time": "00:10:15",
+            "round": 124,
+            "rouge1": 0.39743589743589747
+          }
+        ],
+        "bleu": [
+          {
+            "time": "00:00:00",
+            "round": 1,
+            "bleu": 0.08865423896892298
+          },
+          {
+            "time": "00:00:05",
+            "round": 2,
+            "bleu": 0.06534734601773602
+          },
+          {
+            "time": "00:00:10",
+            "round": 3,
+            "bleu": 0.0757968625928813
+          },
+          {
+            "time": "00:00:15",
+            "round": 4,
+            "bleu": 0.032955887022779136
+          },
+          {
+            "time": "00:00:20",
+            "round": 5,
+            "bleu": 0.03209700013397134
+          },
+          {
+            "time": "00:00:25",
+            "round": 6,
+            "bleu": 0.07145291041448013
+          },
+          {
+            "time": "00:00:30",
+            "round": 7,
+            "bleu": 0.10480606889372313
+          },
+          {
+            "time": "00:00:35",
+            "round": 8,
+            "bleu": 0.2101362815970815
+          },
+          {
+            "time": "00:00:40",
+            "round": 9,
+            "bleu": 0.1468322381444998
+          },
+          {
+            "time": "00:00:45",
+            "round": 10,
+            "bleu": 0.1093609858455298
+          },
+          {
+            "time": "00:00:50",
+            "round": 11,
+            "bleu": 0.07647807777338182
+          },
+          {
+            "time": "00:00:55",
+            "round": 12,
+            "bleu": 0.18098024434363344
+          },
+          {
+            "time": "00:01:00",
+            "round": 13,
+            "bleu": 0.19949974004685056
+          },
+          {
+            "time": "00:01:05",
+            "round": 14,
+            "bleu": 0.06953857154910552
+          },
+          {
+            "time": "00:01:10",
+            "round": 15,
+            "bleu": 0.00781141609809214
+          },
+          {
+            "time": "00:01:15",
+            "round": 16,
+            "bleu": 0.07209584804430699
+          },
+          {
+            "time": "00:01:20",
+            "round": 17,
+            "bleu": 0.1475551802882035
+          },
+          {
+            "time": "00:01:25",
+            "round": 18,
+            "bleu": 0.007695881044416653
+          },
+          {
+            "time": "00:01:30",
+            "round": 19,
+            "bleu": 0.01776213594702556
+          },
+          {
+            "time": "00:01:35",
+            "round": 20,
+            "bleu": 0.11688399196951627
+          },
+          {
+            "time": "00:01:40",
+            "round": 21,
+            "bleu": 0.29784874410578543
+          },
+          {
+            "time": "00:01:45",
+            "round": 22,
+            "bleu": 0.09703955511228164
+          },
+          {
+            "time": "00:01:50",
+            "round": 23,
+            "bleu": 0.1267008909241259
+          },
+          {
+            "time": "00:01:55",
+            "round": 24,
+            "bleu": 0.1593194914942615
+          },
+          {
+            "time": "00:02:00",
+            "round": 25,
+            "bleu": 0.040266760826473486
+          },
+          {
+            "time": "00:02:05",
+            "round": 26,
+            "bleu": 0.07207157769425072
+          },
+          {
+            "time": "00:02:10",
+            "round": 27,
+            "bleu": 0.04565438907994049
+          },
+          {
+            "time": "00:02:15",
+            "round": 28,
+            "bleu": 0.02538492027983616
+          },
+          {
+            "time": "00:02:20",
+            "round": 29,
+            "bleu": 0.0416486700419626
+          },
+          {
+            "time": "00:02:25",
+            "round": 30,
+            "bleu": 0.12942700173481947
+          },
+          {
+            "time": "00:02:30",
+            "round": 31,
+            "bleu": 0.04112554659309623
+          },
+          {
+            "time": "00:02:35",
+            "round": 32,
+            "bleu": 0.1120333978862113
+          },
+          {
+            "time": "00:02:40",
+            "round": 33,
+            "bleu": 0.059068096033555506
+          },
+          {
+            "time": "00:02:45",
+            "round": 34,
+            "bleu": 0.11794112400119314
+          },
+          {
+            "time": "00:02:50",
+            "round": 35,
+            "bleu": 0.0504938851299323
+          },
+          {
+            "time": "00:02:55",
+            "round": 36,
+            "bleu": 0.09294844614132297
+          },
+          {
+            "time": "00:03:00",
+            "round": 37,
+            "bleu": 0.018861640435742007
+          },
+          {
+            "time": "00:03:05",
+            "round": 38,
+            "bleu": 0.04825369540502904
+          },
+          {
+            "time": "00:03:10",
+            "round": 39,
+            "bleu": 0.07948607701570928
+          },
+          {
+            "time": "00:03:15",
+            "round": 40,
+            "bleu": 0.042756902947823895
+          },
+          {
+            "time": "00:03:20",
+            "round": 41,
+            "bleu": 0.018732826905093914
+          },
+          {
+            "time": "00:03:25",
+            "round": 42,
+            "bleu": 0.06165406410582527
+          },
+          {
+            "time": "00:03:30",
+            "round": 43,
+            "bleu": 0.029825144974292565
+          },
+          {
+            "time": "00:03:35",
+            "round": 44,
+            "bleu": 0.026772378467607584
+          },
+          {
+            "time": "00:03:40",
+            "round": 45,
+            "bleu": 0.0767127901579258
+          },
+          {
+            "time": "00:03:45",
+            "round": 46,
+            "bleu": 0.14671916883529437
+          },
+          {
+            "time": "00:03:50",
+            "round": 47,
+            "bleu": 0.21338638797556642
+          },
+          {
+            "time": "00:03:55",
+            "round": 48,
+            "bleu": 0.026565719166048305
+          },
+          {
+            "time": "00:04:00",
+            "round": 49,
+            "bleu": 0.12144918799353353
+          },
+          {
+            "time": "00:04:05",
+            "round": 50,
+            "bleu": 0.08292811924105846
+          },
+          {
+            "time": "00:04:10",
+            "round": 51,
+            "bleu": 0.09660580239510529
+          },
+          {
+            "time": "00:04:15",
+            "round": 52,
+            "bleu": 0.10129223389248491
+          },
+          {
+            "time": "00:04:20",
+            "round": 53,
+            "bleu": 0.022737702376208972
+          },
+          {
+            "time": "00:04:25",
+            "round": 54,
+            "bleu": 0.2266298355910832
+          },
+          {
+            "time": "00:04:30",
+            "round": 55,
+            "bleu": 0.06968615523706248
+          },
+          {
+            "time": "00:04:35",
+            "round": 56,
+            "bleu": 0.03943162034674985
+          },
+          {
+            "time": "00:04:40",
+            "round": 57,
+            "bleu": 0.021921284107216422
+          },
+          {
+            "time": "00:04:45",
+            "round": 58,
+            "bleu": 0.1631904331130184
+          },
+          {
+            "time": "00:04:50",
+            "round": 59,
+            "bleu": 0.20915662263188622
+          },
+          {
+            "time": "00:04:55",
+            "round": 60,
+            "bleu": 0.06194210406383154
+          },
+          {
+            "time": "00:05:00",
+            "round": 61,
+            "bleu": 0.07975910899345462
+          },
+          {
+            "time": "00:05:05",
+            "round": 62,
+            "bleu": 0.2071747109667042
+          },
+          {
+            "time": "00:05:10",
+            "round": 63,
+            "bleu": 0.032256069065501144
+          },
+          {
+            "time": "00:05:15",
+            "round": 64,
+            "bleu": 0.23143518259717763
+          },
+          {
+            "time": "00:05:20",
+            "round": 65,
+            "bleu": 0.07161773799707094
+          },
+          {
+            "time": "00:05:25",
+            "round": 66,
+            "bleu": 0.05911973338626348
+          },
+          {
+            "time": "00:05:30",
+            "round": 67,
+            "bleu": 0.038408266603600326
+          },
+          {
+            "time": "00:05:35",
+            "round": 68,
+            "bleu": 0.10746896175966247
+          },
+          {
+            "time": "00:05:40",
+            "round": 69,
+            "bleu": 0.07973214191591411
+          },
+          {
+            "time": "00:05:45",
+            "round": 70,
+            "bleu": 0.06043499475350945
+          },
+          {
+            "time": "00:05:50",
+            "round": 71,
+            "bleu": 0.04305030632057997
+          },
+          {
+            "time": "00:05:55",
+            "round": 72,
+            "bleu": 0.0682701556646143
+          },
+          {
+            "time": "00:06:00",
+            "round": 73,
+            "bleu": 0.02408981135335765
+          },
+          {
+            "time": "00:06:05",
+            "round": 74,
+            "bleu": 0.16376875683199374
+          },
+          {
+            "time": "00:06:10",
+            "round": 75,
+            "bleu": 0.05423000251082001
+          },
+          {
+            "time": "00:06:15",
+            "round": 76,
+            "bleu": 0.0532795996639562
+          },
+          {
+            "time": "00:06:20",
+            "round": 77,
+            "bleu": 0.06866840406432001
+          },
+          {
+            "time": "00:06:25",
+            "round": 78,
+            "bleu": 0.018674267689208733
+          },
+          {
+            "time": "00:06:30",
+            "round": 79,
+            "bleu": 0.011322915995349724
+          },
+          {
+            "time": "00:06:35",
+            "round": 80,
+            "bleu": 0.17733244676930557
+          },
+          {
+            "time": "00:06:40",
+            "round": 81,
+            "bleu": 0.03136146425738189
+          },
+          {
+            "time": "00:06:45",
+            "round": 82,
+            "bleu": 0.05571532287619883
+          },
+          {
+            "time": "00:06:50",
+            "round": 83,
+            "bleu": 0.09683842572299924
+          },
+          {
+            "time": "00:06:55",
+            "round": 84,
+            "bleu": 0.026282375342443712
+          },
+          {
+            "time": "00:07:00",
+            "round": 85,
+            "bleu": 0.02091931916063202
+          },
+          {
+            "time": "00:07:05",
+            "round": 86,
+            "bleu": 0.15487187814179423
+          },
+          {
+            "time": "00:07:10",
+            "round": 87,
+            "bleu": 0.02499795574023378
+          },
+          {
+            "time": "00:07:15",
+            "round": 88,
+            "bleu": 0.11134982546704836
+          },
+          {
+            "time": "00:07:20",
+            "round": 89,
+            "bleu": 0.08577563706713363
+          },
+          {
+            "time": "00:07:25",
+            "round": 90,
+            "bleu": 0.08146732694387919
+          },
+          {
+            "time": "00:07:30",
+            "round": 91,
+            "bleu": 0.027044323185834378
+          },
+          {
+            "time": "00:07:35",
+            "round": 92,
+            "bleu": 0.04972902056406089
+          },
+          {
+            "time": "00:07:40",
+            "round": 93,
+            "bleu": 0.049653515737172825
+          },
+          {
+            "time": "00:07:45",
+            "round": 94,
+            "bleu": 0.2062478427981665
+          },
+          {
+            "time": "00:07:50",
+            "round": 95,
+            "bleu": 0.11780088024499995
+          },
+          {
+            "time": "00:07:55",
+            "round": 96,
+            "bleu": 0.02299914370006448
+          },
+          {
+            "time": "00:08:00",
+            "round": 97,
+            "bleu": 0.05989641062460102
+          },
+          {
+            "time": "00:08:05",
+            "round": 98,
+            "bleu": 0.06395730989236832
+          },
+          {
+            "time": "00:08:10",
+            "round": 99,
+            "bleu": 0.03078582109776724
+          },
+          {
+            "time": "00:08:15",
+            "round": 100,
+            "bleu": 0.07438204713660494
+          },
+          {
+            "time": "00:08:20",
+            "round": 101,
+            "bleu": 0.036463282893957547
+          },
+          {
+            "time": "00:08:25",
+            "round": 102,
+            "bleu": 0.07028515721942467
+          },
+          {
+            "time": "00:08:30",
+            "round": 103,
+            "bleu": 0.03938938913434852
+          },
+          {
+            "time": "00:08:35",
+            "round": 104,
+            "bleu": 0.11355613131358884
+          },
+          {
+            "time": "00:08:40",
+            "round": 105,
+            "bleu": 0.021280994282134
+          },
+          {
+            "time": "00:08:45",
+            "round": 106,
+            "bleu": 0.15602729625155382
+          },
+          {
+            "time": "00:08:50",
+            "round": 107,
+            "bleu": 0.016981808291941916
+          },
+          {
+            "time": "00:08:55",
+            "round": 108,
+            "bleu": 0.15087958170831298
+          },
+          {
+            "time": "00:09:00",
+            "round": 109,
+            "bleu": 0.12953490998108097
+          },
+          {
+            "time": "00:09:05",
+            "round": 110,
+            "bleu": 0.09521208202218874
+          },
+          {
+            "time": "00:09:10",
+            "round": 111,
+            "bleu": 0.05689630114130155
+          },
+          {
+            "time": "00:09:15",
+            "round": 112,
+            "bleu": 0.17489877637401308
+          },
+          {
+            "time": "00:09:20",
+            "round": 113,
+            "bleu": 0.09044539897907934
+          },
+          {
+            "time": "00:09:25",
+            "round": 114,
+            "bleu": 0.13510837818403676
+          },
+          {
+            "time": "00:09:30",
+            "round": 115,
+            "bleu": 0.01174551434773622
+          },
+          {
+            "time": "00:09:35",
+            "round": 116,
+            "bleu": 0.12913177473433296
+          },
+          {
+            "time": "00:09:40",
+            "round": 117,
+            "bleu": 0.05185495374276245
+          },
+          {
+            "time": "00:09:45",
+            "round": 118,
+            "bleu": 0.10995453063084788
+          },
+          {
+            "time": "00:09:50",
+            "round": 119,
+            "bleu": 0.07246686155762831
+          },
+          {
+            "time": "00:09:55",
+            "round": 120,
+            "bleu": 0.030068260179773335
+          },
+          {
+            "time": "00:10:00",
+            "round": 121,
+            "bleu": 0.11004791342457562
+          },
+          {
+            "time": "00:10:05",
+            "round": 122,
+            "bleu": 0.05751459441680822
+          },
+          {
+            "time": "00:10:10",
+            "round": 123,
+            "bleu": 0.04157394300659656
+          },
+          {
+            "time": "00:10:15",
+            "round": 124,
+            "bleu": 0.015212439280470448
+          }
+        ]
+      },
+      "latestRounds": [
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755917271838-0v9by34ol.json-round-4",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755917271838-0v9by34ol.json",
+          "round": 4,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 7.8671875,
+          "rouge1": 0.39743589743589747,
+          "time": "00:10:15"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755917271838-0v9by34ol.json-round-3",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755917271838-0v9by34ol.json",
+          "round": 3,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 7.4453125,
+          "rouge1": 0.4816326530612245,
+          "time": "00:10:10"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755917271838-0v9by34ol.json-round-2",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755917271838-0v9by34ol.json",
+          "round": 2,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 11.578125,
+          "rouge1": 0.34285714285714286,
+          "time": "00:10:05"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755917271838-0v9by34ol.json-round-1",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755917271838-0v9by34ol.json",
+          "round": 1,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 6.171875,
+          "rouge1": 0.4556962025316456,
+          "time": "00:10:00"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json-round-5",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json",
+          "round": 5,
+          "bitsPerRound": 3.0,
+          "tokensPerRound": 1.8181818181818183,
+          "ppl": 16.234375,
+          "rouge1": 0.42038216560509556,
+          "time": "00:09:55"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json-round-4",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json",
+          "round": 4,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 17.96875,
+          "rouge1": 0.44799999999999995,
+          "time": "00:09:50"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json-round-3",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json",
+          "round": 3,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 11.671875,
+          "rouge1": 0.46560846560846564,
+          "time": "00:09:45"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json-round-2",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json",
+          "round": 2,
+          "bitsPerRound": 1.5,
+          "tokensPerRound": 0.9090909090909092,
+          "ppl": 17.078125,
+          "rouge1": 0.4031007751937985,
+          "time": "00:09:40"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json-round-1",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755916766297-a8i9bwpy2.json",
+          "round": 1,
+          "bitsPerRound": 2.0,
+          "tokensPerRound": 1.2121212121212122,
+          "ppl": 9.359375,
+          "rouge1": 0.43697478991596644,
+          "time": "00:09:35"
+        },
+        {
+          "id": "evaluation_conversation_covert-session-uuid-1755916088442-wvfl2890s.json-round-5",
+          "conversationId": "evaluation_conversation_covert-session-uuid-1755916088442-wvfl2890s.json",
+          "round": 5,
+          "bitsPerRound": 2.0,
+          "tokensPerRound": 1.2121212121212122,
+          "ppl": 10.6484375,
+          "rouge1": 0.3404255319148936,
+          "time": "00:09:30"
+        }
+      ]
+    }
+  }
+}
