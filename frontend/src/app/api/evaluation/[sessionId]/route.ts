@@ -4,10 +4,10 @@ import { join } from 'path';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { sessionId: string } }
+  context: { params: Promise<{ sessionId: string }> }
 ) {
   try {
-    const sessionId = context.params.sessionId;
+    const { sessionId } = await context.params;
     
     // 在三个类别目录中查找对应的evaluation文件
     const categories = ['art', 'general', 'philosophy'];

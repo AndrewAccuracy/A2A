@@ -4,10 +4,10 @@ import { join } from 'path';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { category: string } }
+  context: { params: Promise<{ category: string }> }
 ) {
   try {
-    const category = context.params.category;
+    const { category } = await context.params;
     
     // 验证类别是否有效
     const validCategories = ['art', 'general', 'philosophy'];

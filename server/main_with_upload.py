@@ -59,7 +59,7 @@ app = FastAPI(title="A2A Steganography Server", version="1.0.0")
 # 添加CORS中间件
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=["*"],  # 允许所有来源（生产环境应限制为特定域名）
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -105,23 +105,22 @@ async def upload_question_file(file: UploadFile = File(...)):
 
 @app.post("/upload/secret")
 async def upload_secret_file(file: UploadFile = File(...)):
-    """上传隐蔽信息文件"""
+    """上传隐蔽信息文件（仅保留接口，实际上传后不保存）"""
     try:
-        # 确保目录存在
-        stego_dir = Path("data/stego")
-        stego_dir.mkdir(parents=True, exist_ok=True)
+        # 读取文件内容但不保存（仅用于获取文件大小）
+        content = await file.read()
+        file_size = len(content)
         
-        # 保存文件
-        file_path = stego_dir / file.filename
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
+        # 不保存文件，仅记录日志
+        logger.info(f"收到隐蔽信息文件上传请求: {file.filename} (大小: {file_size} bytes)，但未保存")
         
-        logger.info(f"隐蔽信息文件已上传: {file_path}")
+        # 返回成功响应，但文件实际上未保存
         return JSONResponse({
             "message": "隐蔽信息文件上传成功",
             "filename": file.filename,
-            "path": str(file_path),
-            "size": file_path.stat().st_size
+            "path": None,  # 不返回实际路径
+            "size": file_size,
+            "note": "文件已接收但未保存"
         })
     except Exception as e:
         logger.error(f"上传隐蔽信息文件失败: {e}")

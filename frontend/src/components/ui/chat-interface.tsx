@@ -219,7 +219,7 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
     const words = message.content.split(' ');
     let currentContent = '';
     let wordIndex = 0;
-    const delayPerChunk = 800; // 每个词块之间的延迟
+    const delayPerChunk = 600; // 每个词块之间的延迟（减少延迟以加快速度）
 
     let timeoutId: NodeJS.Timeout;
 
@@ -233,8 +233,8 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
         return;
       }
 
-      // 每次显示3个词
-      const chunkLength = 3; // 改为每次显示3个词
+      // 每次显示4个词
+      const chunkLength = 4; // 改为每次显示4个词
       const chunk = words.slice(wordIndex, wordIndex + chunkLength).join(' ');
       
       currentContent = currentContent ? `${currentContent} ${chunk}` : chunk;
@@ -246,7 +246,7 @@ const MessageBubble = React.memo<MessageBubbleProps>(({ message, isLeft, uiConfi
       timeoutId = setTimeout(stream, delayPerChunk);
     };
 
-    const startDelay = 1200; // 开始流式显示前的延迟
+    const startDelay = 800; // 开始流式显示前的延迟（减少延迟以加快速度）
     timeoutId = setTimeout(stream, startDelay);
 
     return () => clearTimeout(timeoutId);
