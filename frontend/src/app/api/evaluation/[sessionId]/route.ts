@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readFile, readdir } from 'fs/promises';
 import { join } from 'path';
+import { getErrorMessage, isValidSessionId } from '@/lib/conversation-utils';
 
 export async function GET(
   request: NextRequest,
@@ -8,6 +9,14 @@ export async function GET(
 ) {
   try {
     const { sessionId } = await context.params;
+    
+    // 验证 sessionId 格式，防止路径遍历攻击
+    if (!isValidSessionId(sessionId)) {
+      return NextResponse.json(
+        { error: '无效的 sessionId 格式' },
+        { status: 400 }
+      );
+    }
     
     // 在三个类别目录中查找对应的evaluation文件
     const categories = ['art', 'general', 'philosophy'];
@@ -31,9 +40,9 @@ export async function GET(
             evaluation: evaluationData
           });
         }
-      } catch (dirError: any) {
+      } catch (dirError: unknown) {
         // 如果目录不存在，继续查找下一个
-        if (dirError.code !== 'ENOENT') {
+        if (dirError && typeof dirError === 'object' && 'code' in dirError && dirError.code !== 'ENOENT') {
           throw dirError;
         }
       }
@@ -46,10 +55,10 @@ export async function GET(
       evaluation: null
     }, { status: 404 });
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('获取评估数据失败:', error);
     return NextResponse.json(
-      { error: `获取评估数据失败: ${error.message}` },
+      { error: `获取评估数据失败: ${getErrorMessage(error)}` },
       { status: 500 }
     );
   }

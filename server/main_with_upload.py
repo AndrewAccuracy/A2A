@@ -3,6 +3,7 @@ import os
 import argparse
 import uvicorn
 import json
+import re
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -22,7 +23,19 @@ LoggingMannager.configure_global()
 logger = LoggingMannager.get_logger(__name__)
 load_dotenv()
 
-def prase_args():
+def sanitize_filename(filename: str) -> str:
+    """清理文件名，防止路径遍历攻击"""
+    if not filename:
+        raise ValueError("文件名不能为空")
+    # 移除路径分隔符和路径遍历字符
+    filename = os.path.basename(filename)
+    filename = re.sub(r'[^\w\s.-]', '', filename)
+    # 限制文件名长度
+    if len(filename) > 255:
+        filename = filename[:255]
+    return filename
+
+def parse_args():
     parser = argparse.ArgumentParser(description='AgentStego 服务器 (带文件上传功能)')
 
     parser.add_argument('--stego_model_path','-smp',
@@ -83,19 +96,22 @@ async def startup_event():
 async def upload_question_file(file: UploadFile = File(...)):
     """上传问题文件"""
     try:
+        # 清理文件名，防止路径遍历攻击
+        safe_filename = sanitize_filename(file.filename or "uploaded_file.txt")
+        
         # 确保目录存在
         question_dir = Path("data/question")
         question_dir.mkdir(parents=True, exist_ok=True)
         
         # 保存文件
-        file_path = question_dir / file.filename
+        file_path = question_dir / safe_filename
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
         
         logger.info(f"问题文件已上传: {file_path}")
         return JSONResponse({
             "message": "问题文件上传成功",
-            "filename": file.filename,
+            "filename": safe_filename,
             "path": str(file_path),
             "size": file_path.stat().st_size
         })
@@ -249,7 +265,7 @@ async def root():
     })
 
 if __name__ == "__main__":
-    args = prase_args()
+    args = parse_args()
     
     # 确保必要的目录存在
     Path("data/question").mkdir(parents=True, exist_ok=True)

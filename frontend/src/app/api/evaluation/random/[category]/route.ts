@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readFile, readdir } from 'fs/promises';
 import { join } from 'path';
+import { getErrorMessage } from '@/lib/conversation-utils';
+import { VALID_CATEGORIES, Category } from '@/lib/types';
 
 export async function GET(
   request: NextRequest,
@@ -10,10 +12,9 @@ export async function GET(
     const { category } = await context.params;
     
     // 验证类别是否有效
-    const validCategories = ['art', 'general', 'philosophy'];
-    if (!validCategories.includes(category)) {
+    if (!VALID_CATEGORIES.includes(category as Category)) {
       return NextResponse.json(
-        { error: `无效的类别: ${category}. 有效类别: ${validCategories.join(', ')}` },
+        { error: `无效的类别: ${category}. 有效类别: ${VALID_CATEGORIES.join(', ')}` },
         { status: 400 }
       );
     }
@@ -62,8 +63,8 @@ export async function GET(
         total_files: jsonFiles.length,
         evaluation: evaluationData
       });
-    } catch (dirError: any) {
-      if (dirError.code === 'ENOENT') {
+    } catch (dirError: unknown) {
+      if (dirError && typeof dirError === 'object' && 'code' in dirError && dirError.code === 'ENOENT') {
         return NextResponse.json(
           { error: `类别文件夹 ${category} 不存在` },
           { status: 404 }
@@ -71,10 +72,10 @@ export async function GET(
       }
       throw dirError;
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('随机获取评估失败:', error);
     return NextResponse.json(
-      { error: `随机获取评估失败: ${error.message}` },
+      { error: `随机获取评估失败: ${getErrorMessage(error)}` },
       { status: 500 }
     );
   }
